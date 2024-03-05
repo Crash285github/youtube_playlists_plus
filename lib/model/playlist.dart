@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:ytp_new/model/video.dart';
+
 class Playlist {
   final String id;
   final String title;
@@ -12,7 +14,10 @@ class Playlist {
     required this.author,
     required this.description,
     required this.thumbnail,
+    required this.videos,
   });
+
+  final List<Video> videos;
 
   @override
   bool operator ==(covariant Playlist other) =>

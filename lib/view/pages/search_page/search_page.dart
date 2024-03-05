@@ -26,11 +26,8 @@ class _SearchPageState extends State<SearchPage> {
               },
             ),
           ),
-          SliverList.builder(
-            itemCount: results.length,
-            itemBuilder: (context, index) =>
-                SearchResult(playlist: results[index]),
-          )
+          SliverList.list(
+              children: [...results.map((e) => SearchResult(playlist: e))])
         ],
       ),
     );

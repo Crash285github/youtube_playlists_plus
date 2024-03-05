@@ -1,6 +1,7 @@
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
     show SearchList, SearchPlaylist, TypeFilters, YoutubeExplode;
 import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist_storage.dart';
 
 class SearchEngine {
   static Future<SearchList> search(String query) async {
@@ -20,10 +21,12 @@ class SearchEngine {
       return Playlist(
         id: result.id.toString(),
         title: result.title,
+        thumbnail: result.thumbnails.last.url.toString(),
         author: "",
         description: "",
-        thumbnail: result.thumbnails.last.url.toString(),
+        videos: [],
       );
-    }).toList();
+    }).toList()
+      ..removeWhere((element) => PlaylistStorage.playlists.contains(element));
   }
 }

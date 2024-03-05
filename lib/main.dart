@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/view/pages/home_page/home_page.dart';
 import 'package:ytp_new/view/pages/search_page/search_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (_) => PlaylistStorageProvider(),
+    )
+  ], child: const MainApp()));
 }
 
 class MainApp extends StatelessWidget {
@@ -12,9 +19,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: const Center(
-          child: Text('Hello World!'),
-        ),
+        body: const HomePage(),
         floatingActionButton: Builder(builder: (context) {
           return FloatingActionButton(
               onPressed: () => Navigator.push(
