@@ -11,8 +11,12 @@ class HomePage extends StatelessWidget {
     final playlists = Provider.of<PlaylistStorageProvider>(context).playlists;
 
     return Scaffold(
+      drawer: const Drawer(),
       body: CustomScrollView(slivers: [
-        const SliverAppBar(),
+        const SliverAppBar(
+          title: Text("Playlists"),
+          centerTitle: true,
+        ),
         SliverList.list(
             children: [...playlists.map((e) => PlaylistItem(playlist: e))]),
       ]),
