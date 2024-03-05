@@ -20,4 +20,7 @@ class Playlist {
 
   @override
   int get hashCode => id.hashCode;
+
+  @override
+  String toString() => 'Playlist(title: $title)';
 }
