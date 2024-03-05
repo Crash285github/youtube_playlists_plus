@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:convert';
+
 import 'package:ytp_new/model/video.dart';
 
 class Playlist {
@@ -28,4 +30,31 @@ class Playlist {
 
   @override
   String toString() => 'Playlist(title: $title)';
+
+  Map<String, dynamic> toMap() => <String, dynamic>{
+        'id': id,
+        'title': title,
+        'author': author,
+        'description': description,
+        'thumbnail': thumbnail,
+        'videos': videos.map((x) => x.toMap()).toList(),
+      };
+
+  factory Playlist.fromMap(Map<String, dynamic> map) => Playlist(
+        id: map['id'] as String,
+        title: map['title'] as String,
+        author: map['author'] as String,
+        description: map['description'] as String,
+        thumbnail: map['thumbnail'] as String,
+        videos: List<Video>.from(
+          (map['videos'] as List<int>).map<Video>(
+            (x) => Video.fromMap(x as Map<String, dynamic>),
+          ),
+        ),
+      );
+
+  String toJson() => json.encode(toMap());
+
+  factory Playlist.fromJson(String source) =>
+      Playlist.fromMap(json.decode(source) as Map<String, dynamic>);
 }
