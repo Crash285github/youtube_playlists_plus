@@ -47,7 +47,7 @@ class Playlist {
         description: map['description'] as String,
         thumbnail: map['thumbnail'] as String,
         videos: List<Video>.from(
-          (map['videos'] as List<int>).map<Video>(
+          (map['videos'] as List<dynamic>).map<Video>(
             (x) => Video.fromMap(x as Map<String, dynamic>),
           ),
         ),

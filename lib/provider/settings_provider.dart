@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/settings/app_theme_mode.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 
@@ -8,6 +9,7 @@ class SettingsProvider extends ChangeNotifier {
   AppThemeMode get themeMode => Settings.themeMode;
   set themeMode(final AppThemeMode themeMode) {
     Settings.themeMode = themeMode;
+    LocalStorage.saveSettings();
     notifyListeners();
   }
 

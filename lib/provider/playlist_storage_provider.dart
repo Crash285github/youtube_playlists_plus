@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 
@@ -8,6 +9,7 @@ class PlaylistStorageProvider extends ChangeNotifier {
   void add(Playlist pl) {
     PlaylistStorage.add(pl);
     notifyListeners();
+    LocalStorage.savePlaylists();
   }
 
   //_ Singleton

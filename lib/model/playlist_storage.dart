@@ -6,4 +6,8 @@ class PlaylistStorage {
 
   static void add(Playlist pl) => _playlists.add(pl);
   static bool remove(Playlist pl) => _playlists.remove(pl);
+
+  static void replace(List<Playlist> playlists) => _playlists
+    ..clear()
+    ..addAll(playlists);
 }
