@@ -7,14 +7,19 @@ class LocalStorage {
   static late final SharedPreferences _prefs;
   static Future init() async => _prefs = await SharedPreferences.getInstance();
 
-  static Future saveSettings() async {
-    _prefs.setInt("appTheme", Settings.themeMode.index);
-  }
+  static Future saveSettings() async => _prefs
+    ..setInt("appTheme", Settings.themeMode.index)
+    ..setInt("split", Settings.splitMode.index);
 
   static void loadSettings() async {
-    final appTheme = _prefs.getInt("appTheme");
-    if (appTheme != null) {
-      Settings.themeMode = ThemeSetting.values[appTheme];
+    final themeIndex = _prefs.getInt("appTheme");
+    if (themeIndex != null) {
+      Settings.themeMode = ThemeSetting.values[themeIndex];
+    }
+
+    final splitIndex = _prefs.getInt("split");
+    if (splitIndex != null) {
+      Settings.splitMode = SplitSetting.values[splitIndex];
     }
   }
 
