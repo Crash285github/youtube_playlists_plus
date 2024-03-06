@@ -20,8 +20,40 @@ class PlaylistItem extends StatelessWidget {
         },
         child: Row(
           children: [
-            Image.network(playlist.thumbnail),
-            Text(playlist.title),
+            Container(
+                height: 100,
+                width: 100,
+                margin: const EdgeInsets.all(5.0),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                clipBehavior: Clip.antiAlias,
+                child: Image.network(
+                  playlist.thumbnail,
+                  fit: BoxFit.cover,
+                )),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    playlist.title,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 15),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          playlist.author,
+                          style: Theme.of(context).textTheme.titleSmall,
+                        ),
+                      ),
+                      const Icon(Icons.refresh)
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

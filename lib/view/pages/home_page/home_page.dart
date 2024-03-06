@@ -17,9 +17,14 @@ class HomePage extends StatelessWidget {
         const SliverAppBar(
           title: Text("Playlists"),
           centerTitle: true,
+          floating: true,
+          snap: true,
         ),
         SliverList.list(
-            children: [...playlists.map((e) => PlaylistItem(playlist: e))]),
+          children: [
+            ...playlists.map((e) => PlaylistItem(playlist: e)),
+          ],
+        ),
       ]),
     );
   }
