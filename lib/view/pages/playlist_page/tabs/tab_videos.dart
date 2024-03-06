@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/view/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/video_item.dart';
 
 class PlaylistPageTabVideos extends StatelessWidget {
@@ -8,7 +9,9 @@ class PlaylistPageTabVideos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return FadingListView(
+      gradientHeight: 50,
+      bottom: false,
       children: [...videos.map((e) => VideoItem(video: e))],
     );
   }
