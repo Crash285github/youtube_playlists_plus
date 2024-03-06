@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
 import 'package:ytp_new/view/responsive/split_view.dart';
 
@@ -7,9 +10,11 @@ class Responsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final mode = Provider.of<SettingsProvider>(context).splitMode;
+
     return LayoutBuilder(
       builder: (context, constraints) {
-        if (constraints.maxWidth > 700) {
+        if (constraints.maxWidth > 700 && mode != SplitSetting.disabled) {
           return const SplitView();
         } else {
           return const HomePage();

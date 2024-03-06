@@ -1,7 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
-import 'package:ytp_new/model/settings/app_theme_mode.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 
 class LocalStorage {
@@ -15,7 +14,7 @@ class LocalStorage {
   static void loadSettings() async {
     final appTheme = _prefs.getInt("appTheme");
     if (appTheme != null) {
-      Settings.themeMode = AppThemeMode.values[appTheme];
+      Settings.themeMode = ThemeSetting.values[appTheme];
     }
   }
 

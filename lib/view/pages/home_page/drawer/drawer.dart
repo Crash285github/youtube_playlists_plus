@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/theme.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/split_mode.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/theme_mode.dart';
 
 class HomePageDrawer extends StatelessWidget {
   const HomePageDrawer({super.key});
@@ -8,7 +9,10 @@ class HomePageDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
-        children: const [ThemeSetting()],
+        children: const [
+          SettingsThemeMode(),
+          SettingsSplitMode(),
+        ],
       ),
     );
   }
