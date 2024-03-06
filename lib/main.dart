@@ -35,6 +35,8 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       theme: SettingsProvider().theme,
+      scrollBehavior:
+          ScrollConfiguration.of(context).copyWith(scrollbars: false),
       home: Scaffold(
         body: const Responsive(),
         floatingActionButton: Builder(builder: (context) {

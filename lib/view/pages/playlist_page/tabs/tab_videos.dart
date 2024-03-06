@@ -12,6 +12,7 @@ class PlaylistPageTabVideos extends StatelessWidget {
     return FadingListView(
       gradientHeight: 50,
       bottom: false,
+      padding: const EdgeInsets.symmetric(vertical: 50),
       children: [...videos.map((e) => VideoItem(video: e))],
     );
   }

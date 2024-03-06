@@ -9,6 +9,7 @@ class FadingListView extends StatefulWidget {
   final double gradientHeight;
   final bool? top;
   final bool? bottom;
+  final EdgeInsetsGeometry? padding;
   const FadingListView({
     super.key,
     this.controller,
@@ -17,6 +18,7 @@ class FadingListView extends StatefulWidget {
     this.children = const [],
     this.top,
     this.bottom,
+    this.padding,
   }) : assert(top != false || bottom != false);
 
   @override
@@ -69,7 +71,7 @@ class _FadingListViewState extends State<FadingListView> {
       child: ListView(
         controller: _scrollController,
         physics: widget.physics,
-        padding: const EdgeInsets.symmetric(vertical: 0),
+        padding: widget.padding,
         children: widget.children,
       ),
     );
