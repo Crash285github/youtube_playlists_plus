@@ -12,8 +12,31 @@ class VideoItem extends StatelessWidget {
         onTap: () {},
         child: Row(
           children: [
-            Image.network(video.thumbnail),
-            Text(video.title),
+            Container(
+                height: 80,
+                width: 80,
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
+                clipBehavior: Clip.antiAlias,
+                margin: const EdgeInsets.all(5),
+                child: Image.network(
+                  video.thumbnail,
+                  fit: BoxFit.cover,
+                )),
+            Expanded(
+                child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  video.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                Text(
+                  video.author,
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+              ],
+            )),
           ],
         ),
       ),
