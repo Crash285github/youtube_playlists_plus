@@ -18,6 +18,7 @@ class SearchEngine {
     final results = await search(query);
     return results.map((final result) {
       result as SearchPlaylist;
+
       return Playlist(
         id: result.id.toString(),
         title: result.title,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -15,6 +16,7 @@ class PlaylistPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<PlaylistStorageProvider>(context);
     return DefaultTabController(
       length: 3,
       child: Scaffold(

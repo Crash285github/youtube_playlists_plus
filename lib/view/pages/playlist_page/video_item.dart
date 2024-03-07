@@ -8,6 +8,7 @@ class VideoItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {},
         child: Row(
