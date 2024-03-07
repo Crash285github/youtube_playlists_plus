@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
+import 'package:ytp_new/view/thumbnail.dart';
 
 class PlaylistItem extends StatelessWidget {
   final Playlist playlist;
@@ -18,17 +19,11 @@ class PlaylistItem extends StatelessWidget {
         },
         child: Row(
           children: [
-            Container(
-                height: 100,
-                width: 100,
-                margin: const EdgeInsets.all(5.0),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                clipBehavior: Clip.antiAlias,
-                child: Image.network(
-                  playlist.thumbnail,
-                  fit: BoxFit.cover,
-                )),
+            Thumbnail(
+              thumbnail: playlist.thumbnail,
+              height: 100,
+              width: 100,
+            ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

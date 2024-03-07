@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
+import 'package:ytp_new/view/thumbnail.dart';
 
 class SearchResult extends StatefulWidget {
   final Playlist playlist;
@@ -31,17 +32,10 @@ class _SearchResultState extends State<SearchResult> {
                   PlaylistStorageProvider().add(pl);
                 },
           child: Row(children: [
-            Container(
+            Thumbnail(
+              thumbnail: widget.playlist.thumbnail,
               height: 80,
               width: 80,
-              margin: const EdgeInsets.all(5.0),
-              decoration:
-                  BoxDecoration(borderRadius: BorderRadius.circular(12)),
-              clipBehavior: Clip.antiAlias,
-              child: Image.network(
-                widget.playlist.thumbnail,
-                fit: BoxFit.cover,
-              ),
             ),
             Expanded(
                 child: Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/view/thumbnail.dart';
 
 class VideoItem extends StatelessWidget {
   final Video video;
@@ -13,17 +14,11 @@ class VideoItem extends StatelessWidget {
         onTap: () {},
         child: Row(
           children: [
-            Container(
-                height: 80,
-                width: 80,
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(12)),
-                clipBehavior: Clip.antiAlias,
-                margin: const EdgeInsets.all(5),
-                child: Image.network(
-                  video.thumbnail,
-                  fit: BoxFit.cover,
-                )),
+            Thumbnail(
+              thumbnail: video.thumbnail,
+              height: 80,
+              width: 80,
+            ),
             Expanded(
                 child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

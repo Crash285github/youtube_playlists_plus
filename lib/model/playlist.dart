@@ -1,21 +1,18 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/video.dart';
 
-class Playlist {
-  final String id;
-  final String title;
-  final String author;
+class Playlist extends Media {
   final String description;
-  final String thumbnail;
 
   Playlist({
-    required this.id,
-    required this.title,
-    required this.author,
+    required super.id,
+    required super.title,
+    required super.author,
+    required super.thumbnail,
     required this.description,
-    required this.thumbnail,
     required this.videos,
   });
 
@@ -57,4 +54,9 @@ class Playlist {
 
   factory Playlist.fromJson(String source) =>
       Playlist.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  bool compare(final Playlist other) {
+    if (this != other) return false;
+    return listEquals(other.videos, videos);
+  }
 }

@@ -1,20 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/media.dart';
 
 @immutable
-class Video {
-  final String id;
-  final String title;
-  final String author;
-  final String thumbnail;
-
+class Video extends Media {
   const Video({
-    required this.id,
-    required this.title,
-    required this.author,
-    required this.thumbnail,
+    required super.id,
+    required super.title,
+    required super.author,
+    required super.thumbnail,
   });
 
   @override

@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_videos.dart';
 
 class PlaylistPage extends StatelessWidget {
@@ -31,7 +32,13 @@ class PlaylistPage extends StatelessWidget {
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.delete_outline)),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh)),
+            IconButton(
+                onPressed: () async {
+                  final other = await YoutubeExplodeService.download(playlist);
+                  final c = playlist.compare(other);
+                  print(c);
+                },
+                icon: const Icon(Icons.refresh)),
           ],
           backgroundColor: Colors.transparent,
           bottom: const TabBar(
