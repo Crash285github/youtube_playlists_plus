@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_videos.dart';
@@ -24,6 +25,7 @@ class PlaylistPage extends StatelessWidget {
             IconButton(
                 onPressed: () {
                   PlaylistStorageProvider().remove(playlist);
+                  LocalStorage.savePlaylists();
                   Navigator.pop(context);
                 },
                 icon: const Icon(Icons.delete_outline)),
