@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
-import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
+import 'package:ytp_new/view/responsive/empty_right.dart';
 
 class SplitView extends StatelessWidget {
   const SplitView({super.key});
@@ -13,8 +14,19 @@ class SplitView extends StatelessWidget {
       children: [
         if (PlaylistStorage.playlists.isNotEmpty)
           Expanded(
-              child: PlaylistPage(playlist: PlaylistStorage.playlists.first)),
-        const Expanded(child: HomePage())
+            child: Navigator(
+                key: AppConfig.splitRightNavigatorKey,
+                onGenerateRoute: (settings) => MaterialPageRoute(
+                      builder: (context) => const EmptyRightSide(),
+                    )),
+          ),
+        Expanded(
+            child: Navigator(
+          key: AppConfig.splitLeftNavigatorKey,
+          onGenerateRoute: (settings) => MaterialPageRoute(
+            builder: (context) => const HomePage(),
+          ),
+        ))
       ],
     );
   }

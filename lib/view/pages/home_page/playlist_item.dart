@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 
 class PlaylistItem extends StatelessWidget {
@@ -12,11 +13,8 @@ class PlaylistItem extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: () {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => PlaylistPage(playlist: playlist),
-              ));
+          AppNavigator.tryPopRight();
+          AppNavigator.tryPushRight(PlaylistPage(playlist: playlist));
         },
         child: Row(
           children: [

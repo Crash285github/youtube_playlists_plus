@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/search_page/search_page.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
@@ -36,18 +36,11 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       theme: SettingsProvider().theme,
+      navigatorKey: AppConfig.mainNavigatorKey,
       scrollBehavior:
           const MaterialScrollBehavior().copyWith(scrollbars: false),
-      home: Scaffold(
-        body: const Responsive(),
-        floatingActionButton: Builder(builder: (context) {
-          return FloatingActionButton(
-              onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SearchPage(),
-                  )));
-        }),
+      home: const Scaffold(
+        body: Responsive(),
       ),
     );
   }
