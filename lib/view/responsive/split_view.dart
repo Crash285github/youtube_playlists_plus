@@ -9,11 +9,12 @@ class SplitView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      textDirection: TextDirection.rtl,
       children: [
-        const Expanded(child: HomePage()),
         if (PlaylistStorage.playlists.isNotEmpty)
           Expanded(
-              child: PlaylistPage(playlist: PlaylistStorage.playlists.first))
+              child: PlaylistPage(playlist: PlaylistStorage.playlists.first)),
+        const Expanded(child: HomePage())
       ],
     );
   }

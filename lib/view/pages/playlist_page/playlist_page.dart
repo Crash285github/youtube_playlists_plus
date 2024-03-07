@@ -33,6 +33,7 @@ class PlaylistPage extends StatelessWidget {
           ],
           backgroundColor: Colors.transparent,
           bottom: const TabBar(
+            tabAlignment: TabAlignment.center,
             dividerHeight: 0,
             tabs: [
               _TabItem(icon: Icon(Icons.change_circle), text: "Changes"),
@@ -59,9 +60,12 @@ class PlaylistPage extends StatelessWidget {
                         Rect.fromLTRB(0, 0, rect.width, rect.height));
                   },
                   blendMode: BlendMode.dstIn,
-                  child: Image.network(
-                    playlist.thumbnail,
-                    fit: BoxFit.cover,
+                  child: Opacity(
+                    opacity: .7,
+                    child: Image.network(
+                      playlist.thumbnail,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),

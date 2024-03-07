@@ -49,6 +49,7 @@ class _SearchPageState extends State<SearchPage> {
                 Flexible(
                   child: TextField(
                     focusNode: _node,
+                    enabled: !isSearching,
                     controller: _textEditingController,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -63,8 +64,9 @@ class _SearchPageState extends State<SearchPage> {
                   ),
                 ),
                 IconButton(
-                    onPressed: () =>
-                        _search(_textEditingController.text.trim()),
+                    onPressed: isSearching
+                        ? null
+                        : () => _search(_textEditingController.text.trim()),
                     icon: const Icon(Icons.search))
               ],
             ),
