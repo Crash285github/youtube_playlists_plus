@@ -12,6 +12,12 @@ class PlaylistStorageProvider extends ChangeNotifier {
     LocalStorage.savePlaylists();
   }
 
+  bool remove(Playlist pl) {
+    final bool result = PlaylistStorage.remove(pl);
+    notifyListeners();
+    return result;
+  }
+
   //_ Singleton
   static final _provider = PlaylistStorageProvider._();
   factory PlaylistStorageProvider() => _provider;

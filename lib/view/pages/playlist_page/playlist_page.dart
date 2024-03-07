@@ -1,9 +1,8 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_videos.dart';
 
 class PlaylistPage extends StatelessWidget {
@@ -20,6 +19,16 @@ class PlaylistPage extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(playlist.title),
+          centerTitle: true,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  PlaylistStorageProvider().remove(playlist);
+                  Navigator.pop(context);
+                },
+                icon: const Icon(Icons.delete_outline)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.refresh)),
+          ],
           backgroundColor: Colors.transparent,
           bottom: const TabBar(
             dividerHeight: 0,

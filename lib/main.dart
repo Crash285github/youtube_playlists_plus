@@ -7,6 +7,7 @@ import 'package:ytp_new/view/pages/search_page/search_page.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.init();
   LocalStorage.loadSettings();
   LocalStorage.loadPlaylists();
@@ -36,7 +37,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: SettingsProvider().theme,
       scrollBehavior:
-          ScrollConfiguration.of(context).copyWith(scrollbars: false),
+          const MaterialScrollBehavior().copyWith(scrollbars: false),
       home: Scaffold(
         body: const Responsive(),
         floatingActionButton: Builder(builder: (context) {
