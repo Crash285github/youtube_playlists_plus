@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class Thumbnail extends StatelessWidget {
@@ -19,8 +20,8 @@ class Thumbnail extends StatelessWidget {
       margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.antiAlias,
-      child: Image.network(
-        thumbnail,
+      child: CachedNetworkImage(
+        imageUrl: thumbnail,
         fit: BoxFit.cover,
       ),
     );
