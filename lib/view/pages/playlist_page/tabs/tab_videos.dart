@@ -13,7 +13,8 @@ class PlaylistPageTabVideos extends StatelessWidget {
       gradientHeight: 50,
       bottom: false,
       padding: const EdgeInsets.symmetric(vertical: 50),
-      children: [...videos.map((e) => VideoItem(video: e))],
+      itemCount: videos.length,
+      itemBuilder: (context, index) => VideoItem(video: videos[index]),
     );
   }
 }

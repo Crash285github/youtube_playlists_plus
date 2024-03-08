@@ -3,22 +3,24 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class FadingListView extends StatefulWidget {
-  final List<Widget> children;
   final ScrollController? controller;
   final ScrollPhysics? physics;
   final double gradientHeight;
   final bool? top;
   final bool? bottom;
   final EdgeInsetsGeometry? padding;
+  final Widget? Function(BuildContext context, int index) itemBuilder;
+  final int? itemCount;
   const FadingListView({
     super.key,
     this.controller,
     this.physics,
     this.gradientHeight = 20.0,
-    this.children = const [],
     this.top,
     this.bottom,
     this.padding,
+    required this.itemBuilder,
+    this.itemCount,
   }) : assert(top != false || bottom != false);
 
   @override
@@ -68,11 +70,12 @@ class _FadingListViewState extends State<FadingListView> {
               1 - (5 / rect.height)
             ]
           ]).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height)),
-      child: ListView(
+      child: ListView.builder(
         controller: _scrollController,
         physics: widget.physics,
         padding: widget.padding,
-        children: widget.children,
+        itemBuilder: widget.itemBuilder,
+        itemCount: widget.itemCount,
       ),
     );
   }
