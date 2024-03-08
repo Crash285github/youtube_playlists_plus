@@ -26,85 +26,86 @@ class PlaylistPage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(playlist.title),
-          centerTitle: true,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  PlaylistStorageProvider().remove(playlist);
-                  LocalStorage.savePlaylists();
-                  Navigator.pop(context);
-                },
-                icon: const Icon(Icons.delete_outline)),
-            IconButton(
-                onPressed: () async {
-                  final other = await YoutubeService.download(playlist);
-                  final c = playlist.compare(other);
-                  print(c);
-                },
-                icon: const Icon(Icons.refresh)),
-          ],
-          backgroundColor: Colors.transparent,
-          bottom: const TabBar(
-            tabAlignment: TabAlignment.center,
-            dividerHeight: 0,
-            tabs: [
-              _TabItem(icon: Icon(Icons.change_circle), text: "Changes"),
-              _TabItem(icon: Icon(Icons.list), text: "Videos"),
-              _TabItem(icon: Icon(Icons.history), text: "History")
-            ],
-          ),
-        ),
-        extendBodyBehindAppBar: true,
-        body: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                height: 200,
-                width: double.infinity,
-                child: ShaderMask(
-                  shaderCallback: (rect) {
-                    return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.black, Colors.transparent],
-                    ).createShader(
-                        Rect.fromLTRB(0, 0, rect.width, rect.height));
+          appBar: AppBar(
+            title: Text(playlist.title),
+            centerTitle: true,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    PlaylistStorageProvider().remove(playlist);
+                    LocalStorage.savePlaylists();
+                    Navigator.pop(context);
                   },
-                  blendMode: BlendMode.dstIn,
-                  child: Opacity(
-                    opacity: .7,
-                    child: CachedNetworkImage(
-                      imageUrl: playlist.thumbnail,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) =>
-                          const SizedBox.shrink(),
+                  icon: const Icon(Icons.delete_outline)),
+              IconButton(
+                  onPressed: () async {
+                    final other = await YoutubeService.download(playlist);
+                    final c = playlist.compare(other);
+                    print(c);
+                  },
+                  icon: const Icon(Icons.refresh)),
+            ],
+            backgroundColor: Colors.transparent,
+            bottom: const TabBar(
+              tabAlignment: TabAlignment.center,
+              dividerHeight: 0,
+              tabs: [
+                _TabItem(icon: Icon(Icons.change_circle), text: "Changes"),
+                _TabItem(icon: Icon(Icons.list), text: "Videos"),
+                _TabItem(icon: Icon(Icons.history), text: "History")
+              ],
+            ),
+          ),
+          extendBodyBehindAppBar: true,
+          body: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topCenter,
+                child: SizedBox(
+                  height: 200,
+                  width: double.infinity,
+                  child: ShaderMask(
+                    shaderCallback: (rect) {
+                      return const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [Colors.black, Colors.transparent],
+                      ).createShader(
+                          Rect.fromLTRB(0, 0, rect.width, rect.height));
+                    },
+                    blendMode: BlendMode.dstIn,
+                    child: Opacity(
+                      opacity: .7,
+                      child: CachedNetworkImage(
+                        imageUrl: playlist.thumbnail,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) =>
+                            const SizedBox.shrink(),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              child: SafeArea(
-                child: TabBarView(
-                  children: [
-                    PlaylistPageTabChanges(changes: playlist.changes),
-                    PlaylistPageTabVideos(videos: playlist.videos),
-                    PlaylistPageTabHistory(history: playlist.history),
-                  ],
+              BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: SafeArea(
+                  child: TabBarView(
+                    children: [
+                      PlaylistPageTabChanges(changes: playlist.changes),
+                      PlaylistPageTabVideos(
+                        playlistId: playlistId,
+                        videos: playlist.videos,
+                      ),
+                      PlaylistPageTabHistory(history: playlist.history),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-            onPressed: () => PlaylistStorageProvider().update(() {
-                  playlist.history.addAll(playlist.history.toList());
-                })),
-      ),
+            ],
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => LocalStorage.savePlaylists(),
+          )),
     );
   }
 }

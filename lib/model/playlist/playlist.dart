@@ -37,6 +37,7 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
         'description': description,
         'thumbnail': thumbnail,
         'videos': videos.map((x) => x.toMap()).toList(),
+        'history': history.map((x) => x.toMap()).toList()
       };
 
   factory Playlist.fromMap(Map<String, dynamic> map) => Playlist(
@@ -50,7 +51,11 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
             (x) => Video.fromMap(x as Map<String, dynamic>),
           ),
         ),
-      );
+      )..history.addAll(List<Video>.from(
+          (map['history'] as List<dynamic>).map<Video>(
+            (x) => Video.fromMap(x as Map<String, dynamic>),
+          ),
+        ));
 
   String toJson() => json.encode(toMap());
 

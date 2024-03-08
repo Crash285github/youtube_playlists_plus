@@ -8,6 +8,7 @@ import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await LocalStorage.init();
   LocalStorage.loadSettings();
   LocalStorage.loadPlaylists();
