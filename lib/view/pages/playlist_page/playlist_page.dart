@@ -39,7 +39,7 @@ class PlaylistPage extends StatelessWidget {
                 icon: const Icon(Icons.delete_outline)),
             IconButton(
                 onPressed: () async {
-                  final other = await YoutubeExplodeService.download(playlist);
+                  final other = await YoutubeService.download(playlist);
                   final c = playlist.compare(other);
                   print(c);
                 },

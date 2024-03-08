@@ -27,7 +27,7 @@ class _SearchResultState extends State<SearchResult> {
               : () async {
                   setState(() => downloaded = true);
                   final Playlist pl =
-                      await YoutubeExplodeService.download(widget.playlist);
+                      await YoutubeService.download(widget.playlist);
 
                   PlaylistStorageProvider().add(pl);
                 },

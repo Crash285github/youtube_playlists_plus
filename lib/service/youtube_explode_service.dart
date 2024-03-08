@@ -5,7 +5,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video.dart';
 
-class YoutubeExplodeService {
+class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
   static Future<Playlist> download(Playlist playlist) async {
@@ -14,15 +14,15 @@ class YoutubeExplodeService {
         .timeout(const Duration(seconds: 20))
         .onError((error, stackTrace) {
       if (error is HandshakeException) {
-        throw YoutubeExplodeServiceException.handshake(
+        throw YoutubeServiceException.handshake(
             "Couldn't download [${playlist.title}]: HandshakeException.");
       }
       if (error is TimeoutException) {
-        throw YoutubeExplodeServiceException.timeout(
+        throw YoutubeServiceException.timeout(
             "Downloading [${playlist.title}] timed out.");
       }
 
-      throw YoutubeExplodeServiceException.unknown(
+      throw YoutubeServiceException.unknown(
           "Unknown error occurred while downloading [${playlist.title}].");
     });
 
@@ -49,25 +49,23 @@ class YoutubeExplodeService {
   }
 }
 
-class YoutubeExplodeServiceException implements Exception {
-  final YoutubeExplodeServiceExceptionReason reason;
+class YoutubeServiceException implements Exception {
+  final YoutubeServiceExceptionReason reason;
   final String message;
-  YoutubeExplodeServiceException._(this.reason, this.message);
+  YoutubeServiceException._(this.reason, this.message);
 
-  factory YoutubeExplodeServiceException.timeout(final String message) =>
-      YoutubeExplodeServiceException._(
-          YoutubeExplodeServiceExceptionReason.timeout, message);
+  factory YoutubeServiceException.timeout(final String message) =>
+      YoutubeServiceException._(YoutubeServiceExceptionReason.timeout, message);
 
-  factory YoutubeExplodeServiceException.handshake(final String message) =>
-      YoutubeExplodeServiceException._(
-          YoutubeExplodeServiceExceptionReason.handshake, message);
+  factory YoutubeServiceException.handshake(final String message) =>
+      YoutubeServiceException._(
+          YoutubeServiceExceptionReason.handshake, message);
 
-  factory YoutubeExplodeServiceException.unknown(final String message) =>
-      YoutubeExplodeServiceException._(
-          YoutubeExplodeServiceExceptionReason.unknown, message);
+  factory YoutubeServiceException.unknown(final String message) =>
+      YoutubeServiceException._(YoutubeServiceExceptionReason.unknown, message);
 
   @override
   String toString() => "YoutubeExplodeServiceException: $message";
 }
 
-enum YoutubeExplodeServiceExceptionReason { timeout, handshake, unknown }
+enum YoutubeServiceExceptionReason { timeout, handshake, unknown }
