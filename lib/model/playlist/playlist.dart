@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:ytp_new/model/media.dart';
+import 'package:ytp_new/model/playlist/playlist_changes.dart';
+import 'package:ytp_new/model/playlist/playlist_history.dart';
 import 'package:ytp_new/model/video.dart';
 
-class Playlist extends Media {
+class Playlist extends Media with PlaylistChanges, PlaylistHistory {
   final String description;
 
   Playlist({

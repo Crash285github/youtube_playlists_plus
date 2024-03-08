@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/thumbnail.dart';
@@ -15,7 +15,7 @@ class PlaylistItem extends StatelessWidget {
       child: InkWell(
         onTap: () {
           AppNavigator.tryPopRight();
-          AppNavigator.tryPushRight(PlaylistPage(playlist: playlist));
+          AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
         },
         child: Row(
           children: [

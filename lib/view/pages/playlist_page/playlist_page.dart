@@ -1,23 +1,27 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/local_storage.dart';
-import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/tab_history.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_videos.dart';
 
 class PlaylistPage extends StatelessWidget {
-  final Playlist playlist;
+  final String playlistId;
   const PlaylistPage({
     super.key,
-    required this.playlist,
+    required this.playlistId,
   });
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<PlaylistStorageProvider>(context);
+    final Playlist playlist =
+        Provider.of<PlaylistStorageProvider>(context).fromId(playlistId)!;
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -71,9 +75,11 @@ class PlaylistPage extends StatelessWidget {
                   blendMode: BlendMode.dstIn,
                   child: Opacity(
                     opacity: .7,
-                    child: Image.network(
-                      playlist.thumbnail,
+                    child: CachedNetworkImage(
+                      imageUrl: playlist.thumbnail,
                       fit: BoxFit.cover,
+                      errorWidget: (context, url, error) =>
+                          const SizedBox.shrink(),
                     ),
                   ),
                 ),
@@ -86,13 +92,17 @@ class PlaylistPage extends StatelessWidget {
                   children: [
                     const Text("1"),
                     PlaylistPageTabVideos(videos: playlist.videos),
-                    const Text("3"),
+                    PlaylistPageTabHistory(history: playlist.history),
                   ],
                 ),
               ),
             ),
           ],
         ),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () => PlaylistStorageProvider().update(() {
+                  playlist.history.addAll(playlist.history.toList());
+                })),
       ),
     );
   }

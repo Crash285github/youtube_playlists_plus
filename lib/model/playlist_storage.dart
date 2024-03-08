@@ -1,4 +1,4 @@
-import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 
 class PlaylistStorage {
   static final Set<Playlist> _playlists = {};

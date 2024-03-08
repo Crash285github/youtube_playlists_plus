@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/local_storage.dart';
-import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 
 class PlaylistStorageProvider extends ChangeNotifier {
@@ -17,6 +17,14 @@ class PlaylistStorageProvider extends ChangeNotifier {
     notifyListeners();
     return result;
   }
+
+  void update(void Function() fn) {
+    fn();
+    notifyListeners();
+  }
+
+  Playlist? fromId(final String id) =>
+      playlists.where((final playlist) => playlist.id == id).firstOrNull;
 
   //_ Singleton
   static final _provider = PlaylistStorageProvider._();

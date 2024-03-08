@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/view/pages/search_page/search_engine.dart';
 import 'package:ytp_new/view/pages/search_page/search_result.dart';
 

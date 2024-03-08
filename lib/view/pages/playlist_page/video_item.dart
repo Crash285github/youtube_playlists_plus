@@ -4,14 +4,15 @@ import 'package:ytp_new/view/thumbnail.dart';
 
 class VideoItem extends StatelessWidget {
   final Video video;
-  const VideoItem({super.key, required this.video});
+  final void Function()? onTap;
+  const VideoItem({super.key, required this.video, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Row(
           children: [
             Thumbnail(
