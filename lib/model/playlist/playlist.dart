@@ -66,4 +66,19 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
     if (this != other) return false;
     return listEquals(other.videos, videos);
   }
+
+  void getChanges(final Playlist other) {
+    if (this != other) return;
+    additions
+      ..clear()
+      ..addAll(
+        other.videos.toSet().difference(videos.toSet()),
+      );
+
+    removals
+      ..clear()
+      ..addAll(
+        videos.toSet().difference(other.videos.toSet()),
+      );
+  }
 }

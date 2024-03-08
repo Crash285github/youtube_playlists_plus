@@ -40,8 +40,9 @@ class PlaylistPage extends StatelessWidget {
               IconButton(
                   onPressed: () async {
                     final other = await YoutubeService.download(playlist);
-                    final c = playlist.compare(other);
-                    print(c);
+                    PlaylistStorageProvider().update(() {
+                      playlist.getChanges(other);
+                    });
                   },
                   icon: const Icon(Icons.refresh)),
             ],
