@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage> {
   Future _search(String query) async {
     setState(() => isSearching = true);
 
-    results = await SearchEngine.searchPlaylists(query);
+    results = await SearchEngine.search(query);
 
     setState(() => isSearching = false);
   }
