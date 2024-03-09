@@ -31,7 +31,9 @@ class HomePage extends StatelessWidget {
       ]),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
-            onPressed: () => AppNavigator.tryPushLeft(const SearchPage()));
+          child: const Icon(Icons.search),
+          onPressed: () => AppNavigator.tryPushLeft(const SearchPage()),
+        );
       }),
     );
   }

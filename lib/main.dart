@@ -1,4 +1,3 @@
-import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
@@ -48,9 +47,8 @@ class MainApp extends StatelessWidget {
       navigatorKey: AppConfig.mainNavigatorKey,
       scrollBehavior:
           const MaterialScrollBehavior().copyWith(scrollbars: false),
-      home: Scaffold(
-        body: DynamicColorBuilder(
-            builder: (lightDynamic, darkDynamic) => const Responsive()),
+      home: const Scaffold(
+        body: Responsive(),
       ),
     );
   }

@@ -57,21 +57,34 @@ class HistoryItem extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      history.title,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(
-                      "${history.author} • ${history.created.timeago()}",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        history.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        "${history.author} • ${history.created.timeago()}",
+                        style:
+                            Theme.of(context).textTheme.titleMedium!.copyWith(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onBackground
+                                      .withOpacity(.5),
+                                ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              history.type.icon,
+              Icon(
+                history.type.icon,
+                color: history.type.color,
+              )
             ],
           ),
         ),

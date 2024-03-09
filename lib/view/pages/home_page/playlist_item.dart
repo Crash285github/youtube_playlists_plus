@@ -34,6 +34,7 @@ class PlaylistItem extends StatelessWidget {
                     children: [
                       Text(
                         playlist.title,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(height: 15),
@@ -42,7 +43,15 @@ class PlaylistItem extends StatelessWidget {
                           Expanded(
                             child: Text(
                               playlist.author,
-                              style: Theme.of(context).textTheme.titleSmall,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground
+                                        .withOpacity(.5),
+                                  ),
                             ),
                           ),
                           if (playlist.state != null)

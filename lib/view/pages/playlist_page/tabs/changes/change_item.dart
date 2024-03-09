@@ -29,21 +29,37 @@ class ChangeItem extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              change.title,
-                              style: Theme.of(context).textTheme.titleMedium,
-                            ),
-                            Text(
-                              change.author,
-                              style: Theme.of(context).textTheme.titleSmall,
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 4.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                change.title,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                change.author,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .titleSmall!
+                                    .copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground
+                                          .withOpacity(.5),
+                                    ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      change.type.icon,
+                      Icon(
+                        change.type.icon,
+                        color: change.type.color,
+                      ),
                     ],
                   ),
                 ),

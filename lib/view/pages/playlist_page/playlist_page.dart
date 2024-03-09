@@ -79,6 +79,7 @@ class PlaylistPage extends StatelessWidget {
             bottom: const TabBar(
               tabAlignment: TabAlignment.center,
               dividerHeight: 0,
+              isScrollable: true,
               tabs: [
                 _TabItem(icon: Icon(Icons.change_circle), text: "Changes"),
                 _TabItem(icon: Icon(Icons.list), text: "Videos"),

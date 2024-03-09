@@ -30,11 +30,18 @@ class VideoItem extends StatelessWidget {
                   children: [
                     Text(
                       video.title,
+                      overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
+                    const SizedBox(height: 8),
                     Text(
                       video.author,
-                      style: Theme.of(context).textTheme.titleSmall,
+                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onBackground
+                                .withOpacity(.5),
+                          ),
                     ),
                   ],
                 ),
