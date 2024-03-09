@@ -45,7 +45,11 @@ class PlaylistItem extends StatelessWidget {
                               style: Theme.of(context).textTheme.titleSmall,
                             ),
                           ),
-                          if (playlist.state != null) playlist.state!.icon
+                          if (playlist.state != null)
+                            Icon(
+                              playlist.state!.icon,
+                              color: playlist.state!.color,
+                            )
                         ],
                       ),
                     ],

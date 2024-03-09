@@ -18,6 +18,9 @@ class PlaylistPageTabChanges extends StatelessWidget {
   Widget build(BuildContext context) => changes.isEmpty
       ? const Center(child: Text("No changes."))
       : FadingListView(
+          gradientHeight: 50,
+          bottom: false,
+          padding: const EdgeInsets.only(bottom: 80),
           itemBuilder: (context, index) => ChangeItem(
             change: changes[index],
             onTap: () {

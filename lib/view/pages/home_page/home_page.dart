@@ -27,6 +27,7 @@ class HomePage extends StatelessWidget {
             ...playlists.map((e) => PlaylistItem(playlist: e)),
           ],
         ),
+        const SliverToBoxAdapter(child: SizedBox(height: 80))
       ]),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
