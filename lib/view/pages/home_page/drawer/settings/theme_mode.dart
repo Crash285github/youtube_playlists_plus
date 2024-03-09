@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
 class SettingsThemeMode extends StatelessWidget {
   const SettingsThemeMode({super.key});
@@ -29,29 +30,26 @@ class SettingsThemeMode extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<SettingsProvider>(context);
 
-    return InkWell(
+    return SettingTemplate(
       onTap: _toggleLightDark,
       onLongPress: _toggleAmoled,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                const Icon(Icons.dark_mode_outlined),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(isAmoled ? "Black mode" : "Dark mode"),
-                ),
-              ],
-            ),
-            Switch(
-              value: !isLight,
-              onChanged: (value) => _toggleLightDark(),
-            )
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              const Icon(Icons.dark_mode_outlined),
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(isAmoled ? "Black mode" : "Dark mode"),
+              ),
+            ],
+          ),
+          Switch(
+            value: !isLight,
+            onChanged: (value) => _toggleLightDark(),
+          )
+        ],
       ),
     );
   }

@@ -26,4 +26,5 @@ class Settings {
   static ThemeSetting theme = ThemeSetting.light;
   static SplitSetting splitMode = SplitSetting.disabled;
   static ColorSchemeSetting colorScheme = ColorSchemeSetting.blue;
+  static bool canReorder = false;
 }

@@ -4,6 +4,7 @@ import 'package:ytp_new/extensions/enum_title_case.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
 class SettingsSplitMode extends StatelessWidget {
   const SettingsSplitMode({super.key});
@@ -31,25 +32,22 @@ class SettingsSplitMode extends StatelessWidget {
   Widget build(BuildContext context) {
     final mode = Provider.of<SettingsProvider>(context).splitMode.titleCase;
 
-    return InkWell(
+    return SettingTemplate(
       onTapUp: (details) => _set(context, details.globalPosition),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Row(
-              children: [
-                RotatedBox(quarterTurns: 1, child: Icon(Icons.splitscreen)),
-                Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text('Split view'),
-                ),
-              ],
-            ),
-            Text(mode)
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Row(
+            children: [
+              RotatedBox(quarterTurns: 1, child: Icon(Icons.splitscreen)),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text('Split view'),
+              ),
+            ],
+          ),
+          Text(mode)
+        ],
       ),
     );
   }

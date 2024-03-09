@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/drawer.dart';
 import 'package:ytp_new/view/pages/home_page/playlist_item.dart';
@@ -16,6 +18,8 @@ class HomePage extends StatelessWidget {
     final playlists =
         Provider.of<PlaylistStorageProvider>(context).playlists.toList();
 
+    final canReorder = Provider.of<SettingsProvider>(context).canReorder;
+
     return Scaffold(
       drawer: const HomePageDrawer(),
       body: CustomScrollView(slivers: [
@@ -28,12 +32,23 @@ class HomePage extends StatelessWidget {
         _Playlists(playlists: playlists),
         const SliverToBoxAdapter(child: SizedBox(height: 80))
       ]),
-      floatingActionButton: Builder(builder: (context) {
-        return FloatingActionButton(
-          onPressed: () => AppNavigator.tryPushLeft(const SearchPage()),
-          child: const Icon(Icons.search),
-        );
-      }),
+      floatingActionButton: FloatingActionButton.extended(
+        label: AnimatedSize(
+          alignment: Alignment.centerRight,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.decelerate,
+          child: canReorder ? const Text("Finish") : const SizedBox.shrink(),
+        ),
+        extendedIconLabelSpacing: canReorder ? 8 : 0,
+        extendedPadding: const EdgeInsets.all(16),
+        onPressed: canReorder
+            ? () {
+                SettingsProvider().canReorder = false;
+                LocalStorage.savePlaylists();
+              }
+            : () => AppNavigator.tryPushLeft(const SearchPage()),
+        icon: Icon(canReorder ? Icons.done : Icons.search),
+      ),
     );
   }
 }
@@ -54,6 +69,7 @@ class _PlaylistsState extends State<_Playlists> {
       itemCount: widget.playlists.length,
       itemBuilder: (context, index) => ReorderableDragStartListener(
         index: index,
+        enabled: SettingsProvider().canReorder,
         key: ValueKey(widget.playlists[index]),
         child: PlaylistItem(
           playlist: widget.playlists[index],

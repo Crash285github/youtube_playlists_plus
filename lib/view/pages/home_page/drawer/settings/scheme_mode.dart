@@ -4,6 +4,7 @@ import 'package:ytp_new/extensions/enum_title_case.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
 class SettingsSchemeMode extends StatelessWidget {
   const SettingsSchemeMode({super.key});
@@ -29,25 +30,22 @@ class SettingsSchemeMode extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Provider.of<SettingsProvider>(context).colorScheme.titleCase;
 
-    return InkWell(
+    return SettingTemplate(
       onTapUp: (details) => _set(context, details.globalPosition),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Row(
-              children: [
-                Icon(Icons.color_lens_outlined),
-                Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text("Color Scheme"),
-                ),
-              ],
-            ),
-            Text(scheme),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          const Row(
+            children: [
+              Icon(Icons.color_lens_outlined),
+              Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Text("Color Scheme"),
+              ),
+            ],
+          ),
+          Text(scheme),
+        ],
       ),
     );
   }

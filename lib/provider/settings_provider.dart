@@ -29,6 +29,12 @@ class SettingsProvider extends ChangeNotifier {
     LocalStorage.saveSettings();
   }
 
+  bool get canReorder => Settings.canReorder;
+  set canReorder(bool canReorder) {
+    Settings.canReorder = canReorder;
+    notifyListeners();
+  }
+
   //_ Singleton
   static final _provider = SettingsProvider._();
   factory SettingsProvider() => _provider;
