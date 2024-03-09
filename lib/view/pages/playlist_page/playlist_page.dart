@@ -8,6 +8,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/tab_changes.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
@@ -20,43 +21,45 @@ class PlaylistPage extends StatelessWidget {
     required this.playlistId,
   });
 
+  Playlist? get playlist => PlaylistStorageProvider().fromId(playlistId);
+  bool get refreshing => RefreshingProvider().isRefreshingPlaylist(playlistId);
+
   @override
   Widget build(BuildContext context) {
-    final Playlist playlist =
-        Provider.of<PlaylistStorageProvider>(context).fromId(playlistId)!;
+    if (playlist == null) return const SizedBox.shrink();
 
-    final bool refreshingThis = Provider.of<RefreshingProvider>(context)
-        .isRefreshingPlaylist(playlistId);
+    Provider.of<PlaylistStorageProvider>(context);
+    Provider.of<RefreshingProvider>(context);
 
     return DefaultTabController(
       length: 3,
       child: Scaffold(
           appBar: AppBar(
-            title: Text(playlist.title),
+            title: Text(playlist!.title),
             centerTitle: true,
             actions: [
               IconButton(
-                  onPressed: refreshingThis
+                  onPressed: refreshing
                       ? null
                       : () async {
                           try {
                             RefreshingProvider().add(playlistId);
 
                             PlaylistStorageProvider().update(
-                              () => playlist.state = PlaylistState.checking,
+                              () => playlist!.state = PlaylistState.checking,
                             );
 
                             final other =
-                                await YoutubeService.download(playlist);
+                                await YoutubeService.download(playlist!);
                             PlaylistStorageProvider().update(() {
-                              playlist.changesFrom(other);
-                              playlist.state = playlist.hasChanges
+                              playlist!.changesFrom(other);
+                              playlist!.state = playlist!.hasChanges
                                   ? PlaylistState.changed
                                   : PlaylistState.unchanged;
                             });
                           } catch (_) {
                             PlaylistStorageProvider().update(
-                              () => playlist.state = PlaylistState.unchecked,
+                              () => playlist!.state = PlaylistState.unchecked,
                             );
                           } finally {
                             RefreshingProvider().remove(playlistId);
@@ -65,9 +68,10 @@ class PlaylistPage extends StatelessWidget {
                   icon: const Icon(Icons.refresh)),
               IconButton(
                   onPressed: () {
-                    PlaylistStorageProvider().remove(playlist);
+                    AppNavigator.tryPopRight(context);
+
+                    PlaylistStorageProvider().remove(playlist!);
                     LocalStorage.savePlaylists();
-                    Navigator.pop(context);
                   },
                   icon: const Icon(Icons.delete_outline)),
             ],
@@ -103,7 +107,7 @@ class PlaylistPage extends StatelessWidget {
                     child: Opacity(
                       opacity: .7,
                       child: CachedNetworkImage(
-                        imageUrl: playlist.thumbnail,
+                        imageUrl: playlist!.thumbnail,
                         fit: BoxFit.cover,
                         errorWidget: (context, url, error) =>
                             const SizedBox.shrink(),
@@ -119,15 +123,15 @@ class PlaylistPage extends StatelessWidget {
                     children: [
                       PlaylistPageTabChanges(
                         playlistId: playlistId,
-                        changes: playlist.changes,
+                        changes: playlist!.changes,
                       ),
                       PlaylistPageTabVideos(
                         playlistId: playlistId,
-                        videos: playlist.videos,
+                        videos: playlist!.videos,
                       ),
                       PlaylistPageTabHistory(
                         playlistId: playlistId,
-                        history: playlist.history,
+                        history: playlist!.history,
                       ),
                     ],
                   ),
