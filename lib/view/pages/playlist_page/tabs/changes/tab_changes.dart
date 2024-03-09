@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -14,6 +15,30 @@ class PlaylistPageTabChanges extends StatelessWidget {
     required this.changes,
   });
 
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
+
+  Function()? _onTap(VideoChange change) {
+    if (change.isAddition && playlist.videos.contains(change)) {
+      return null;
+    }
+
+    if (change.isRemoval && !playlist.videos.contains(change)) {
+      return null;
+    }
+
+    return () => PlaylistStorageProvider().update(() {
+          if (change.type == VideoChangeType.addition) {
+            PlaylistStorageProvider().fromId(playlistId)!.videos.add(
+                  change,
+                );
+          } else {
+            PlaylistStorageProvider().fromId(playlistId)!.videos.remove(
+                  change,
+                );
+          }
+        });
+  }
+
   @override
   Widget build(BuildContext context) => changes.isEmpty
       ? const Center(child: Text("No changes."))
@@ -23,19 +48,7 @@ class PlaylistPageTabChanges extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 80),
           itemBuilder: (context, index) => ChangeItem(
             change: changes[index],
-            onTap: () {
-              PlaylistStorageProvider().update(() {
-                if (changes[index].type == VideoChangeType.addition) {
-                  PlaylistStorageProvider().fromId(playlistId)!.videos.add(
-                        changes[index],
-                      );
-                } else {
-                  PlaylistStorageProvider().fromId(playlistId)!.videos.remove(
-                        changes[index],
-                      );
-                }
-              });
-            },
+            onTap: _onTap(changes[index]),
           ),
           itemCount: changes.length,
         );

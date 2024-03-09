@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/fading_listview.dart';
@@ -9,6 +10,8 @@ class PlaylistPageTabHistory extends StatelessWidget {
   final List<VideoHistory> history;
   const PlaylistPageTabHistory(
       {super.key, required this.history, required this.playlistId});
+
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   @override
   Widget build(BuildContext context) => history.isEmpty
@@ -21,9 +24,7 @@ class PlaylistPageTabHistory extends StatelessWidget {
             history: history[index],
             onTap: () {
               PlaylistStorageProvider().update(() {
-                PlaylistStorageProvider()
-                    .fromId(playlistId)!
-                    .removeHistory(history[index]);
+                playlist.removeHistory(history[index]);
               });
             },
           ),

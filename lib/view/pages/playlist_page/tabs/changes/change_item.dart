@@ -9,44 +9,47 @@ class ChangeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: const EdgeInsets.all(3.0),
-          child: Row(children: [
-            Thumbnail(
-              thumbnail: change.thumbnail,
-              height: 80,
-              width: 80,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            change.title,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          Text(
-                            change.author,
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                        ],
+    return Opacity(
+      opacity: onTap == null ? 0.5 : 1,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Row(children: [
+              Thumbnail(
+                thumbnail: change.thumbnail,
+                height: 80,
+                width: 80,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              change.title,
+                              style: Theme.of(context).textTheme.titleMedium,
+                            ),
+                            Text(
+                              change.author,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    change.type.icon,
-                  ],
+                      change.type.icon,
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ]),
+            ]),
+          ),
         ),
       ),
     );

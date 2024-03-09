@@ -12,6 +12,9 @@ class VideoChange extends Video {
     required this.type,
   });
 
+  bool get isAddition => type == VideoChangeType.addition;
+  bool get isRemoval => type == VideoChangeType.removal;
+
   @override
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
