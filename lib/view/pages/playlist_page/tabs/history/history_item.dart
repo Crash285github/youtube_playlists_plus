@@ -5,6 +5,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
+import 'package:ytp_new/view/adaptive_ink_well.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;
@@ -23,40 +24,34 @@ class HistoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       clipBehavior: Clip.antiAlias,
-      child: InkWell(
-        onTap: onTap,
-        onSecondaryTapUp: (details) => ContextMenuService.show(
-            context: context,
-            offset: Offset(
-              details.globalPosition.dx,
-              details.globalPosition.dy,
-            ),
-            items: [
-              PopupMenuItem(
-                onTap: () => history.open(),
-                child: const Text("Open"),
-              ),
-              PopupMenuItem(
-                onTap: () => history.title.copyToClipboard(),
-                child: const Text("Copy title"),
-              ),
-              PopupMenuItem(
-                onTap: () => history.id.copyToClipboard(),
-                child: const Text("Copy id"),
-              ),
-              PopupMenuItem(
-                onTap: () => history.link.copyToClipboard(),
-                child: const Text("Copy link"),
-              ),
-              PopupMenuItem(
-                onTap: () {
-                  PlaylistStorageProvider().update(() {
-                    playlist.removeHistory(history);
-                  });
-                },
-                child: const Text("Remove"),
-              ),
-            ]),
+      child: AdaptiveSecondary(
+        secondary: (details) =>
+            ContextMenuService.show(context: context, offset: details, items: [
+          PopupMenuItem(
+            onTap: () => history.open(),
+            child: const Text("Open"),
+          ),
+          PopupMenuItem(
+            onTap: () => history.title.copyToClipboard(),
+            child: const Text("Copy title"),
+          ),
+          PopupMenuItem(
+            onTap: () => history.id.copyToClipboard(),
+            child: const Text("Copy id"),
+          ),
+          PopupMenuItem(
+            onTap: () => history.link.copyToClipboard(),
+            child: const Text("Copy link"),
+          ),
+          PopupMenuItem(
+            onTap: () {
+              PlaylistStorageProvider().update(() {
+                playlist.removeHistory(history);
+              });
+            },
+            child: const Text("Remove"),
+          ),
+        ]),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
