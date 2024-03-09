@@ -85,6 +85,7 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
     }
   }
 
+  /// Does this `Playlist` have any changes
   bool get hasChanges => changes.isNotEmpty;
 
   @override

@@ -3,6 +3,7 @@ import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 
 class VideoHistory extends VideoChange {
+  /// The time this `VideoHistory` has been made
   final DateTime created;
 
   const VideoHistory({

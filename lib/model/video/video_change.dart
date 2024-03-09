@@ -2,6 +2,7 @@ import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
 
 class VideoChange extends Video {
+  /// The type of change
   final VideoChangeType type;
 
   const VideoChange({
@@ -12,7 +13,10 @@ class VideoChange extends Video {
     required this.type,
   });
 
+  /// Has this `Video` been added to its `Playlist`
   bool get isAddition => type == VideoChangeType.addition;
+
+  /// Has this `Video` been removed from its `Playlist`
   bool get isRemoval => type == VideoChangeType.removal;
 
   @override
