@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/video/history_type.dart';
+import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/fading_listview.dart';
-import 'package:ytp_new/view/pages/playlist_page/video_item.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
 
 class PlaylistPageTabVideos extends StatelessWidget {
   final String playlistId;
@@ -29,7 +29,7 @@ class PlaylistPageTabVideos extends StatelessWidget {
             PlaylistStorageProvider().fromId(playlistId)!.pendingHistory.add(
                   VideoHistory.fromVideo(
                     videos[index],
-                    VideoHistoryType.addition,
+                    VideoChangeType.addition,
                   ),
                 );
           });

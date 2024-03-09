@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-enum VideoHistoryType {
+enum VideoChangeType {
   addition(Colors.green, Icon(Icons.add_circle_outline)),
   removal(Colors.red, Icon(Icons.remove_circle_outline)),
   ;
@@ -8,5 +8,5 @@ enum VideoHistoryType {
   final Color color;
   final Icon icon;
 
-  const VideoHistoryType(this.color, this.icon);
+  const VideoChangeType(this.color, this.icon);
 }

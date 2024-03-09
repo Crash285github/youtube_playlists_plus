@@ -1,10 +1,10 @@
-import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/model/video/video_change.dart';
 
 mixin PlaylistChanges {
-  final List<Video> additions = [];
-  final List<Video> removals = [];
+  final List<VideoChange> additions = [];
+  final List<VideoChange> removals = [];
 
-  List<Video> get changes => (additions + removals)
+  List<VideoChange> get changes => (additions + removals)
     ..sort(
       (a, b) => a.title.compareTo(b.title),
     );

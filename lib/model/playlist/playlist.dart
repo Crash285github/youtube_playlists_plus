@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist_changes.dart';
 import 'package:ytp_new/model/playlist/playlist_history.dart';
+import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 
 class Playlist extends Media with PlaylistChanges, PlaylistHistory {
@@ -70,16 +72,25 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
 
   void getChanges(final Playlist other) {
     if (this != other) return;
+
+    final Set<Video> added = other.videos.toSet().difference(videos.toSet());
     additions
       ..clear()
       ..addAll(
-        other.videos.toSet().difference(videos.toSet()),
+        added.map(
+          (final video) =>
+              VideoChange.fromVideo(video, VideoChangeType.addition),
+        ),
       );
 
+    final removed = videos.toSet().difference(other.videos.toSet());
     removals
       ..clear()
       ..addAll(
-        videos.toSet().difference(other.videos.toSet()),
+        removed.map(
+          (final video) =>
+              VideoChange.fromVideo(video, VideoChangeType.removal),
+        ),
       );
   }
 }
