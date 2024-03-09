@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 /// Represents a `Playlist's` state
 enum PlaylistState {
-  unchecked(Colors.grey, Icons.refresh),
   checking(Colors.teal, Icons.update),
   unchanged(Colors.green, Icons.check_circle_outline),
   changed(Colors.amber, Icons.error_outline),

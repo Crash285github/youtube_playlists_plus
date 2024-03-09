@@ -118,7 +118,6 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
             (x) => Video.fromMap(x as Map<String, dynamic>),
           ),
         ),
-        state: PlaylistState.unchecked,
       )..savedHistory.addAll(List<VideoHistory>.from(
           (map['history'] as List<dynamic>).map<VideoHistory>(
             (x) => VideoHistory.fromMap(x as Map<String, dynamic>),

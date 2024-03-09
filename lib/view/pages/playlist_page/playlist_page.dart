@@ -59,7 +59,7 @@ class PlaylistPage extends StatelessWidget {
                             });
                           } catch (_) {
                             PlaylistStorageProvider().update(
-                              () => playlist!.state = PlaylistState.unchecked,
+                              () => playlist!.state = null,
                             );
                           } finally {
                             RefreshingProvider().remove(playlistId);

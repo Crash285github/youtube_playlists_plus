@@ -12,6 +12,7 @@ dependencies:
     sdk: flutter
   provider: ^6.1.2
   shared_preferences: ^2.2.2
+  timeago: ^3.6.1
   youtube_explode_dart: ^2.1.0
 
 dev_dependencies:

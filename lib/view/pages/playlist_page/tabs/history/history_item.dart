@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/datetime_timeago.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 
 class HistoryItem extends StatelessWidget {
@@ -25,7 +26,7 @@ class HistoryItem extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     Text(
-                      history.author,
+                      "${history.author} • ${history.created.timeago()}",
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
