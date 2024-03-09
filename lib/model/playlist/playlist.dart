@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist_changes.dart';
 import 'package:ytp_new/model/playlist/playlist_history.dart';
-import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/model/video/video_history.dart';
 
 class Playlist extends Media with PlaylistChanges, PlaylistHistory {
   final String description;
@@ -37,7 +38,7 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
         'description': description,
         'thumbnail': thumbnail,
         'videos': videos.map((x) => x.toMap()).toList(),
-        'history': history.map((x) => x.toMap()).toList()
+        'history': savedHistory.map((x) => x.toMap()).toList()
       };
 
   factory Playlist.fromMap(Map<String, dynamic> map) => Playlist(
@@ -51,9 +52,9 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
             (x) => Video.fromMap(x as Map<String, dynamic>),
           ),
         ),
-      )..history.addAll(List<Video>.from(
-          (map['history'] as List<dynamic>).map<Video>(
-            (x) => Video.fromMap(x as Map<String, dynamic>),
+      )..savedHistory.addAll(List<VideoHistory>.from(
+          (map['history'] as List<dynamic>).map<VideoHistory>(
+            (x) => VideoHistory.fromMap(x as Map<String, dynamic>),
           ),
         ));
 

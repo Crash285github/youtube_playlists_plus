@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/video_item.dart';
@@ -24,8 +25,8 @@ class PlaylistPageTabVideos extends StatelessWidget {
         video: videos[index],
         onTap: () {
           PlaylistStorageProvider().update(() {
-            PlaylistStorageProvider().fromId(playlistId)!.history.add(
-                  videos[index],
+            PlaylistStorageProvider().fromId(playlistId)!.pendingHistory.add(
+                  VideoHistory.fromVideo(videos[index]),
                 );
           });
         },

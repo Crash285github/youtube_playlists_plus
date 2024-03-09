@@ -26,7 +26,12 @@ class LocalStorage {
   static Future savePlaylists() async {
     _prefs.setStringList(
       "playlists",
-      [...PlaylistStorage.playlists.map((final playlist) => playlist.toJson())],
+      [
+        ...PlaylistStorage.playlists.map((final playlist) {
+          playlist.applyPendingHistory();
+          return playlist.toJson();
+        })
+      ],
     );
   }
 

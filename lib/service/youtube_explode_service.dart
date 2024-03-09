@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/model/video/video.dart';
 
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();

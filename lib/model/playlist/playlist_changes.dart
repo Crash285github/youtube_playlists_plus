@@ -1,4 +1,4 @@
-import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/model/video/video.dart';
 
 mixin PlaylistChanges {
   final List<Video> additions = [];

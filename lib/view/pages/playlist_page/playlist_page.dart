@@ -97,7 +97,10 @@ class PlaylistPage extends StatelessWidget {
                         playlistId: playlistId,
                         videos: playlist.videos,
                       ),
-                      PlaylistPageTabHistory(history: playlist.history),
+                      PlaylistPageTabHistory(
+                        playlistId: playlistId,
+                        history: playlist.history,
+                      ),
                     ],
                   ),
                 ),

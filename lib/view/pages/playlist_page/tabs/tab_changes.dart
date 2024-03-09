@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/video.dart';
+import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/view/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/video_item.dart';
 
