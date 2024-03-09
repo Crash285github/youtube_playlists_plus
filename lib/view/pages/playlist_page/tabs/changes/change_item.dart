@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/view/thumbnail.dart';
 
@@ -45,12 +46,7 @@ class ChangeItem extends StatelessWidget {
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall!
-                                    .copyWith(
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .onBackground
-                                          .withOpacity(.5),
-                                    ),
+                                    .withOpacity(.5),
                               ),
                             ],
                           ),

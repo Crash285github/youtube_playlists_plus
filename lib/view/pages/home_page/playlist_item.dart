@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
@@ -31,6 +32,7 @@ class PlaylistItem extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         playlist.title,
@@ -46,12 +48,7 @@ class PlaylistItem extends StatelessWidget {
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
-                                  .copyWith(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground
-                                        .withOpacity(.5),
-                                  ),
+                                  .withOpacity(.5),
                             ),
                           ),
                           if (playlist.state != null)

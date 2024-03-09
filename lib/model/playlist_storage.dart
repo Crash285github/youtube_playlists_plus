@@ -2,10 +2,10 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 
 /// Contains all Playlists
 class PlaylistStorage {
-  static final Set<Playlist> _playlists = {};
+  static final List<Playlist> _playlists = [];
 
   /// Returns all `Playlists` as an unmodifiable List
-  static Set<Playlist> get playlists => Set.unmodifiable(_playlists);
+  static List<Playlist> get playlists => List.unmodifiable(_playlists);
 
   /// Adds a `Playlist` to the Storage
   static void add(Playlist pl) => _playlists.add(pl);

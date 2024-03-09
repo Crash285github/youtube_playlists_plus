@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/drawer.dart';
@@ -11,7 +13,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playlists = Provider.of<PlaylistStorageProvider>(context).playlists;
+    final playlists =
+        Provider.of<PlaylistStorageProvider>(context).playlists.toList();
 
     return Scaffold(
       drawer: const HomePageDrawer(),
@@ -22,19 +25,52 @@ class HomePage extends StatelessWidget {
           floating: true,
           snap: true,
         ),
-        SliverList.list(
-          children: [
-            ...playlists.map((e) => PlaylistItem(playlist: e)),
-          ],
-        ),
+        _Playlists(playlists: playlists),
         const SliverToBoxAdapter(child: SizedBox(height: 80))
       ]),
       floatingActionButton: Builder(builder: (context) {
         return FloatingActionButton(
-          child: const Icon(Icons.search),
           onPressed: () => AppNavigator.tryPushLeft(const SearchPage()),
+          child: const Icon(Icons.search),
         );
       }),
+    );
+  }
+}
+
+class _Playlists extends StatefulWidget {
+  const _Playlists({required this.playlists});
+
+  final List<Playlist> playlists;
+
+  @override
+  State<_Playlists> createState() => _PlaylistsState();
+}
+
+class _PlaylistsState extends State<_Playlists> {
+  @override
+  Widget build(BuildContext context) {
+    return SliverReorderableList(
+      itemCount: widget.playlists.length,
+      itemBuilder: (context, index) => ReorderableDragStartListener(
+        index: index,
+        key: ValueKey(widget.playlists[index]),
+        child: PlaylistItem(
+          playlist: widget.playlists[index],
+        ),
+      ),
+      onReorder: (oldIndex, newIndex) {
+        if (oldIndex < newIndex) {
+          newIndex -= 1;
+        }
+
+        setState(() {
+          final playlist = widget.playlists.removeAt(oldIndex);
+          widget.playlists.insert(newIndex, playlist);
+        });
+
+        PlaylistStorage.replace(widget.playlists);
+      },
     );
   }
 }

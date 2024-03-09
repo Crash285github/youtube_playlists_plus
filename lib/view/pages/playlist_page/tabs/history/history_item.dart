@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/extensions/datetime_timeago.dart';
 import 'package:ytp_new/extensions/string_to_clipboard.dart';
+import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -69,13 +70,10 @@ class HistoryItem extends StatelessWidget {
                       ),
                       Text(
                         "${history.author} • ${history.created.timeago()}",
-                        style:
-                            Theme.of(context).textTheme.titleMedium!.copyWith(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground
-                                      .withOpacity(.5),
-                                ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .withOpacity(.5),
                       ),
                     ],
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/view/thumbnail.dart';
 
@@ -36,12 +37,10 @@ class VideoItem extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       video.author,
-                      style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onBackground
-                                .withOpacity(.5),
-                          ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .withOpacity(.5),
                     ),
                   ],
                 ),

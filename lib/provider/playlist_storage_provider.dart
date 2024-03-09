@@ -7,7 +7,7 @@ import 'package:ytp_new/model/playlist_storage.dart';
 ///
 /// The ViewModel, called Provider here
 class PlaylistStorageProvider extends ChangeNotifier {
-  Set<Playlist> get playlists => PlaylistStorage.playlists;
+  List<Playlist> get playlists => PlaylistStorage.playlists;
 
   void add(Playlist pl) {
     PlaylistStorage.add(pl);
