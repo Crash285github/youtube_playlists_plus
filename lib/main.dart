@@ -41,7 +41,7 @@ class MainApp extends StatelessWidget {
     Provider.of<SettingsProvider>(context);
 
     return MaterialApp(
-      theme: SettingsProvider().theme,
+      theme: SettingsProvider().themeData,
       navigatorKey: AppConfig.mainNavigatorKey,
       scrollBehavior:
           const MaterialScrollBehavior().copyWith(scrollbars: false),

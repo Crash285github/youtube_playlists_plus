@@ -5,31 +5,29 @@ import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
 
-class SettingsSplitMode extends StatelessWidget {
-  const SettingsSplitMode({super.key});
+class SettingsSchemeMode extends StatelessWidget {
+  const SettingsSchemeMode({super.key});
 
   Future _set(BuildContext context, Offset offset) async {
-    final mode = await ContextMenuService.show<SplitSetting>(
+    final scheme = await ContextMenuService.show<ColorSchemeSetting>(
       context: context,
       offset: offset,
       items: [
-        ...SplitSetting.values.map(
-          (e) => PopupMenuItem(
-            value: e,
-            child: Text(e.titleCase),
-          ),
-        ),
+        ...ColorSchemeSetting.values.map((e) => PopupMenuItem(
+              value: e,
+              child: Text(e.titleCase),
+            ))
       ],
     );
 
-    if (mode != null) {
-      SettingsProvider().splitMode = mode;
+    if (scheme != null) {
+      SettingsProvider().colorScheme = scheme;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final mode = Provider.of<SettingsProvider>(context).splitMode.titleCase;
+    final scheme = Provider.of<SettingsProvider>(context).colorScheme.titleCase;
 
     return InkWell(
       onTapUp: (details) => _set(context, details.globalPosition),
@@ -40,14 +38,14 @@ class SettingsSplitMode extends StatelessWidget {
           children: [
             const Row(
               children: [
-                RotatedBox(quarterTurns: 1, child: Icon(Icons.splitscreen)),
+                Icon(Icons.color_lens_outlined),
                 Padding(
                   padding: EdgeInsets.only(left: 8.0),
-                  child: Text('Split view'),
+                  child: Text("Color Scheme"),
                 ),
               ],
             ),
-            Text(mode)
+            Text(scheme),
           ],
         ),
       ),
