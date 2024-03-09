@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/model/settings/theme_creator.dart';
 
 class SettingsProvider extends ChangeNotifier {
   ThemeData get themeData =>
@@ -9,7 +10,7 @@ class SettingsProvider extends ChangeNotifier {
   ThemeSetting get theme => Settings.theme;
   set theme(final ThemeSetting setting) {
     Settings.theme = setting;
-    notifyListeners();
+    ThemeCreator.create().then((value) => notifyListeners());
     LocalStorage.saveSettings();
   }
 
@@ -23,7 +24,8 @@ class SettingsProvider extends ChangeNotifier {
   ColorSchemeSetting get colorScheme => Settings.colorScheme;
   set colorScheme(final ColorSchemeSetting colorScheme) {
     Settings.colorScheme = colorScheme;
-    notifyListeners();
+    ThemeCreator.create().then((value) => notifyListeners());
+
     LocalStorage.saveSettings();
   }
 

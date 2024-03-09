@@ -1,7 +1,9 @@
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/local_storage.dart';
+import 'package:ytp_new/model/settings/theme_creator.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
@@ -14,6 +16,7 @@ Future main() async {
   await LocalStorage.init();
   LocalStorage.loadSettings();
   LocalStorage.loadPlaylists();
+  await ThemeCreator.create();
 
   runApp(
     MultiProvider(
@@ -41,12 +44,13 @@ class MainApp extends StatelessWidget {
     Provider.of<SettingsProvider>(context);
 
     return MaterialApp(
-      theme: SettingsProvider().themeData,
+      theme: ThemeCreator.theme,
       navigatorKey: AppConfig.mainNavigatorKey,
       scrollBehavior:
           const MaterialScrollBehavior().copyWith(scrollbars: false),
-      home: const Scaffold(
-        body: Responsive(),
+      home: Scaffold(
+        body: DynamicColorBuilder(
+            builder: (lightDynamic, darkDynamic) => const Responsive()),
       ),
     );
   }
