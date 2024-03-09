@@ -92,5 +92,18 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
               VideoChange.fromVideo(video, VideoChangeType.removal),
         ),
       );
+
+    pendingHistory
+      ..clear()
+      ..addAll(
+        added.map(
+          (e) => VideoHistory.fromVideo(e, VideoChangeType.addition),
+        ),
+      )
+      ..addAll(
+        removed.map(
+          (e) => VideoHistory.fromVideo(e, VideoChangeType.removal),
+        ),
+      );
   }
 }
