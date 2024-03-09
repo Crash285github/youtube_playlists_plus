@@ -20,7 +20,10 @@ class PlaylistPageTabHistory extends StatelessWidget {
           gradientHeight: 50,
           bottom: false,
           padding: const EdgeInsets.only(bottom: 80),
-          itemBuilder: (context, index) => HistoryItem(history: history[index]),
+          itemBuilder: (context, index) => HistoryItem(
+            playlistId: playlistId,
+            history: history[index],
+          ),
           itemCount: history.length,
         );
 }

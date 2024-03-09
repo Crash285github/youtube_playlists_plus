@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/extensions/datetime_timeago.dart';
+import 'package:ytp_new/extensions/string_to_clipboard.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/context_menu_service.dart';
 
 class HistoryItem extends StatelessWidget {
+  final String playlistId;
   final VideoHistory history;
   final void Function()? onTap;
-  const HistoryItem({super.key, required this.history, this.onTap});
+  const HistoryItem({
+    super.key,
+    required this.history,
+    this.onTap,
+    required this.playlistId,
+  });
+
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +25,38 @@ class HistoryItem extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
+        onSecondaryTapUp: (details) => ContextMenuService.show(
+            context: context,
+            offset: Offset(
+              details.globalPosition.dx,
+              details.globalPosition.dy,
+            ),
+            items: [
+              PopupMenuItem(
+                onTap: () => history.open(),
+                child: const Text("Open"),
+              ),
+              PopupMenuItem(
+                onTap: () => history.title.copyToClipboard(),
+                child: const Text("Copy title"),
+              ),
+              PopupMenuItem(
+                onTap: () => history.id.copyToClipboard(),
+                child: const Text("Copy id"),
+              ),
+              PopupMenuItem(
+                onTap: () => history.link.copyToClipboard(),
+                child: const Text("Copy link"),
+              ),
+              PopupMenuItem(
+                onTap: () {
+                  PlaylistStorageProvider().update(() {
+                    playlist.removeHistory(history);
+                  });
+                },
+                child: const Text("Remove"),
+              ),
+            ]),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(

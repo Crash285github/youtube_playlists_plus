@@ -1,3 +1,5 @@
+import 'package:url_launcher/url_launcher.dart';
+
 /// Represents a Youtube Media
 abstract class Media {
   /// The unique identifier of this `Media`
@@ -18,4 +20,9 @@ abstract class Media {
     required this.author,
     required this.thumbnail,
   });
+
+  String get link => throw UnimplementedError();
+
+  /// Opens a `Media` externally on `Youtube`
+  Future<bool> open() async => await launchUrl(Uri.parse(link));
 }

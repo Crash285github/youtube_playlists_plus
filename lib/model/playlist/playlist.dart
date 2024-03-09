@@ -89,6 +89,9 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
   bool get hasChanges => changes.isNotEmpty;
 
   @override
+  String get link => "https://www.youtube.com/playlist?list=$id";
+
+  @override
   bool operator ==(covariant Playlist other) =>
       identical(this, other) || other.id == id;
 

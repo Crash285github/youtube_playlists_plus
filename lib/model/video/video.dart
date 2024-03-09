@@ -13,6 +13,9 @@ class Video extends Media {
   });
 
   @override
+  String get link => "https://www.youtube.com/watch?v=$id";
+
+  @override
   bool operator ==(covariant Video other) =>
       identical(this, other) || other.id == id;
 
