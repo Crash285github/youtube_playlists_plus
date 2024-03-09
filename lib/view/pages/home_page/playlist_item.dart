@@ -17,37 +17,43 @@ class PlaylistItem extends StatelessWidget {
           AppNavigator.tryPopRight();
           AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
         },
-        child: Row(
-          children: [
-            Thumbnail(
-              thumbnail: playlist.thumbnail,
-              height: 100,
-              width: 100,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    playlist.title,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: 15),
-                  Row(
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: [
+              Thumbnail(
+                thumbnail: playlist.thumbnail,
+                height: 100,
+                width: 100,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Text(
-                          playlist.author,
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
+                      Text(
+                        playlist.title,
+                        style: Theme.of(context).textTheme.titleLarge,
                       ),
-                      const Icon(Icons.refresh)
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              playlist.author,
+                              style: Theme.of(context).textTheme.titleSmall,
+                            ),
+                          ),
+                          if (playlist.state != null) playlist.state!.icon
+                        ],
+                      ),
                     ],
                   ),
-                ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

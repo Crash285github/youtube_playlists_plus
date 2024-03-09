@@ -1,5 +1,6 @@
 import 'package:ytp_new/model/playlist/playlist.dart';
 
+/// Contains all Playlists
 class PlaylistStorage {
   static final Set<Playlist> _playlists = {};
   static Set<Playlist> get playlists => Set.unmodifiable(_playlists);

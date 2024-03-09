@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// Handles Playlist refreshing permissions
 class RefreshingProvider extends ChangeNotifier {
   final List<String> _refreshing = [];
   List<String> get refreshingList => List.unmodifiable(_refreshing);

@@ -17,7 +17,6 @@ class Thumbnail extends StatelessWidget {
     return Container(
       height: height,
       width: height,
-      margin: const EdgeInsets.all(5.0),
       decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
       clipBehavior: Clip.antiAlias,
       child: CachedNetworkImage(

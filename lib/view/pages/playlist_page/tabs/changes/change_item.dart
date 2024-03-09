@@ -13,29 +13,41 @@ class ChangeItem extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        child: Row(children: [
-          Thumbnail(
-            thumbnail: change.thumbnail,
-            height: 80,
-            width: 80,
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  change.title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                Text(
-                  change.author,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(children: [
+            Thumbnail(
+              thumbnail: change.thumbnail,
+              height: 80,
+              width: 80,
             ),
-          ),
-          change.type.icon,
-        ]),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            change.title,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                          Text(
+                            change.author,
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                        ],
+                      ),
+                    ),
+                    change.type.icon,
+                  ],
+                ),
+              ),
+            ),
+          ]),
+        ),
       ),
     );
   }

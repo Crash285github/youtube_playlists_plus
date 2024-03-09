@@ -13,28 +13,34 @@ class VideoItem extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        child: Row(
-          children: [
-            Thumbnail(
-              thumbnail: video.thumbnail,
-              height: 80,
-              width: 80,
-            ),
-            Expanded(
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: [
+              Thumbnail(
+                thumbnail: video.thumbnail,
+                height: 80,
+                width: 80,
+              ),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  video.title,
-                  style: Theme.of(context).textTheme.titleMedium,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      video.title,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    Text(
+                      video.author,
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                  ],
                 ),
-                Text(
-                  video.author,
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ],
-            )),
-          ],
+              )),
+            ],
+          ),
         ),
       ),
     );

@@ -3,6 +3,9 @@ import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 
+/// Communicates with [PlaylistStorage], and updates the UI
+///
+/// The ViewModel, called Provider here
 class PlaylistStorageProvider extends ChangeNotifier {
   Set<Playlist> get playlists => PlaylistStorage.playlists;
 

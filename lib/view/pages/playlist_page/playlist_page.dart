@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
@@ -40,12 +41,23 @@ class PlaylistPage extends StatelessWidget {
                       : () async {
                           try {
                             RefreshingProvider().add(playlistId);
+
+                            PlaylistStorageProvider().update(
+                              () => playlist.state = PlaylistState.checking,
+                            );
+
                             final other =
                                 await YoutubeService.download(playlist);
                             PlaylistStorageProvider().update(() {
-                              playlist.getChanges(other);
+                              playlist.changesFrom(other);
+                              playlist.state = playlist.hasChanges
+                                  ? PlaylistState.changed
+                                  : PlaylistState.unchanged;
                             });
                           } catch (_) {
+                            PlaylistStorageProvider().update(
+                              () => playlist.state = PlaylistState.unchecked,
+                            );
                           } finally {
                             RefreshingProvider().remove(playlistId);
                           }
