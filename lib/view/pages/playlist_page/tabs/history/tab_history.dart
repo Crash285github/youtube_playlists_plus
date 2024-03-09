@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/fading_listview.dart';
-import 'package:ytp_new/view/pages/playlist_page/video_item.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_item.dart';
 
 class PlaylistPageTabHistory extends StatelessWidget {
   final String playlistId;
@@ -15,8 +15,8 @@ class PlaylistPageTabHistory extends StatelessWidget {
       ? const Center(child: Text("No history."))
       : FadingListView(
           gradientHeight: 50,
-          itemBuilder: (context, index) => VideoItem(
-            video: history[index],
+          itemBuilder: (context, index) => HistoryItem(
+            history: history[index],
             onTap: () {
               PlaylistStorageProvider().update(() {
                 PlaylistStorageProvider()

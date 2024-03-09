@@ -8,7 +8,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_changes.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/tab_history.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_videos.dart';
 
 class PlaylistPage extends StatelessWidget {

@@ -35,14 +35,32 @@ class _FadingListViewState extends State<FadingListView> {
   @override
   void initState() {
     _scrollController = (widget.controller ?? ScrollController())
-      ..addListener(() => setState(() {
-            startGradientHeight =
-                min(widget.gradientHeight, _scrollController.offset);
+      ..addListener(
+        () => setState(
+          () {
+            startGradientHeight = min(
+              widget.gradientHeight,
+              _scrollController.offset,
+            );
+
             endGradientHeight = min(
-                widget.gradientHeight,
-                _scrollController.position.maxScrollExtent -
-                    _scrollController.offset);
-          }));
+              widget.gradientHeight,
+              _scrollController.position.maxScrollExtent -
+                  _scrollController.offset,
+            );
+          },
+        ),
+      );
+
+    WidgetsBinding.instance.addPostFrameCallback(
+      (_) => setState(
+        () => endGradientHeight = min(
+            widget.gradientHeight,
+            _scrollController.position.maxScrollExtent -
+                _scrollController.offset),
+      ),
+    );
+
     super.initState();
   }
 
