@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/tab_changes.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
@@ -23,6 +24,9 @@ class PlaylistPage extends StatelessWidget {
     final Playlist playlist =
         Provider.of<PlaylistStorageProvider>(context).fromId(playlistId)!;
 
+    final bool refreshingThis = Provider.of<RefreshingProvider>(context)
+        .isRefreshingPlaylist(playlistId);
+
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -31,20 +35,29 @@ class PlaylistPage extends StatelessWidget {
             centerTitle: true,
             actions: [
               IconButton(
+                  onPressed: refreshingThis
+                      ? null
+                      : () async {
+                          try {
+                            RefreshingProvider().add(playlistId);
+                            final other =
+                                await YoutubeService.download(playlist);
+                            PlaylistStorageProvider().update(() {
+                              playlist.getChanges(other);
+                            });
+                          } catch (_) {
+                          } finally {
+                            RefreshingProvider().remove(playlistId);
+                          }
+                        },
+                  icon: const Icon(Icons.refresh)),
+              IconButton(
                   onPressed: () {
                     PlaylistStorageProvider().remove(playlist);
                     LocalStorage.savePlaylists();
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.delete_outline)),
-              IconButton(
-                  onPressed: () async {
-                    final other = await YoutubeService.download(playlist);
-                    PlaylistStorageProvider().update(() {
-                      playlist.getChanges(other);
-                    });
-                  },
-                  icon: const Icon(Icons.refresh)),
             ],
             backgroundColor: Colors.transparent,
             bottom: const TabBar(

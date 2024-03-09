@@ -15,6 +15,7 @@ class PlaylistPageTabHistory extends StatelessWidget {
       ? const Center(child: Text("No history."))
       : FadingListView(
           gradientHeight: 50,
+          padding: const EdgeInsets.only(bottom: 80),
           itemBuilder: (context, index) => HistoryItem(
             history: history[index],
             onTap: () {

@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
 
@@ -22,6 +23,9 @@ Future main() async {
         ),
         ChangeNotifierProvider(
           create: (_) => SettingsProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => RefreshingProvider(),
         )
       ],
       child: const MainApp(),
