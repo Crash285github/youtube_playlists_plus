@@ -29,8 +29,6 @@ class AdaptiveSecondary extends StatelessWidget {
             : null,
         child: InkWell(
           onTap: () {},
-          onLongPress: Platform.isAndroid ? null : () {},
-          onSecondaryTap: Platform.isWindows ? () {} : null,
           child: child,
         ),
       );

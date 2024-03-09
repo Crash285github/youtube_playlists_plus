@@ -6,11 +6,20 @@ import 'package:ytp_new/provider/settings_provider.dart';
 class SettingsThemeMode extends StatelessWidget {
   const SettingsThemeMode({super.key});
 
-  bool get isLight => SettingsProvider().theme == ThemeSetting.light;
+  bool get isLight => Settings.theme == ThemeSetting.light;
+  bool get isAmoled => Settings.theme == ThemeSetting.amoled;
 
-  void _toggle() {
+  void _toggleLightDark() {
     if (!isLight) {
       SettingsProvider().theme = ThemeSetting.light;
+    } else {
+      SettingsProvider().theme = ThemeSetting.dark;
+    }
+  }
+
+  void _toggleAmoled() {
+    if (!isAmoled) {
+      SettingsProvider().theme = ThemeSetting.amoled;
     } else {
       SettingsProvider().theme = ThemeSetting.dark;
     }
@@ -21,24 +30,25 @@ class SettingsThemeMode extends StatelessWidget {
     Provider.of<SettingsProvider>(context);
 
     return InkWell(
-      onTap: _toggle,
+      onTap: _toggleLightDark,
+      onLongPress: _toggleAmoled,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Row(
+            Row(
               children: [
-                Icon(Icons.dark_mode_outlined),
+                const Icon(Icons.dark_mode_outlined),
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0),
-                  child: Text("Dark mode"),
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(isAmoled ? "Black mode" : "Dark mode"),
                 ),
               ],
             ),
             Switch(
               value: !isLight,
-              onChanged: (value) => _toggle(),
+              onChanged: (value) => _toggleLightDark(),
             )
           ],
         ),

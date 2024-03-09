@@ -4,11 +4,41 @@ import 'package:ytp_new/model/settings/settings.dart';
 
 class ThemeCreator {
   static bool get _isLight => Settings.theme == ThemeSetting.light;
+  static bool get _isAmoled => Settings.theme == ThemeSetting.amoled;
+
   static Brightness get _brightness =>
       _isLight ? Brightness.light : Brightness.dark;
 
-  static late ThemeData theme;
+  static ThemeData get theme => ThemeData(
+        useMaterial3: true,
+        colorScheme: _scheme,
+        cardColor: _isAmoled ? Colors.black : _scheme.surface,
+        drawerTheme: DrawerThemeData(
+          backgroundColor: _isAmoled ? Colors.black : _scheme.surface,
+        ),
+        scaffoldBackgroundColor: _isLight
+            ? _scheme.surfaceVariant
+            : _isAmoled
+                ? Colors.black
+                : null,
+        cardTheme: CardTheme(
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+          clipBehavior: Clip.antiAlias,
+          margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+          color: _isAmoled ? Colors.black : _scheme.surface,
+          elevation: _isAmoled ? 3 : 1,
+        ),
+        tooltipTheme:
+            const TooltipThemeData(waitDuration: Duration(seconds: 1)),
+        appBarTheme: _isLight
+            ? AppBarTheme(backgroundColor: _scheme.surfaceVariant)
+            : _isAmoled
+                ? const AppBarTheme(backgroundColor: Colors.black)
+                : null,
+      );
 
+  static late ColorScheme _scheme;
   static Future create() async {
     ColorScheme? colorScheme;
 
@@ -51,8 +81,6 @@ class ThemeCreator {
           seedColor: Settings.colorScheme.color!, brightness: _brightness);
     }
 
-    theme = ThemeData(
-      colorScheme: colorScheme,
-    );
+    _scheme = colorScheme!;
   }
 }

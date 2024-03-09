@@ -80,12 +80,12 @@ class _FadingListViewState extends State<FadingListView> {
           ],
           stops: [
             if (widget.top ?? true) ...[
-              5 / rect.height,
+              0,
               startGradientHeight / rect.height,
             ],
             if (widget.bottom ?? true) ...[
               1 - (endGradientHeight / rect.height),
-              1 - (5 / rect.height)
+              1
             ]
           ]).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height)),
       child: ListView.builder(
