@@ -19,25 +19,11 @@ class VideoChange extends Video {
   /// Has this `Video` been removed from its `Playlist`
   bool get isRemoval => type == VideoChangeType.removal;
 
-  @override
-  Map<String, dynamic> toMap() => <String, dynamic>{
-        'id': id,
-        'title': title,
-        'author': author,
-        'thumbnail': thumbnail,
-        'type': type.index,
-      };
-
-  factory VideoChange.fromMap(Map<String, dynamic> map) => VideoChange(
-        id: map['id'] as String,
-        title: map['title'] as String,
-        author: map['author'] as String,
-        thumbnail: map['thumbnail'] as String,
-        type: VideoChangeType.values[map['type'] as int],
-      );
-
+  /// Converts a `Video` to a `VideoChange`
   factory VideoChange.fromVideo(
-          final Video video, final VideoChangeType type) =>
+    final Video video,
+    final VideoChangeType type,
+  ) =>
       VideoChange(
         id: video.id,
         title: video.title,

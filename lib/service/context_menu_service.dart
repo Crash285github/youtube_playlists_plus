@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+/// Universal Context Menus
 class ContextMenuService {
+  /// Shows a context menu
   static Future<T?> show<T>({
     required BuildContext context,
     required Offset offset,

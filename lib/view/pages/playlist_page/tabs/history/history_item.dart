@@ -6,7 +6,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
-import 'package:ytp_new/view/adaptive_ink_well.dart';
+import 'package:ytp_new/view/adaptive_secondary.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;

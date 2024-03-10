@@ -71,7 +71,7 @@ class PlaylistPage extends StatelessWidget {
                     AppNavigator.tryPopRight(context);
 
                     PlaylistStorageProvider().remove(playlist!);
-                    LocalStorage.savePlaylists();
+                    Persistence.savePlaylists();
                   },
                   icon: const Icon(Icons.delete_outline)),
             ],
@@ -141,7 +141,7 @@ class PlaylistPage extends StatelessWidget {
             ],
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: () => LocalStorage.savePlaylists(),
+            onPressed: () => Persistence.savePlaylists(),
           )),
     );
   }

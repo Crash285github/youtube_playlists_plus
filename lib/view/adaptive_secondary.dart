@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class AdaptiveSecondary extends StatelessWidget {
-  final Widget? child;
   final void Function(Offset offset)? secondary;
+  final Widget? child;
+
   const AdaptiveSecondary({
     super.key,
-    this.child,
     this.secondary,
+    this.child,
   });
 
   @override

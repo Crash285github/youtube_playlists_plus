@@ -10,32 +10,33 @@ class SettingsProvider extends ChangeNotifier {
   ThemeSetting get theme => Settings.theme;
   set theme(final ThemeSetting setting) {
     Settings.theme = setting;
-    ThemeCreator.create().then((value) => notifyListeners());
-    LocalStorage.saveSettings();
+    ThemeCreator.createColorScheme().then((value) => notifyListeners());
+    Persistence.saveSettings();
   }
 
   SplitSetting get splitMode => Settings.splitMode;
   set splitMode(final SplitSetting setting) {
     Settings.splitMode = setting;
     notifyListeners();
-    LocalStorage.saveSettings();
+    Persistence.saveSettings();
   }
 
   ColorSchemeSetting get colorScheme => Settings.colorScheme;
   set colorScheme(final ColorSchemeSetting colorScheme) {
     Settings.colorScheme = colorScheme;
-    ThemeCreator.create().then((value) => notifyListeners());
+    ThemeCreator.createColorScheme().then((value) => notifyListeners());
 
-    LocalStorage.saveSettings();
+    Persistence.saveSettings();
   }
 
   bool get canReorder => Settings.canReorder;
-  set canReorder(bool canReorder) {
+  set canReorder(final bool canReorder) {
     Settings.canReorder = canReorder;
     notifyListeners();
 
+    //? save changed order on finish
     if (!canReorder) {
-      LocalStorage.savePlaylists();
+      Persistence.savePlaylists();
     }
   }
 

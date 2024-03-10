@@ -4,6 +4,7 @@ import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
 import 'package:ytp_new/view/responsive/empty_right.dart';
 
+/// A left & right navigator layout
 class SplitView extends StatelessWidget {
   const SplitView({super.key});
 

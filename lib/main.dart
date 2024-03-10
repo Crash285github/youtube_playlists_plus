@@ -12,11 +12,11 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //debug (await SharedPreferences.getInstance()).clear();
 
-  await LocalStorage.init();
-  LocalStorage.loadSettings();
-  LocalStorage.loadPlaylists();
+  await Persistence.init();
+  Persistence.loadSettings();
+  Persistence.loadPlaylists();
 
-  await ThemeCreator.create();
+  await ThemeCreator.createColorScheme();
 
   runApp(
     MultiProvider(

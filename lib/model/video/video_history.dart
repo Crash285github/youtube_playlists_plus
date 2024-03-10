@@ -14,6 +14,19 @@ class VideoHistory extends VideoChange {
     required super.author,
   }) : super(thumbnail: "");
 
+  /// Converts a `Video` to a `VideoHistory`
+  factory VideoHistory.fromVideo(
+    final Video video,
+    final VideoChangeType type,
+  ) =>
+      VideoHistory(
+        id: video.id,
+        title: video.title,
+        author: video.author,
+        type: type,
+        created: DateTime.now(),
+      );
+
   @override
   bool operator ==(covariant VideoHistory other) =>
       identical(this, other) || (other.id == id && other.created == created);
@@ -30,20 +43,11 @@ class VideoHistory extends VideoChange {
         'created': created.millisecondsSinceEpoch,
       };
 
-  factory VideoHistory.fromMap(Map<String, dynamic> map) => VideoHistory(
+  factory VideoHistory.fromMap(final Map<String, dynamic> map) => VideoHistory(
         id: map['id'] as String,
         title: map['title'] as String,
         author: map['author'] as String,
         type: VideoChangeType.values[map['type'] as int],
         created: DateTime.fromMillisecondsSinceEpoch(map['created'] as int),
-      );
-
-  factory VideoHistory.fromVideo(Video video, VideoChangeType type) =>
-      VideoHistory(
-        id: video.id,
-        title: video.title,
-        author: video.author,
-        type: type,
-        created: DateTime.now(),
       );
 }

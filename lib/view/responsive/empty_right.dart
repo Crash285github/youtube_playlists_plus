@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/// The bottom of the right navigator's stack
 class EmptyRightSide extends StatelessWidget {
   const EmptyRightSide({super.key});
 

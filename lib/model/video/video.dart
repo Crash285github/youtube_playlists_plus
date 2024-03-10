@@ -29,7 +29,7 @@ class Video extends Media {
         'thumbnail': thumbnail,
       };
 
-  factory Video.fromMap(Map<String, dynamic> map) => Video(
+  factory Video.fromMap(final Map<String, dynamic> map) => Video(
         id: map['id'] as String,
         title: map['title'] as String,
         author: map['author'] as String,
@@ -38,6 +38,6 @@ class Video extends Media {
 
   String toJson() => json.encode(toMap());
 
-  factory Video.fromJson(String source) =>
+  factory Video.fromJson(final String source) =>
       Video.fromMap(json.decode(source) as Map<String, dynamic>);
 }

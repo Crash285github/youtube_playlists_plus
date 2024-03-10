@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
+/// The application's theme brightness settings
 enum ThemeSetting { light, dark, amoled }
 
+/// The application's split mode settings
 enum SplitSetting { disabled, even, uneven }
 
+/// The application's theme color settings
 enum ColorSchemeSetting {
   dynamic(null),
   mono(Colors.grey),
@@ -22,9 +25,17 @@ enum ColorSchemeSetting {
   const ColorSchemeSetting(this.color);
 }
 
+/// The application's current settings
 class Settings {
+  /// The current brightness of the app's theme
   static ThemeSetting theme = ThemeSetting.light;
-  static SplitSetting splitMode = SplitSetting.disabled;
+
+  /// The current color of the app's theme
   static ColorSchemeSetting colorScheme = ColorSchemeSetting.blue;
+
+  /// The current split mode of the app
+  static SplitSetting splitMode = SplitSetting.disabled;
+
+  /// Can the app's playlists be reordered currently
   static bool canReorder = false;
 }

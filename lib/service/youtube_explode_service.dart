@@ -5,10 +5,12 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video.dart';
 
+/// Handles the communication with Youtube
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
-  static Future<Playlist> download(Playlist playlist) async {
+  /// Downloads a `Playlist`
+  static Future<Playlist> download(final Playlist playlist) async {
     final metadata = await youtube.playlists
         .get(playlist.id)
         .timeout(const Duration(seconds: 20))
@@ -26,8 +28,8 @@ class YoutubeService {
           "Unknown error occurred while downloading [${playlist.title}].");
     });
 
-    List<Video> videos = [];
-    await for (var video in youtube.playlists.getVideos(playlist.id)) {
+    final List<Video> videos = [];
+    await for (final video in youtube.playlists.getVideos(playlist.id)) {
       videos.add(
         Video(
           id: video.id.toString(),

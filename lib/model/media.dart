@@ -21,8 +21,10 @@ abstract class Media {
     required this.thumbnail,
   });
 
+  /// The Youtube Link of this `Media`
   String get link => throw UnimplementedError();
 
   /// Opens a `Media` externally on `Youtube`
   Future<bool> open() async => await launchUrl(Uri.parse(link));
+  
 }

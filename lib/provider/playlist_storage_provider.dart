@@ -9,23 +9,30 @@ import 'package:ytp_new/model/playlist_storage.dart';
 class PlaylistStorageProvider extends ChangeNotifier {
   List<Playlist> get playlists => PlaylistStorage.playlists;
 
-  void add(Playlist pl) {
-    PlaylistStorage.add(pl);
+  /// Adds a `Playlist` to the Storage & notifies
+  void add(final Playlist playlist) {
+    PlaylistStorage.add(playlist);
     notifyListeners();
-    LocalStorage.savePlaylists();
+    Persistence.savePlaylists();
   }
 
-  bool remove(Playlist pl) {
-    final bool result = PlaylistStorage.remove(pl);
+  /// Removes a `Playlist` from the Storage & notifies
+  bool remove(final Playlist playlist) {
+    final bool result = PlaylistStorage.remove(playlist);
     notifyListeners();
     return result;
   }
 
-  void update(void Function() fn) {
+  /// Notifies after calling a callback
+  ///
+  /// Used to update `Playlists` with
+  void update(final void Function() fn) {
     fn();
     notifyListeners();
   }
 
+  /// Returns a `Playlist` from the Storage with the given id
+  /// if it exists
   Playlist? fromId(final String id) =>
       playlists.where((final playlist) => playlist.id == id).firstOrNull;
 

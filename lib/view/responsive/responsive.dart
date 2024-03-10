@@ -5,6 +5,7 @@ import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
 import 'package:ytp_new/view/responsive/split_view.dart';
 
+/// Handles splitting the app on big screens
 class Responsive extends StatelessWidget {
   const Responsive({super.key});
 

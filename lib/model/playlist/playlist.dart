@@ -38,10 +38,11 @@ class Playlist extends Media with PlaylistChanges, PlaylistHistory {
     return listEquals(other.videos, videos);
   }
 
-  /// Gets the changes from a Playlist with the same id, but different [videos]
+  /// Gets the changes from a `Playlist` with the same id,
+  /// but different [videos]
   ///
   /// Changes will be put into
-  /// [this.additions], [this.removals] & [this.pendingHistory]
+  /// [additions], [removals] & [pendingHistory]
   void changesFrom(final Playlist other) {
     if (this != other) return;
 

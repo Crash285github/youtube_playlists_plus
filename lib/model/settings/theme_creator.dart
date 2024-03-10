@@ -2,13 +2,19 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 
+/// Generates the theme for the application
 class ThemeCreator {
+  static late ColorScheme _scheme;
+
   static bool get _isLight => Settings.theme == ThemeSetting.light;
   static bool get _isAmoled => Settings.theme == ThemeSetting.amoled;
 
   static Brightness get _brightness =>
       _isLight ? Brightness.light : Brightness.dark;
 
+  /// The generated theme
+  ///
+  /// Will throw an error if [create()] has never been called before.
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
         colorScheme: _scheme,
@@ -23,7 +29,8 @@ class ThemeCreator {
                 : null,
         cardTheme: CardTheme(
           shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            borderRadius: BorderRadius.all(Radius.circular(10.0)),
+          ),
           clipBehavior: Clip.antiAlias,
           margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
           color: _isAmoled ? Colors.black : _scheme.surface,
@@ -38,8 +45,8 @@ class ThemeCreator {
                 : null,
       );
 
-  static late ColorScheme _scheme;
-  static Future create() async {
+  /// Creates the colorScheme for the theme
+  static Future createColorScheme() async {
     ColorScheme? colorScheme;
 
     //? Dynamic
