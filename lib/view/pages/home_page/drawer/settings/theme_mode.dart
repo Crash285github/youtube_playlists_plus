@@ -47,7 +47,7 @@ class SettingsThemeMode extends StatelessWidget {
           ),
           Switch(
             value: !isLight,
-            onChanged: (value) => _toggleLightDark(),
+            onChanged: (_) => _toggleLightDark(),
           )
         ],
       ),

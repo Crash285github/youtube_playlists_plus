@@ -36,6 +36,9 @@ class Settings {
   /// The current split mode of the app
   static SplitSetting splitMode = SplitSetting.disabled;
 
+  /// Should we hide '- Topic' from channel names
+  static bool hideTopic = false;
+
   /// Can the app's playlists be reordered currently
   static bool canReorder = false;
 }

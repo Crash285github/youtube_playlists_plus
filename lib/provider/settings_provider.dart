@@ -29,6 +29,12 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  bool get hideTopic => Settings.hideTopic;
+  set hideTopic(final bool hideTopic) {
+    Settings.hideTopic = hideTopic;
+    notifyListeners();
+  }
+
   bool get canReorder => Settings.canReorder;
   set canReorder(final bool canReorder) {
     Settings.canReorder = canReorder;

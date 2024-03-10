@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/hide_topic_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/scheme_mode.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/split_mode.dart';
@@ -29,6 +30,7 @@ class HomePageDrawer extends StatelessWidget {
                 children: const [
                   SettingsThemeMode(),
                   SettingsSchemeMode(),
+                  SettingsHideTopicToggle(),
                   SettingsSplitMode(),
                   SettingsReorderToggle(),
                 ],

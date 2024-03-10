@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video_change.dart';
+import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -30,8 +33,12 @@ class ChangeItem extends StatelessWidget {
         topRight: const Radius.circular(4.0),
       );
 
+  String get author =>
+      SettingsProvider().hideTopic ? change.author.hideTopic() : change.author;
+
   @override
   Widget build(BuildContext context) {
+    Provider.of<SettingsProvider>(context);
     return Opacity(
       opacity: onTap == null ? 0.5 : 1,
       child: MediaItemTemplate(
@@ -64,7 +71,7 @@ class ChangeItem extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              change.author,
+                              author,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!

@@ -16,9 +16,12 @@ class SettingTemplate extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.0),
+      padding: const EdgeInsets.only(right: 8.0, top: 2.0, bottom: 2.0),
       child: InkWell(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: const BorderRadius.only(
+          topRight: Radius.circular(16.0),
+          bottomRight: Radius.circular(16.0),
+        ),
         overlayColor: MaterialStatePropertyAll(
           Theme.of(context).colorScheme.primary.withOpacity(.3),
         ),
@@ -30,7 +33,9 @@ class SettingTemplate extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: DefaultTextStyle(
-                style: Theme.of(context).textTheme.bodyLarge!, child: child),
+              style: Theme.of(context).textTheme.bodyLarge!,
+              child: child,
+            ),
           ),
         ),
       ),
