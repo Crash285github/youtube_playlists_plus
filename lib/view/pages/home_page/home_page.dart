@@ -69,6 +69,8 @@ class _PlaylistsState extends State<_Playlists> {
         key: ValueKey(widget.playlists[index]),
         child: PlaylistItem(
           playlist: widget.playlists[index],
+          isFirst: index == 0,
+          isLast: index == widget.playlists.length - 1,
         ),
       ),
       onReorder: (oldIndex, newIndex) {
