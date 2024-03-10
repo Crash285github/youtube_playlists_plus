@@ -6,7 +6,7 @@ import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/change_item.dart';
 
-class PlaylistPageTabChanges extends StatelessWidget {
+class PlaylistPageTabChanges extends StatefulWidget {
   final String playlistId;
   final List<VideoChange> changes;
   const PlaylistPageTabChanges({
@@ -15,7 +15,13 @@ class PlaylistPageTabChanges extends StatelessWidget {
     required this.changes,
   });
 
-  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
+  @override
+  State<PlaylistPageTabChanges> createState() => _PlaylistPageTabChangesState();
+}
+
+class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
+    with AutomaticKeepAliveClientMixin {
+  Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 
   Function()? _onTap(VideoChange change) {
     if (change.isAddition && playlist.videos.contains(change)) {
@@ -28,11 +34,11 @@ class PlaylistPageTabChanges extends StatelessWidget {
 
     return () => PlaylistStorageProvider().update(() {
           if (change.type == VideoChangeType.addition) {
-            PlaylistStorageProvider().fromId(playlistId)!.videos.add(
+            PlaylistStorageProvider().fromId(widget.playlistId)!.videos.add(
                   change,
                 );
           } else {
-            PlaylistStorageProvider().fromId(playlistId)!.videos.remove(
+            PlaylistStorageProvider().fromId(widget.playlistId)!.videos.remove(
                   change,
                 );
           }
@@ -40,16 +46,22 @@ class PlaylistPageTabChanges extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => changes.isEmpty
-      ? const Center(child: Text("No changes."))
-      : FadingListView(
-          gradientHeight: 50,
-          bottom: false,
-          padding: const EdgeInsets.only(bottom: 80),
-          itemBuilder: (context, index) => ChangeItem(
-            change: changes[index],
-            onTap: _onTap(changes[index]),
-          ),
-          itemCount: changes.length,
-        );
+  Widget build(BuildContext context) {
+    super.build(context);
+    return widget.changes.isEmpty
+        ? const Center(child: Text("No changes."))
+        : FadingListView(
+            gradientHeight: 50,
+            bottom: false,
+            padding: const EdgeInsets.only(bottom: 80),
+            itemBuilder: (context, index) => ChangeItem(
+              change: widget.changes[index],
+              onTap: _onTap(widget.changes[index]),
+            ),
+            itemCount: widget.changes.length,
+          );
+  }
+
+  @override
+  bool get wantKeepAlive => mounted;
 }

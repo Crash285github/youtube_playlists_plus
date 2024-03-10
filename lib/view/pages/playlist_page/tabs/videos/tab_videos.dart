@@ -3,7 +3,7 @@ import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/view/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
 
-class PlaylistPageTabVideos extends StatelessWidget {
+class PlaylistPageTabVideos extends StatefulWidget {
   final String playlistId;
   final List<Video> videos;
   const PlaylistPageTabVideos({
@@ -13,15 +13,25 @@ class PlaylistPageTabVideos extends StatelessWidget {
   });
 
   @override
+  State<PlaylistPageTabVideos> createState() => _PlaylistPageTabVideosState();
+}
+
+class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
+    with AutomaticKeepAliveClientMixin {
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FadingListView(
       gradientHeight: 50,
       bottom: false,
-      itemCount: videos.length,
+      itemCount: widget.videos.length,
       padding: const EdgeInsets.only(bottom: 80),
       itemBuilder: (context, index) => VideoItem(
-        video: videos[index],
+        video: widget.videos[index],
       ),
     );
   }
+
+  @override
+  bool get wantKeepAlive => mounted;
 }
