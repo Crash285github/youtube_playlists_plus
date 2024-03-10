@@ -15,6 +15,7 @@ Future main() async {
   await LocalStorage.init();
   LocalStorage.loadSettings();
   LocalStorage.loadPlaylists();
+
   await ThemeCreator.create();
 
   runApp(
@@ -45,10 +46,16 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: ThemeCreator.theme,
       navigatorKey: AppConfig.mainNavigatorKey,
-      scrollBehavior:
-          const MaterialScrollBehavior().copyWith(scrollbars: false),
-      home: const Scaffold(
-        body: Responsive(),
+      home: PopScope(
+        canPop: !SettingsProvider().canReorder,
+        onPopInvoked: (didPop) {
+          if (!didPop) {
+            SettingsProvider().canReorder = false;
+          }
+        },
+        child: const Scaffold(
+          body: Responsive(),
+        ),
       ),
     );
   }

@@ -33,6 +33,10 @@ class SettingsProvider extends ChangeNotifier {
   set canReorder(bool canReorder) {
     Settings.canReorder = canReorder;
     notifyListeners();
+
+    if (!canReorder) {
+      LocalStorage.savePlaylists();
+    }
   }
 
   //_ Singleton

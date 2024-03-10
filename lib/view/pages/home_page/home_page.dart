@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytp_new/model/local_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -42,10 +41,7 @@ class HomePage extends StatelessWidget {
         extendedIconLabelSpacing: canReorder ? 8 : 0,
         extendedPadding: const EdgeInsets.all(16),
         onPressed: canReorder
-            ? () {
-                SettingsProvider().canReorder = false;
-                LocalStorage.savePlaylists();
-              }
+            ? () => SettingsProvider().canReorder = false
             : () => AppNavigator.tryPushLeft(const SearchPage()),
         icon: Icon(canReorder ? Icons.done : Icons.search),
       ),
