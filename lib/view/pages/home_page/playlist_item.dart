@@ -30,62 +30,64 @@ class PlaylistItem extends StatelessWidget {
         topRight: const Radius.circular(4.0),
       );
 
+  String get author => playlist.author.startsWith('by ')
+      ? playlist.author.substring(3)
+      : playlist.author;
+
   @override
-  Widget build(BuildContext context) {
-    return MediaItemTemplate(
-      onTap: (_) {
-        AppNavigator.tryPopRight();
-        AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
-      },
-      borderRadius: borderRadius,
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: Row(
-          children: [
-            Thumbnail(
-              thumbnail: playlist.thumbnail,
-              borderRadius: thumbnailBorderRadius,
-              height: 100,
-              width: 100,
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      playlist.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            playlist.author,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .withOpacity(.5),
+  Widget build(BuildContext context) => MediaItemTemplate(
+        onTap: (_) {
+          AppNavigator.tryPopRight();
+          AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
+        },
+        borderRadius: borderRadius,
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: [
+              Thumbnail(
+                thumbnail: playlist.thumbnail,
+                borderRadius: thumbnailBorderRadius,
+                height: 100,
+                width: 100,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        playlist.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      const SizedBox(height: 15),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              author,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .withOpacity(.5),
+                            ),
                           ),
-                        ),
-                        if (playlist.state != null)
-                          Icon(
-                            playlist.state!.icon,
-                            color: playlist.state!.color,
-                          )
-                      ],
-                    ),
-                  ],
+                          if (playlist.state != null)
+                            Icon(
+                              playlist.state!.icon,
+                              color: playlist.state!.color,
+                            )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }
