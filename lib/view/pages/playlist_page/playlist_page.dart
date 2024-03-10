@@ -33,6 +33,7 @@ class PlaylistPage extends StatelessWidget {
 
     return DefaultTabController(
       length: 3,
+      initialIndex: 1,
       child: Scaffold(
           appBar: AppBar(
             title: Text(playlist!.title),
@@ -78,6 +79,7 @@ class PlaylistPage extends StatelessWidget {
             backgroundColor: Colors.transparent,
             bottom: const TabBar(
               tabAlignment: TabAlignment.center,
+              splashBorderRadius: BorderRadius.all(Radius.circular(12.0)),
               dividerHeight: 0,
               isScrollable: true,
               tabs: [
