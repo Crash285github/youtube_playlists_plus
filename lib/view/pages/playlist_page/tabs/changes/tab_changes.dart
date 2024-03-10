@@ -57,6 +57,8 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
             itemBuilder: (context, index) => ChangeItem(
               change: widget.changes[index],
               onTap: _onTap(widget.changes[index]),
+              isFirst: index == 0,
+              isLast: index == widget.changes.length - 1,
             ),
             itemCount: widget.changes.length,
           );

@@ -12,18 +12,29 @@ class HistoryItem extends StatelessWidget {
   final String playlistId;
   final VideoHistory history;
   final void Function()? onTap;
+  final bool isFirst, isLast;
   const HistoryItem({
     super.key,
     required this.history,
     this.onTap,
     required this.playlistId,
+    this.isFirst = false,
+    this.isLast = false,
   });
 
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
   void Function(void Function()) get update => PlaylistStorageProvider().update;
 
+  BorderRadiusGeometry get borderRadius => BorderRadius.only(
+        bottomLeft: Radius.circular(isLast ? 16.0 : 4.0),
+        bottomRight: Radius.circular(isLast ? 16.0 : 4.0),
+        topLeft: Radius.circular(isFirst ? 16.0 : 4.0),
+        topRight: Radius.circular(isFirst ? 16.0 : 4.0),
+      );
+
   @override
   Widget build(BuildContext context) => MediaItemTemplate(
+        borderRadius: borderRadius,
         onSecondary: (details) => ContextMenuService.show(
           context: context,
           offset: details,

@@ -4,19 +4,23 @@ import 'package:flutter/material.dart';
 class Thumbnail extends StatelessWidget {
   final String thumbnail;
   final double height, width;
+  final BorderRadiusGeometry? borderRadius;
 
   const Thumbnail({
     super.key,
     required this.thumbnail,
     required this.height,
     required this.width,
+    this.borderRadius,
   });
 
   @override
   Widget build(BuildContext context) => Container(
         height: height,
         width: height,
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
+        decoration: BoxDecoration(
+          borderRadius: borderRadius ?? BorderRadius.circular(12),
+        ),
         clipBehavior: Clip.antiAlias,
         child: CachedNetworkImage(
           imageUrl: thumbnail,

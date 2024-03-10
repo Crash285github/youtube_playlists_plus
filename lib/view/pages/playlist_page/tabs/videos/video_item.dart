@@ -7,44 +7,67 @@ import 'package:ytp_new/view/widget/thumbnail.dart';
 class VideoItem extends StatelessWidget {
   final Video video;
   final void Function()? onTap;
-  const VideoItem({super.key, required this.video, this.onTap});
+  final bool isFirst, isLast;
+  const VideoItem({
+    super.key,
+    required this.video,
+    this.onTap,
+    this.isFirst = false,
+    this.isLast = false,
+  });
+
+  BorderRadiusGeometry get borderRadius => BorderRadius.only(
+        bottomLeft: Radius.circular(isLast ? 16.0 : 4.0),
+        bottomRight: Radius.circular(isLast ? 16.0 : 4.0),
+        topLeft: Radius.circular(isFirst ? 16.0 : 4.0),
+        topRight: Radius.circular(isFirst ? 16.0 : 4.0),
+      );
+
+  BorderRadius get thumbnailBorderRadius => BorderRadius.only(
+        bottomLeft: Radius.circular(isLast ? 14.0 : 4.0),
+        bottomRight: const Radius.circular(4.0),
+        topLeft: Radius.circular(isFirst ? 14.0 : 4.0),
+        topRight: const Radius.circular(4.0),
+      );
 
   @override
-  Widget build(BuildContext context) {
-    return MediaItemTemplate(
-      onTap: onTap == null ? null : (_) => onTap!(),
-      child: Padding(
-        padding: const EdgeInsets.all(3.0),
-        child: Row(
-          children: [
-            Thumbnail(
-              thumbnail: video.thumbnail,
-              height: 80,
-              width: 80,
-            ),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    video.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    video.author,
-                    style:
-                        Theme.of(context).textTheme.titleSmall!.withOpacity(.5),
-                  ),
-                ],
+  Widget build(BuildContext context) => MediaItemTemplate(
+        onTap: onTap == null ? null : (_) => onTap!(),
+        borderRadius: borderRadius,
+        child: Padding(
+          padding: const EdgeInsets.all(3.0),
+          child: Row(
+            children: [
+              Thumbnail(
+                thumbnail: video.thumbnail,
+                borderRadius: thumbnailBorderRadius,
+                height: 80,
+                width: 80,
               ),
-            )),
-          ],
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      video.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      video.author,
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .withOpacity(.5),
+                    ),
+                  ],
+                ),
+              )),
+            ],
+          ),
         ),
-      ),
-    );
-  }
+      );
 }

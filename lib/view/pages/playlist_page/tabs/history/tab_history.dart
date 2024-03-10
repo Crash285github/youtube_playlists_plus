@@ -31,6 +31,8 @@ class _PlaylistPageTabHistoryState extends State<PlaylistPageTabHistory>
             itemBuilder: (context, index) => HistoryItem(
               playlistId: widget.playlistId,
               history: widget.history[index],
+              isFirst: index == 0,
+              isLast: index == widget.history.length - 1,
             ),
             itemCount: widget.history.length,
           );

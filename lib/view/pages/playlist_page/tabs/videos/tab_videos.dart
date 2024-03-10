@@ -28,6 +28,8 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
       padding: const EdgeInsets.only(bottom: 80),
       itemBuilder: (context, index) => VideoItem(
         video: widget.videos[index],
+        isFirst: index == 0,
+        isLast: index == widget.videos.length - 1,
       ),
     );
   }
