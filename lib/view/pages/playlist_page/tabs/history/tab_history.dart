@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/view/fading_listview.dart';
+import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_item.dart';
 
 class PlaylistPageTabHistory extends StatefulWidget {

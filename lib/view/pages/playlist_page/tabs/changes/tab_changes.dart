@@ -3,7 +3,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/view/fading_listview.dart';
+import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/change_item.dart';
 
 class PlaylistPageTabChanges extends StatefulWidget {

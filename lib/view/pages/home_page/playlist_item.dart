@@ -3,7 +3,7 @@ import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
-import 'package:ytp_new/view/thumbnail.dart';
+import 'package:ytp_new/view/widget/thumbnail.dart';
 
 class PlaylistItem extends StatelessWidget {
   final Playlist playlist;

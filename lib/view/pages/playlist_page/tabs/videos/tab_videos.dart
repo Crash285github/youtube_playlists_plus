@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/video/video.dart';
-import 'package:ytp_new/view/fading_listview.dart';
+import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
 
 class PlaylistPageTabVideos extends StatefulWidget {
