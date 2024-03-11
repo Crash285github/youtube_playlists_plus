@@ -9,7 +9,6 @@ import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
-import 'package:ytp_new/view/widget/media_item_template.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;
@@ -30,9 +29,9 @@ class HistoryItem extends StatelessWidget {
 
   BorderRadiusGeometry get borderRadius => BorderRadius.only(
         bottomLeft: Radius.circular(isLast ? 16.0 : 4.0),
-        bottomRight: Radius.circular(isLast ? 16.0 : 4.0),
+        bottomRight: Radius.zero,
         topLeft: Radius.circular(isFirst ? 16.0 : 4.0),
-        topRight: Radius.circular(isFirst ? 16.0 : 4.0),
+        topRight: Radius.zero,
       );
 
   String get author => SettingsProvider().hideTopic
@@ -42,65 +41,73 @@ class HistoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Provider.of<SettingsProvider>(context);
-    return MediaItemTemplate(
-      borderRadius: borderRadius,
-      onSecondary: (details) => ContextMenuService.show(
-        context: context,
-        offset: details,
-        items: [
-          PopupMenuItem(
-            onTap: () => history.open(),
-            child: const Text("Open"),
-          ),
-          PopupMenuItem(
-            onTap: () => history.title.copyToClipboard(),
-            child: const Text("Copy title"),
-          ),
-          PopupMenuItem(
-            onTap: () => history.id.copyToClipboard(),
-            child: const Text("Copy id"),
-          ),
-          PopupMenuItem(
-            onTap: () => history.link.copyToClipboard(),
-            child: const Text("Copy link"),
-          ),
-          PopupMenuItem(
-            onTap: () => update(() => playlist.removeHistory(history)),
-            child: const Text("Remove"),
-          ),
-        ],
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: borderRadius),
+      margin: const EdgeInsets.only(
+        right: 0.0,
+        left: 8.0,
+        top: 2.0,
+        bottom: 2.0,
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      history.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Text(
-                      "$author • ${history.created.timeago()}",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall!
-                          .withOpacity(.5),
-                    ),
-                  ],
+      child: InkWell(
+        onTapUp: (details) => ContextMenuService.show(
+          context: context,
+          offset: details.globalPosition,
+          items: [
+            PopupMenuItem(
+              onTap: () => history.open(),
+              child: const Text("Open"),
+            ),
+            PopupMenuItem(
+              onTap: () => history.title.copyToClipboard(),
+              child: const Text("Copy title"),
+            ),
+            PopupMenuItem(
+              onTap: () => history.id.copyToClipboard(),
+              child: const Text("Copy id"),
+            ),
+            PopupMenuItem(
+              onTap: () => history.link.copyToClipboard(),
+              child: const Text("Copy link"),
+            ),
+            PopupMenuItem(
+              onTap: () => update(() => playlist.removeHistory(history)),
+              child: const Text("Remove"),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        history.title,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      Text(
+                        "$author • ${history.created.timeago()}",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .withOpacity(.5),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            Icon(
-              history.type.icon,
-              color: history.type.color,
-            )
-          ],
+              Icon(
+                history.type.icon,
+                color: history.type.color,
+              )
+            ],
+          ),
         ),
       ),
     );
