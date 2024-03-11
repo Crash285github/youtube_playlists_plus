@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 class AdaptiveSecondaryInkWell extends StatelessWidget {
   final void Function(Offset offset)? onSecondary;
   final void Function(Offset offset)? onTap;
+  final BorderRadius? borderRadius;
+  final MaterialStateProperty<Color?>? overlayColor;
   final Widget? child;
 
   const AdaptiveSecondaryInkWell({
@@ -12,6 +14,8 @@ class AdaptiveSecondaryInkWell extends StatelessWidget {
     this.onTap,
     this.onSecondary,
     this.child,
+    this.borderRadius,
+    this.overlayColor,
   });
 
   @override
@@ -32,6 +36,8 @@ class AdaptiveSecondaryInkWell extends StatelessWidget {
             : null,
         child: InkWell(
           onTap: () {},
+          borderRadius: borderRadius,
+          overlayColor: overlayColor,
           onTapUp: onTap == null
               ? null
               : (details) => onTap!(details.globalPosition),
