@@ -56,7 +56,7 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
             padding: const EdgeInsets.only(bottom: 80),
             itemBuilder: (context, index) => ChangeItem(
               change: widget.changes[index],
-              onTap: _onTap(widget.changes[index]),
+              playlistId: playlist.id,
               isFirst: index == 0,
               isLast: index == widget.changes.length - 1,
             ),

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/datetime_timeago.dart';
+import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
-import 'package:ytp_new/extensions/string_to_clipboard.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
@@ -54,22 +54,10 @@ class HistoryItem extends StatelessWidget {
           context: context,
           offset: details.globalPosition,
           items: [
-            PopupMenuItem(
-              onTap: () => history.open(),
-              child: const Text("Open"),
-            ),
-            PopupMenuItem(
-              onTap: () => history.title.copyToClipboard(),
-              child: const Text("Copy title"),
-            ),
-            PopupMenuItem(
-              onTap: () => history.id.copyToClipboard(),
-              child: const Text("Copy id"),
-            ),
-            PopupMenuItem(
-              onTap: () => history.link.copyToClipboard(),
-              child: const Text("Copy link"),
-            ),
+            history.contextOpen,
+            history.contextCopyTitle,
+            history.contextCopyLink,
+            history.contextCopyId,
             PopupMenuItem(
               onTap: () => update(() => playlist.removeHistory(history)),
               child: const Text("Remove"),

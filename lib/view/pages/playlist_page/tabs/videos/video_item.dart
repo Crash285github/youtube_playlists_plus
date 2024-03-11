@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/context_menu_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
 class VideoItem extends StatelessWidget {
   final Video video;
-  final void Function()? onTap;
   final bool isFirst, isLast;
   const VideoItem({
     super.key,
     required this.video,
-    this.onTap,
     this.isFirst = false,
     this.isLast = false,
   });
@@ -40,7 +40,16 @@ class VideoItem extends StatelessWidget {
   Widget build(BuildContext context) {
     Provider.of<SettingsProvider>(context);
     return MediaItemTemplate(
-      onTap: onTap == null ? null : (_) => onTap!(),
+      onTap: (offset) => ContextMenuService.show(
+        context: context,
+        offset: offset,
+        items: [
+          video.contextOpen,
+          video.contextCopyTitle,
+          video.contextCopyId,
+          video.contextCopyLink,
+        ],
+      ),
       borderRadius: borderRadius,
       child: Padding(
         padding: const EdgeInsets.all(3.0),

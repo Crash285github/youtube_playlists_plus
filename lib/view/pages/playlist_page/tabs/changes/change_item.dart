@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video_change.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/context_menu_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
 class ChangeItem extends StatelessWidget {
+  final String playlistId;
   final VideoChange change;
-  final void Function()? onTap;
   final bool isFirst, isLast;
   const ChangeItem({
     super.key,
+    required this.playlistId,
     required this.change,
-    this.onTap,
     this.isFirst = false,
     this.isLast = false,
   });
@@ -36,14 +41,44 @@ class ChangeItem extends StatelessWidget {
   String get author =>
       SettingsProvider().hideTopic ? change.author.hideTopic() : change.author;
 
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
+
+  bool get enabled =>
+      (change.isAddition && !playlist.videos.contains(change)) ||
+      (change.isRemoval && playlist.videos.contains(change));
+
+  void _update() => PlaylistStorageProvider().update(
+        () {
+          if (change.type == VideoChangeType.addition) {
+            playlist.videos.add(change);
+          } else {
+            playlist.videos.remove(change);
+          }
+        },
+      );
+
   @override
   Widget build(BuildContext context) {
     Provider.of<SettingsProvider>(context);
     return Opacity(
-      opacity: onTap == null ? 0.5 : 1,
+      opacity: enabled ? 1 : 0.7,
       child: MediaItemTemplate(
         borderRadius: borderRadius,
-        onTap: onTap == null ? null : (_) => onTap!(),
+        onTap: (offset) => ContextMenuService.show(
+          context: context,
+          offset: offset,
+          items: [
+            change.contextOpen,
+            PopupMenuItem(
+              enabled: enabled,
+              onTap: _update,
+              child: Text(change.isAddition ? "Add" : "Remove"),
+            ),
+            change.contextCopyTitle,
+            change.contextCopyId,
+            change.contextCopyLink,
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(3.0),
           child: Row(children: [
@@ -81,8 +116,9 @@ class ChangeItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Icon(
-                      change.type.icon,
+                    IconButton(
+                      onPressed: enabled ? _update : null,
+                      icon: Icon(change.type.icon),
                       color: change.type.color,
                     ),
                   ],

@@ -64,6 +64,7 @@ class _PlannedSheetState extends State<PlannedSheet> {
                 ),
                 child: FadingListView(
                   padding: const EdgeInsets.only(bottom: 20),
+                  bottom: _controller.size >= minSize + .02,
                   itemBuilder: (context, index) {
                     //? Title & handle
                     if (index == 0) {
