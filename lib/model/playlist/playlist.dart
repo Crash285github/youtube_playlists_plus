@@ -110,8 +110,9 @@ class Playlist extends Media
         'author': author,
         'description': description,
         'thumbnail': thumbnail,
-        'videos': videos.map((x) => x.toMap()).toList(),
-        'history': savedHistory.map((x) => x.toMap()).toList()
+        'videos': [...videos.map((x) => x.toMap())],
+        'history': [...savedHistory.map((x) => x.toMap())],
+        'planned': planned,
       };
 
   factory Playlist.fromMap(Map<String, dynamic> map) => Playlist(
@@ -125,11 +126,19 @@ class Playlist extends Media
             (x) => Video.fromMap(x as Map<String, dynamic>),
           ),
         ),
-      )..savedHistory.addAll(List<VideoHistory>.from(
-          (map['history'] as List<dynamic>).map<VideoHistory>(
-            (x) => VideoHistory.fromMap(x as Map<String, dynamic>),
+      )
+        ..savedHistory.addAll(
+          List<VideoHistory>.from(
+            (map['history'] as List<dynamic>).map<VideoHistory>(
+              (x) => VideoHistory.fromMap(x as Map<String, dynamic>),
+            ),
           ),
-        ));
+        )
+        ..planned.addAll(
+          List<String>.from(
+            (map['planned'] as List<dynamic>).map<String>((x) => x as String),
+          ),
+        );
 
   String toJson() => json.encode(toMap());
 
