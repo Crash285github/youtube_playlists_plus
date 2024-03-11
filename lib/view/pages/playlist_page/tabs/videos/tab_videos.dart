@@ -9,7 +9,7 @@ import 'planned_sheet/planned_sheet.dart';
 
 class PlaylistPageTabVideos extends StatefulWidget {
   final String playlistId;
-  final List<Video> videos;
+  final Iterable<Video> videos;
   const PlaylistPageTabVideos({
     super.key,
     required this.videos,
@@ -35,14 +35,14 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
           itemCount: widget.videos.length,
           padding: const EdgeInsets.only(bottom: 60),
           itemBuilder: (context, index) => VideoItem(
-            video: widget.videos[index],
+            video: widget.videos.elementAt(index),
             isFirst: index == 0,
             isLast: index == widget.videos.length - 1,
           ),
         ),
         PlannedSheet(
           playlistId: playlist.id,
-          planned: playlist.planned,
+          planned: playlist.planned.reversed,
         )
       ],
     );

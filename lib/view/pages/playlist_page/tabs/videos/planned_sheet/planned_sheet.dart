@@ -10,7 +10,7 @@ import 'planned_sheet_title.dart';
 
 class PlannedSheet extends StatefulWidget {
   final String playlistId;
-  final List<String> planned;
+  final Iterable<String> planned;
   const PlannedSheet({
     super.key,
     required this.planned,
@@ -86,7 +86,7 @@ class _PlannedSheetState extends State<PlannedSheet> {
                     //? items
                     return PlannedItem(
                       playlistId: widget.playlistId,
-                      text: widget.planned[index - 1],
+                      text: widget.planned.elementAt(index - 1),
                     );
                   },
                   itemCount: widget.planned.length + 1,
