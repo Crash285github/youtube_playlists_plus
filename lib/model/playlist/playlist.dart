@@ -4,13 +4,15 @@ import 'package:flutter/foundation.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist_changes.dart';
 import 'package:ytp_new/model/playlist/playlist_history.dart';
+import 'package:ytp_new/model/playlist/playlist_planned.dart';
 import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 
-class Playlist extends Media with PlaylistChanges, PlaylistHistory {
+class Playlist extends Media
+    with PlaylistChanges, PlaylistHistory, PlaylistPlanned {
   /// The description of this `Playlist`
   final String description;
 

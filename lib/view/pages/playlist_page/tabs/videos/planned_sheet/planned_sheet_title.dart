@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 
 class PlannedSheetTitle extends StatelessWidget {
   final void Function()? onTap;
-  final int plannedLength;
+  final String playlistId;
   const PlannedSheetTitle({
     super.key,
     this.onTap,
-    required this.plannedLength,
+    required this.playlistId,
   });
+
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +36,12 @@ class PlannedSheetTitle extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Planned ($plannedLength)",
-                      style: Theme.of(context).textTheme.titleLarge,
+                      "Planned (${playlist.planned.length})",
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () => PlaylistStorageProvider()
+                          .update(() => playlist.planned.add("ad")),
                       icon: const Icon(Icons.add),
                     )
                   ],

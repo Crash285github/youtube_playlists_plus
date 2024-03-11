@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
@@ -22,6 +24,8 @@ class PlannedSheet extends StatefulWidget {
 class _PlannedSheetState extends State<PlannedSheet> {
   late final DraggableScrollableController _controller;
   double bottomMargin = 8.0;
+
+  Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 
   @override
   void initState() {
@@ -64,12 +68,11 @@ class _PlannedSheetState extends State<PlannedSheet> {
                 ),
                 child: FadingListView(
                   padding: const EdgeInsets.only(bottom: 20),
-                  bottom: _controller.size >= minSize + .02,
                   itemBuilder: (context, index) {
                     //? Title & handle
                     if (index == 0) {
                       return PlannedSheetTitle(
-                        plannedLength: widget.planned.length,
+                        playlistId: playlist.id,
                         onTap: () {
                           _controller.animateTo(
                             _controller.size <= .5 ? maxSize : minSize,

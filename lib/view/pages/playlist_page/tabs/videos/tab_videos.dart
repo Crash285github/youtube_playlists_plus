@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
 
@@ -20,6 +22,8 @@ class PlaylistPageTabVideos extends StatefulWidget {
 
 class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
     with AutomaticKeepAliveClientMixin {
+  Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -37,41 +41,8 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
           ),
         ),
         PlannedSheet(
-          playlistId: widget.playlistId,
-          planned: const [
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-            "a",
-            "b",
-            "c",
-            "d",
-          ],
+          playlistId: playlist.id,
+          planned: playlist.planned,
         )
       ],
     );

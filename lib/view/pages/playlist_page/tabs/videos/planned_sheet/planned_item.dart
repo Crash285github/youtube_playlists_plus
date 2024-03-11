@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/string_to_clipboard.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/context_menu_service.dart';
 
 class PlannedItem extends StatelessWidget {
   final String playlistId;
@@ -8,6 +12,8 @@ class PlannedItem extends StatelessWidget {
     required this.playlistId,
     required this.text,
   });
+
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +29,26 @@ class PlannedItem extends StatelessWidget {
           overlayColor: MaterialStatePropertyAll(
             Theme.of(context).colorScheme.primary.withOpacity(.3),
           ),
-          onTap: () {},
+          onTapUp: (details) => ContextMenuService.show(
+            context: context,
+            offset: details.globalPosition,
+            items: [
+              PopupMenuItem(
+                onTap: () => text.copyToClipboard(),
+                child: const Text("Copy"),
+              ),
+              PopupMenuItem(
+                onTap: () => PlaylistStorageProvider()
+                    .update(() => playlist.planned.remove(text)),
+                child: const Text("Remove"),
+              ),
+            ],
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               text,
-              style: Theme.of(context).textTheme.headlineSmall,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
           ),
         ),
