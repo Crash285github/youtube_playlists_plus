@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/app_navigator.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/appdata_buttons.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/hide_topic_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/scheme_mode.dart';
@@ -27,15 +29,17 @@ class HomePageDrawer extends StatelessWidget {
             const Divider(indent: 8.0, endIndent: 8.0),
             Expanded(
               child: ListView(
-                children: const [
-                  SettingsThemeMode(),
-                  SettingsSchemeMode(),
-                  SettingsHideTopicToggle(),
-                  SettingsSplitMode(),
-                  SettingsReorderToggle(),
+                children: [
+                  const SettingsThemeMode(),
+                  const SettingsSchemeMode(),
+                  const SettingsHideTopicToggle(),
+                  const SettingsSplitMode(),
+                  if (PlaylistStorageProvider().playlists.isNotEmpty)
+                    const SettingsReorderToggle(),
                 ],
               ),
             ),
+            const AppDataButtons(),
             const Divider(indent: 8.0, endIndent: 8.0),
             Padding(
               padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),

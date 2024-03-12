@@ -36,13 +36,19 @@ class ThemeCreator {
           color: _isAmoled ? Colors.black : _scheme.surface,
           elevation: _isAmoled ? 3 : 1,
         ),
-        tooltipTheme:
-            const TooltipThemeData(waitDuration: Duration(seconds: 1)),
+        tooltipTheme: const TooltipThemeData(
+          waitDuration: Duration(seconds: 1),
+        ),
         appBarTheme: _isLight
             ? AppBarTheme(backgroundColor: _scheme.surfaceVariant)
             : _isAmoled
                 ? const AppBarTheme(backgroundColor: Colors.black)
                 : null,
+        iconButtonTheme: const IconButtonThemeData(
+          style: ButtonStyle(
+            padding: MaterialStatePropertyAll(EdgeInsets.all(16.0)),
+          ),
+        ),
       );
 
   /// Creates the colorScheme for the theme

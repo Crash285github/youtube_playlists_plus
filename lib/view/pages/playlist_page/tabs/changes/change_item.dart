@@ -126,6 +126,9 @@ class ChangeItem extends StatelessWidget {
                       onPressed: enabled ? _update : null,
                       icon: Icon(change.type.icon),
                       color: change.type.color,
+                      style: const ButtonStyle(
+                        padding: MaterialStatePropertyAll(EdgeInsets.all(4.0)),
+                      ),
                     ),
                   ],
                 ),
