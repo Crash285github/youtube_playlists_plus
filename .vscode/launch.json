@@ -5,21 +5,35 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ytp_new",
+            "name": "debug",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
+            "program": "lib/main.dart",
+            "args": ["--flavor", "dev"]
         },
         {
-            "name": "ytp_new (profile mode)",
-            "request": "launch",
+            "name": "profile",
             "type": "dart",
-            "flutterMode": "profile"
+            "request": "launch",
+            "program": "lib/main.dart",
+            "flutterMode": "profile",
+            "args": ["--flavor", "dev"]
         },
         {
-            "name": "ytp_new (release mode)",
-            "request": "launch",
+            "name": "release",
             "type": "dart",
-            "flutterMode": "release"
+            "request": "launch",
+            "program": "lib/main.dart",
+            "flutterMode": "release",
+            "args": ["--flavor", "dev"]
+        },
+        {
+            "name": "production",
+            "type": "dart",
+            "request": "launch",
+            "program": "lib/main.dart",
+            "flutterMode": "release",
+            "args": ["--flavor", "prod"]
         }
     ]
 }
