@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/persistence.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
