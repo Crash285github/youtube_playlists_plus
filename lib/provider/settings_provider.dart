@@ -14,7 +14,8 @@ class SettingsProvider extends ChangeNotifier {
   ThemeSetting get theme => Settings.theme;
   set theme(final ThemeSetting setting) {
     Settings.theme = setting;
-    ThemeCreator.createColorScheme().then((value) => notifyListeners());
+    ThemeCreator.createColorScheme().whenComplete(() => notifyListeners());
+
     Persistence.saveSettings();
   }
 
@@ -22,6 +23,7 @@ class SettingsProvider extends ChangeNotifier {
   set splitMode(final SplitSetting setting) {
     Settings.splitMode = setting;
     notifyListeners();
+
     Persistence.saveSettings();
   }
 
@@ -37,6 +39,8 @@ class SettingsProvider extends ChangeNotifier {
   set hideTopic(final bool hideTopic) {
     Settings.hideTopic = hideTopic;
     notifyListeners();
+
+    Persistence.saveSettings();
   }
 
   bool get canReorder => Settings.canReorder;

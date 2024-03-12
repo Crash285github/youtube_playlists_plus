@@ -14,7 +14,8 @@ class Persistence {
   static Future saveSettings() async => _prefs
     ..setInt("appTheme", Settings.theme.index)
     ..setInt('appScheme', Settings.colorScheme.index)
-    ..setInt("split", Settings.splitMode.index);
+    ..setInt("split", Settings.splitMode.index)
+    ..setBool('hideTopic', Settings.hideTopic);
 
   /// Load & apply persisted settings
   ///
@@ -33,6 +34,11 @@ class Persistence {
     final splitIndex = _prefs.getInt("split");
     if (splitIndex != null) {
       Settings.splitMode = SplitSetting.values[splitIndex];
+    }
+
+    final hideTopic = _prefs.getBool('hideTopic');
+    if (hideTopic != null) {
+      Settings.hideTopic = hideTopic;
     }
   }
 
