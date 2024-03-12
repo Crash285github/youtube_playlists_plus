@@ -1,4 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
@@ -12,31 +13,31 @@ class Persistence {
 
   /// Saves `Settings` to `Persistence`
   static Future saveSettings() async => _prefs
-    ..setInt("appTheme", Settings.theme.index)
-    ..setInt('appScheme', Settings.colorScheme.index)
-    ..setInt("split", Settings.splitMode.index)
-    ..setBool('hideTopic', Settings.hideTopic);
+    ..setInt(AppConfig.settingsThemeKey, Settings.theme.index)
+    ..setInt(AppConfig.settingsSchemeKey, Settings.colorScheme.index)
+    ..setInt(AppConfig.settingsSplitKey, Settings.splitMode.index)
+    ..setBool(AppConfig.settingsHideTopicKey, Settings.hideTopic);
 
   /// Load & apply persisted settings
   ///
   /// Does not notify
   static void loadSettings() async {
-    final themeIndex = _prefs.getInt("appTheme");
+    final themeIndex = _prefs.getInt(AppConfig.settingsThemeKey);
     if (themeIndex != null) {
       Settings.theme = ThemeSetting.values[themeIndex];
     }
 
-    final colorIndex = _prefs.getInt('appScheme');
+    final colorIndex = _prefs.getInt(AppConfig.settingsSchemeKey);
     if (colorIndex != null) {
       Settings.colorScheme = ColorSchemeSetting.values[colorIndex];
     }
 
-    final splitIndex = _prefs.getInt("split");
+    final splitIndex = _prefs.getInt(AppConfig.settingsSplitKey);
     if (splitIndex != null) {
       Settings.splitMode = SplitSetting.values[splitIndex];
     }
 
-    final hideTopic = _prefs.getBool('hideTopic');
+    final hideTopic = _prefs.getBool(AppConfig.settingsHideTopicKey);
     if (hideTopic != null) {
       Settings.hideTopic = hideTopic;
     }
@@ -45,7 +46,7 @@ class Persistence {
   /// Saves all `Playlists` to `Persistence`
   static Future savePlaylists() async {
     _prefs.setStringList(
-      "playlists",
+      AppConfig.playlistsKey,
       [
         ...PlaylistStorage.playlists.map((final playlist) {
           playlist.applyPendingHistory();
@@ -59,7 +60,7 @@ class Persistence {
   ///
   /// Does not notify
   static Future loadPlaylists() async {
-    final playlists = _prefs.getStringList("playlists");
+    final playlists = _prefs.getStringList(AppConfig.playlistsKey);
     if (playlists == null) return;
 
     PlaylistStorage.replace(

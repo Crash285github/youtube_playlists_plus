@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/local_storage.dart';
+import 'package:ytp_new/config.dart';
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
@@ -73,17 +74,12 @@ class SettingsProvider extends ChangeNotifier {
 
     AppNavigator.tryPopRight();
 
-    theme = ThemeSetting.values[imported['appTheme']];
-    colorScheme = ColorSchemeSetting.values[imported['appScheme']];
-    splitMode = SplitSetting.values[imported['split']];
+    theme = imported[AppConfig.settingsThemeKey];
+    colorScheme = imported[AppConfig.settingsSchemeKey];
+    splitMode = imported[AppConfig.settingsSplitKey];
+    hideTopic = imported[AppConfig.settingsHideTopicKey];
 
-    final playlists = (imported['playlists'] as List)
-        .map(
-          (e) => Playlist.fromJson(e),
-        )
-        .toList();
-
-    PlaylistStorageProvider().replace(playlists);
+    PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
     managingAppData = false;
   }
 

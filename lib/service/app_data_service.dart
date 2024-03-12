@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:ytp_new/config.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 
@@ -14,10 +16,11 @@ class AppDataService {
         File("$dir/ytp_export${DateTime.now().microsecondsSinceEpoch}.json");
 
     final json = {
-      'appTheme': Settings.theme.index,
-      'appScheme': Settings.colorScheme.index,
-      'split': Settings.splitMode.index,
-      'playlists': PlaylistStorage.playlists,
+      AppConfig.settingsThemeKey: Settings.theme.index,
+      AppConfig.settingsSchemeKey: Settings.colorScheme.index,
+      AppConfig.settingsSplitKey: Settings.splitMode.index,
+      AppConfig.settingsHideTopicKey: Settings.hideTopic,
+      AppConfig.playlistsKey: PlaylistStorage.playlists,
     };
 
     file.writeAsString(jsonEncode(json));
@@ -37,6 +40,23 @@ class AppDataService {
 
     final file = File(picked.files.first.path!);
 
-    return jsonDecode(file.readAsStringSync());
+    final json = jsonDecode(file.readAsStringSync());
+
+    final Map<String, dynamic> parsed = {
+      AppConfig.settingsThemeKey:
+          ThemeSetting.values[json[AppConfig.settingsThemeKey]],
+      AppConfig.settingsSchemeKey:
+          ColorSchemeSetting.values[json[AppConfig.settingsSchemeKey]],
+      AppConfig.settingsSplitKey:
+          SplitSetting.values[json[AppConfig.settingsSplitKey]],
+      AppConfig.settingsHideTopicKey: json[AppConfig.settingsHideTopicKey],
+      AppConfig.playlistsKey: [
+        ...(json['playlists'] as List).map(
+          (final jsonPlylst) => Playlist.fromJson(jsonPlylst),
+        )
+      ]
+    };
+
+    return parsed;
   }
 }

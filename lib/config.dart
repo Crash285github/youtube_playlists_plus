@@ -7,4 +7,10 @@ class AppConfig {
   static final mainNavigatorKey = GlobalKey<NavigatorState>();
 
   static const defaultAnimationDuration = Duration(milliseconds: 300);
+
+  static const settingsThemeKey = "appTheme";
+  static const settingsSchemeKey = "appScheme";
+  static const settingsSplitKey = "split";
+  static const settingsHideTopicKey = "hideTopic";
+  static const playlistsKey = "playlists";
 }
