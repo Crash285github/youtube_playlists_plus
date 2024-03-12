@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 /// Handles Playlist refreshing permissions
 class RefreshingProvider extends ChangeNotifier {
-  final List<String> _refreshing = [];
+  final Set<String> _refreshing = {};
 
-  /// List of `Playlists` currently being refreshed
-  List<String> get refreshingList => List.unmodifiable(_refreshing);
+  /// Set of `Playlists` currently being refreshed
+  Set<String> get refreshingList => Set.unmodifiable(_refreshing);
 
   /// Whether a `Playlist` is currently being refreshed or not
   bool isRefreshingPlaylist(final String playlistId) =>

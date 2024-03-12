@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
 
+import 'package:flutter/foundation.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video.dart';
@@ -10,7 +12,10 @@ class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
   /// Downloads a `Playlist`
-  static Future<Playlist> download(final Playlist playlist) async {
+  static Future<Playlist> download(final Playlist playlist) async =>
+      Isolate.run(() => _download(playlist));
+
+  static Future<Playlist> _download(final Playlist playlist) async {
     final metadata = await youtube.playlists
         .get(playlist.id)
         .timeout(const Duration(seconds: 20))

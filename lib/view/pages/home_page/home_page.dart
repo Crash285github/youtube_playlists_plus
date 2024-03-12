@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/app_navigator.dart';
+import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/drawer.dart';
 import 'package:ytp_new/view/pages/home_page/playlist_list_view.dart';
 import 'package:ytp_new/view/pages/search_page/search_page.dart';
@@ -43,11 +47,38 @@ class _HomePageState extends State<HomePage> {
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          const SliverAppBar(
-            title: Text("Playlists"),
+          SliverAppBar(
+            title: const Text("Playlists"),
             centerTitle: true,
             floating: true,
             snap: true,
+            actions: [
+              IconButton(
+                onPressed: () async {
+                  for (final playlist in PlaylistStorageProvider().playlists) {
+                    RefreshingProvider().add(playlist.id);
+
+                    PlaylistStorageProvider().update(() {
+                      playlist.state = PlaylistState.checking;
+                    });
+                    YoutubeService.download(playlist).then(
+                      (value) {
+                        playlist.changesFrom(value);
+
+                        PlaylistStorageProvider().update(() {
+                          playlist.state = playlist.hasChanges
+                              ? PlaylistState.changed
+                              : PlaylistState.unchanged;
+                        });
+
+                        RefreshingProvider().remove(playlist.id);
+                      },
+                    );
+                  }
+                },
+                icon: const Icon(Icons.refresh),
+              ),
+            ],
           ),
           PlaylistListView(playlists: playlists),
           const SliverToBoxAdapter(child: SizedBox(height: 80))
