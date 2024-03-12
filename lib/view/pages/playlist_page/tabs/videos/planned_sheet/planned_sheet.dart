@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
@@ -82,7 +83,7 @@ class _PlannedSheetState extends State<PlannedSheet> {
                             onTap: () {
                               _controller.animateTo(
                                 _controller.size <= .5 ? maxSize : minSize,
-                                duration: Durations.short4,
+                                duration: AppConfig.defaultAnimationDuration,
                                 curve: Curves.decelerate,
                               );
                             },

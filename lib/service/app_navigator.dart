@@ -22,6 +22,7 @@ class AppNavigator {
           ));
 
   /// Pop a Page on the right side if possible
+  /// Otherwise tries to pop the main
   static void tryPopRight<T extends Object>([T? result]) {
     final nav = Navigator.of(AppConfig.splitRightNavigatorKey.currentContext ??
         AppConfig.mainNavigatorKey.currentContext!);

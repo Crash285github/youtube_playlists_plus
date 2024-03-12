@@ -5,4 +5,6 @@ class AppConfig {
   static final splitLeftNavigatorKey = GlobalKey<NavigatorState>();
   static final splitRightNavigatorKey = GlobalKey<NavigatorState>();
   static final mainNavigatorKey = GlobalKey<NavigatorState>();
+
+  static const defaultAnimationDuration = Duration(milliseconds: 300);
 }

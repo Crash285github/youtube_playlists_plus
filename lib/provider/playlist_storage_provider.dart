@@ -9,6 +9,11 @@ import 'package:ytp_new/model/playlist_storage.dart';
 class PlaylistStorageProvider extends ChangeNotifier {
   List<Playlist> get playlists => PlaylistStorage.playlists;
 
+  void replace(final List<Playlist> playlists) {
+    PlaylistStorage.replace(playlists);
+    notifyListeners();
+  }
+
   /// Adds a `Playlist` to the Storage & notifies
   void add(final Playlist playlist) {
     PlaylistStorage.add(playlist);

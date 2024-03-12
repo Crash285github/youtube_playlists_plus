@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ytp_new/config.dart';
 
 class Thumbnail extends StatelessWidget {
   final String thumbnail;
@@ -25,7 +26,7 @@ class Thumbnail extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: thumbnail,
           fit: BoxFit.cover,
-          fadeInDuration: const Duration(milliseconds: 200),
+          fadeInDuration: AppConfig.defaultAnimationDuration,
           errorWidget: (_, __, ___) => const Center(
             child: Icon(Icons.warning_amber_rounded),
           ),

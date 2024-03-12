@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/local_storage.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/app_data_service.dart';
+import 'package:ytp_new/service/app_navigator.dart';
 
 class SettingsProvider extends ChangeNotifier {
   ThemeData get themeData =>
@@ -44,6 +48,39 @@ class SettingsProvider extends ChangeNotifier {
     if (!canReorder) {
       Persistence.savePlaylists();
     }
+  }
+
+  Future export() async => AppDataService.export();
+
+  bool _managingAppData = false;
+  bool get managingAppData => _managingAppData;
+  set managingAppData(final bool value) {
+    _managingAppData = value;
+    notifyListeners();
+  }
+
+  Future import() async {
+    managingAppData = true;
+    final imported = await AppDataService.import();
+    if (imported == null) {
+      managingAppData = false;
+      return;
+    }
+
+    AppNavigator.tryPopRight();
+
+    theme = ThemeSetting.values[imported['appTheme']];
+    colorScheme = ColorSchemeSetting.values[imported['appScheme']];
+    splitMode = SplitSetting.values[imported['split']];
+
+    final playlists = (imported['playlists'] as List)
+        .map(
+          (e) => Playlist.fromJson(e),
+        )
+        .toList();
+
+    PlaylistStorageProvider().replace(playlists);
+    managingAppData = false;
   }
 
   //_ Singleton

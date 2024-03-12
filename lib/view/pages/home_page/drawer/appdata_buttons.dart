@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ytp_new/config.dart';
+import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/provider/settings_provider.dart';
 
 class AppDataButtons extends StatelessWidget {
   const AppDataButtons({super.key});
@@ -8,7 +12,7 @@ class AppDataButtons extends StatelessWidget {
     return Row(
       children: [
         _Template(
-          onTap: () {},
+          onTap: () => SettingsProvider().export(),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16.0),
             bottomRight: Radius.circular(16.0),
@@ -20,7 +24,7 @@ class AppDataButtons extends StatelessWidget {
         ),
         const SizedBox(width: 32),
         _Template(
-          onTap: () {},
+          onTap: () => SettingsProvider().import(),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16.0),
             bottomLeft: Radius.circular(16.0),
@@ -47,20 +51,31 @@ class _Template extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final enabled = context.select<RefreshingProvider, bool>(
+          (final provider) => provider.refreshingList.isEmpty,
+        ) &&
+        !context.select<SettingsProvider, bool>(
+          (final settings) => settings.managingAppData,
+        );
+
     return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: borderRadius,
-        overlayColor: MaterialStatePropertyAll(
-          Theme.of(context).colorScheme.primary.withOpacity(.3),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: DefaultTextStyle(
-            style: Theme.of(context).textTheme.bodyLarge!,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: children,
+      child: AnimatedOpacity(
+        duration: AppConfig.defaultAnimationDuration,
+        opacity: enabled ? 1 : .5,
+        child: InkWell(
+          onTap: enabled ? onTap : null,
+          borderRadius: borderRadius,
+          overlayColor: MaterialStatePropertyAll(
+            Theme.of(context).colorScheme.primary.withOpacity(.3),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DefaultTextStyle(
+              style: Theme.of(context).textTheme.bodyLarge!,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: children,
+              ),
             ),
           ),
         ),

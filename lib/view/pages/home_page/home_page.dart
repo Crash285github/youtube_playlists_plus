@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
@@ -87,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           ? FloatingActionButton.extended(
               label: AnimatedSize(
                 alignment: Alignment.centerRight,
-                duration: const Duration(milliseconds: 200),
+                duration: AppConfig.defaultAnimationDuration,
                 curve: Curves.decelerate,
                 child:
                     canReorder ? const Text("Finish") : const SizedBox.shrink(),
