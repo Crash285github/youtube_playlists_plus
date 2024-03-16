@@ -37,10 +37,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final playlists =
-        Provider.of<PlaylistStorageProvider>(context).playlists.toList();
+    final playlists = context.watch<PlaylistStorageProvider>().playlists;
 
-    final canReorder = Provider.of<SettingsProvider>(context).canReorder;
+    final canReorder = context.select<SettingsProvider, bool>(
+        (final settings) => settings.canReorder);
 
     return Scaffold(
       drawer: const HomePageDrawer(),
@@ -54,28 +54,31 @@ class _HomePageState extends State<HomePage> {
             snap: true,
             actions: [
               IconButton(
-                onPressed: () async {
-                  for (final playlist in PlaylistStorageProvider().playlists) {
-                    RefreshingProvider().add(playlist.id);
+                onPressed: RefreshingProvider().refreshingList.isEmpty
+                    ? () async {
+                        for (final playlist
+                            in PlaylistStorageProvider().playlists) {
+                          RefreshingProvider().add(playlist.id);
 
-                    PlaylistStorageProvider().update(() {
-                      playlist.state = PlaylistState.checking;
-                    });
-                    YoutubeService.download(playlist).then(
-                      (value) {
-                        playlist.changesFrom(value);
+                          PlaylistStorageProvider().update(
+                              () => playlist.state = PlaylistState.checking);
 
-                        PlaylistStorageProvider().update(() {
-                          playlist.state = playlist.hasChanges
-                              ? PlaylistState.changed
-                              : PlaylistState.unchanged;
-                        });
+                          YoutubeService.download(playlist).then(
+                            (final downloaded) {
+                              playlist.changesFrom(downloaded);
 
-                        RefreshingProvider().remove(playlist.id);
-                      },
-                    );
-                  }
-                },
+                              PlaylistStorageProvider().update(
+                                () => playlist.state = playlist.hasChanges
+                                    ? PlaylistState.changed
+                                    : PlaylistState.unchanged,
+                              );
+
+                              RefreshingProvider().remove(playlist.id);
+                            },
+                          );
+                        }
+                      }
+                    : null,
                 icon: const Icon(Icons.refresh),
               ),
             ],

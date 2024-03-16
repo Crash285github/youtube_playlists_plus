@@ -40,7 +40,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<SettingsProvider>(context);
+    context.watch<SettingsProvider>();
 
     return MaterialApp(
       theme: ThemeCreator.theme,
@@ -52,9 +52,7 @@ class MainApp extends StatelessWidget {
             SettingsProvider().canReorder = false;
           }
         },
-        child: const Scaffold(
-          body: Responsive(),
-        ),
+        child: const Scaffold(body: Responsive()),
       ),
     );
   }
