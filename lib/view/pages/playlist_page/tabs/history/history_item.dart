@@ -25,7 +25,6 @@ class HistoryItem extends StatelessWidget {
   });
 
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
-  void Function(void Function()) get update => PlaylistStorageProvider().update;
 
   BorderRadiusGeometry get borderRadius => BorderRadius.only(
         bottomLeft: Radius.circular(isLast ? 16.0 : 4.0),
@@ -59,7 +58,10 @@ class HistoryItem extends StatelessWidget {
             history.contextCopyLink,
             history.contextCopyId,
             PopupMenuItem(
-              onTap: () => update(() => playlist.removeHistory(history)),
+              onTap: () => PlaylistStorageProvider().update(
+                () => playlist.removeHistory(history),
+                save: true,
+              ),
               child: const Text("Remove"),
             ),
           ],
