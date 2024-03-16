@@ -8,7 +8,7 @@ class SettingsThemeMode extends StatelessWidget {
   const SettingsThemeMode({super.key});
 
   bool get isLight => Settings.theme == ThemeSetting.light;
-  bool get isAmoled => Settings.theme == ThemeSetting.amoled;
+  bool get isAmoled => Settings.theme == ThemeSetting.black;
 
   void _toggleLightDark() {
     if (!isLight) {
@@ -20,7 +20,7 @@ class SettingsThemeMode extends StatelessWidget {
 
   void _toggleAmoled() {
     if (!isAmoled) {
-      SettingsProvider().theme = ThemeSetting.amoled;
+      SettingsProvider().theme = ThemeSetting.black;
     } else {
       SettingsProvider().theme = ThemeSetting.dark;
     }

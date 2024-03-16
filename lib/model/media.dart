@@ -26,5 +26,4 @@ abstract class Media {
 
   /// Opens a `Media` externally on `Youtube`
   Future<bool> open() async => await launchUrl(Uri.parse(link));
-  
 }

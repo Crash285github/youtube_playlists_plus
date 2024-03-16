@@ -21,7 +21,7 @@ class Persistence {
   /// Load & apply persisted settings
   ///
   /// Does not notify
-  static void loadSettings() async {
+  static void loadSettings() {
     final themeIndex = _prefs.getInt(AppConfig.settingsThemeKey);
     if (themeIndex != null) {
       Settings.theme = ThemeSetting.values[themeIndex];
@@ -58,7 +58,7 @@ class Persistence {
   /// Loads playlists from persistence
   ///
   /// Does not notify
-  static Future loadPlaylists() async {
+  static void loadPlaylists() {
     final playlists = _prefs.getStringList(AppConfig.playlistsKey);
     if (playlists == null) return;
 

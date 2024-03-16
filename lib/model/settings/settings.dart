@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// The application's theme brightness settings
-enum ThemeSetting { light, dark, amoled }
+enum ThemeSetting { light, dark, black }
 
 /// The application's split mode settings
 enum SplitSetting { disabled, even, uneven }

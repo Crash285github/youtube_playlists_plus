@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist_changes.dart';
 import 'package:ytp_new/model/playlist/playlist_history.dart';
@@ -31,14 +30,6 @@ class Playlist extends Media
 
   /// This `Playlist's` videos
   final List<Video> videos;
-
-  /// Compares this `Playlist` with another
-  ///
-  /// Not the same as ==, since this checks the [videos] content as well
-  bool compare(final Playlist other) {
-    if (this != other) return false;
-    return listEquals(other.videos, videos);
-  }
 
   /// Gets the changes from a `Playlist` with the same id,
   /// but different [videos]

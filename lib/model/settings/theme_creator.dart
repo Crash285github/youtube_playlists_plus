@@ -7,7 +7,7 @@ class ThemeCreator {
   static late ColorScheme _scheme;
 
   static bool get _isLight => Settings.theme == ThemeSetting.light;
-  static bool get _isAmoled => Settings.theme == ThemeSetting.amoled;
+  static bool get _isAmoled => Settings.theme == ThemeSetting.black;
 
   static Brightness get _brightness =>
       _isLight ? Brightness.light : Brightness.dark;
