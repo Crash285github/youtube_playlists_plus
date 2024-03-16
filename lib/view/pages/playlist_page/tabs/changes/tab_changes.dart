@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
@@ -22,28 +21,6 @@ class PlaylistPageTabChanges extends StatefulWidget {
 class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
-
-  Function()? _onTap(VideoChange change) {
-    if (change.isAddition && playlist.videos.contains(change)) {
-      return null;
-    }
-
-    if (change.isRemoval && !playlist.videos.contains(change)) {
-      return null;
-    }
-
-    return () => PlaylistStorageProvider().update(() {
-          if (change.type == VideoChangeType.addition) {
-            PlaylistStorageProvider().fromId(widget.playlistId)!.videos.add(
-                  change,
-                );
-          } else {
-            PlaylistStorageProvider().fromId(widget.playlistId)!.videos.remove(
-                  change,
-                );
-          }
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
