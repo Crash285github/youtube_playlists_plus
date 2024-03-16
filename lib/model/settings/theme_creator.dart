@@ -44,11 +44,6 @@ class ThemeCreator {
             : _isAmoled
                 ? const AppBarTheme(backgroundColor: Colors.black)
                 : null,
-        iconButtonTheme: const IconButtonThemeData(
-          style: ButtonStyle(
-            padding: MaterialStatePropertyAll(EdgeInsets.all(16.0)),
-          ),
-        ),
       );
 
   /// Creates the colorScheme for the theme

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
@@ -70,9 +68,8 @@ class _PlannedSheetState extends State<PlannedSheet> {
                   )),
                   margin: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0),
                   child: ScrollConfiguration(
-                    behavior: const MaterialScrollBehavior().copyWith(
-                      scrollbars: false,
-                    ),
+                    behavior: const MaterialScrollBehavior()
+                        .copyWith(scrollbars: false),
                     child: FadingListView(
                       padding: const EdgeInsets.only(bottom: 20),
                       itemBuilder: (context, index) {

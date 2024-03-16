@@ -76,8 +76,19 @@ class _SearchPageState extends State<SearchPage> {
                     child: LinearProgressIndicator())
                 : null,
           ),
-          SliverList.list(
-              children: [...results.map((e) => SearchResult(playlist: e))])
+          SliverList.builder(
+            itemCount: results.length,
+            itemBuilder: (context, index) => SearchResult(
+              playlist: results[index],
+              isFirst: index == 0,
+              isLast: index == results.length - 1,
+            ),
+          ),
+          const SliverToBoxAdapter(
+            child: SizedBox(
+              height: 80,
+            ),
+          )
         ],
       ),
     );
