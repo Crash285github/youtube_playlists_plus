@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/media.dart';
+import 'package:ytp_new/service/download_service.dart';
 
 @immutable
 class Video extends Media {
@@ -11,6 +12,8 @@ class Video extends Media {
     required super.author,
     required super.thumbnail,
   });
+
+  Future<bool> download() async => await DownloadService.download(this);
 
   @override
   String get link => "https://www.youtube.com/watch?v=$id";

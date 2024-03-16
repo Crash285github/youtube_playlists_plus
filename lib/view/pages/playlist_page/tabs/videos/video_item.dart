@@ -48,6 +48,10 @@ class VideoItem extends StatelessWidget {
           video.contextCopyTitle,
           video.contextCopyId,
           video.contextCopyLink,
+          PopupMenuItem(
+            onTap: () => video.download(),
+            child: const Text("Download"),
+          )
         ],
       ),
       borderRadius: borderRadius,

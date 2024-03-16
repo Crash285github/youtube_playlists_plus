@@ -7,7 +7,8 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 
-class AppDataService {
+/// Handles exportin & importing
+class CodecService {
   static Future<bool> export() async {
     final String? dir = await FilePicker.platform.getDirectoryPath();
     if (dir == null) return false;

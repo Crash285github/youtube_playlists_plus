@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/service/app_navigator.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';

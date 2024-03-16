@@ -4,8 +4,8 @@ import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/service/app_data_service.dart';
-import 'package:ytp_new/service/app_navigator.dart';
+import 'package:ytp_new/service/codec_service.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
 
 class SettingsProvider extends ChangeNotifier {
   ThemeData get themeData =>
@@ -54,7 +54,7 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
-  Future export() async => AppDataService.export();
+  Future export() async => CodecService.export();
 
   bool _managingAppData = false;
   bool get managingAppData => _managingAppData;
@@ -65,7 +65,7 @@ class SettingsProvider extends ChangeNotifier {
 
   Future import() async {
     managingAppData = true;
-    final imported = await AppDataService.import();
+    final imported = await CodecService.import();
     if (imported == null) {
       managingAppData = false;
       return;

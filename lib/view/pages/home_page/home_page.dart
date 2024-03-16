@@ -5,7 +5,7 @@ import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/app_navigator.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/drawer.dart';
 import 'package:ytp_new/view/pages/home_page/playlist_list_view.dart';
