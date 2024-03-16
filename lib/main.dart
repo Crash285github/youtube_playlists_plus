@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
@@ -11,7 +10,6 @@ import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  //debug (await SharedPreferences.getInstance()).clear();
 
   await Persistence.init();
   Persistence.loadSettings();

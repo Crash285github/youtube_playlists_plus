@@ -85,9 +85,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           const SliverToBoxAdapter(
-            child: SizedBox(
-              height: 80,
-            ),
+            child: SizedBox(height: 80),
           )
         ],
       ),

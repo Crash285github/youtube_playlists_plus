@@ -25,6 +25,7 @@ class PlaylistStorageProvider extends ChangeNotifier {
   bool remove(final Playlist playlist) {
     final bool result = PlaylistStorage.remove(playlist);
     notifyListeners();
+    Persistence.savePlaylists();
     return result;
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -39,6 +40,8 @@ class _SearchResultState extends State<SearchResult> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<PlaylistStorageProvider>();
+    
     return AnimatedOpacity(
       duration: AppConfig.defaultAnimationDuration,
       opacity: downloaded ? .5 : 1,
@@ -69,13 +72,21 @@ class _SearchResultState extends State<SearchResult> {
                 borderRadius: thumbnailBorderRadius,
               ),
               Expanded(
-                child: Text(
-                  widget.playlist.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.titleLarge,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    widget.playlist.title,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ),
+              if (PlaylistStorageProvider().playlists.contains(widget.playlist))
+                const Icon(
+                  Icons.download_done,
+                  color: Colors.green,
+                )
             ],
           ),
         ),

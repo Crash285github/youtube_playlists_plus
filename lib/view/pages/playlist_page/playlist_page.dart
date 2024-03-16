@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -72,7 +71,6 @@ class PlaylistPage extends StatelessWidget {
                   AppNavigator.tryPopRight(context);
 
                   PlaylistStorageProvider().remove(playlist!);
-                  Persistence.savePlaylists();
                 },
                 icon: const Icon(Icons.delete_outline)),
           ],
