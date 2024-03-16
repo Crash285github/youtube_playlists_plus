@@ -48,10 +48,9 @@ class Persistence {
     _prefs.setStringList(
       AppConfig.playlistsKey,
       [
-        ...PlaylistStorage.playlists.map((final playlist) {
-          playlist.applyPendingHistory();
-          return playlist.toJson();
-        })
+        ...PlaylistStorage.playlists.map(
+          (final playlist) => playlist.toJson(),
+        ),
       ],
     );
   }

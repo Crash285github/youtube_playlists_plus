@@ -6,6 +6,7 @@ import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video_change.dart';
+import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/context_menu_service.dart';
@@ -54,7 +55,12 @@ class ChangeItem extends StatelessWidget {
           } else {
             playlist.videos.remove(change);
           }
+
+          playlist.pendingToSaved(
+            VideoHistory.fromVideo(change, change.type),
+          );
         },
+        save: true,
       );
 
   @override

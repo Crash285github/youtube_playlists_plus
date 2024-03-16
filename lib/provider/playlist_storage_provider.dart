@@ -32,9 +32,13 @@ class PlaylistStorageProvider extends ChangeNotifier {
   /// Notifies after calling a callback
   ///
   /// Used to update `Playlists` with
-  void update(final void Function() fn) {
+  void update(final void Function() fn, {bool save = false}) {
     fn();
     notifyListeners();
+
+    if (save) {
+      Persistence.savePlaylists();
+    }
   }
 
   /// Returns a `Playlist` from the Storage with the given id

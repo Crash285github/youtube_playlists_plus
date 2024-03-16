@@ -72,12 +72,14 @@ class Playlist extends Media
       ..clear()
       ..addAll(
         added.map(
-          (e) => VideoHistory.fromVideo(e, VideoChangeType.addition),
+          (final video) =>
+              VideoHistory.fromVideo(video, VideoChangeType.addition),
         ),
       )
       ..addAll(
         removed.map(
-          (e) => VideoHistory.fromVideo(e, VideoChangeType.removal),
+          (final video) =>
+              VideoHistory.fromVideo(video, VideoChangeType.removal),
         ),
       );
 

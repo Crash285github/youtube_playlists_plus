@@ -51,6 +51,7 @@ class PlaylistPage extends StatelessWidget {
 
                           final other =
                               await YoutubeService.download(playlist!);
+
                           PlaylistStorageProvider().update(() {
                             playlist!.changesFrom(other);
                             playlist!.state = playlist!.hasChanges

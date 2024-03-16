@@ -10,12 +10,18 @@ mixin PlaylistHistory {
 
   /// Shows all of history from most recent first
   List<VideoHistory> get history => (savedHistory + pendingHistory)
-    ..sort((final a, final b) => b.created.compareTo(a.created));
+    ..sort((final fst, final snd) => snd.created.compareTo(fst.created));
 
-  /// Clears pending & puts them all to saved
-  void applyPendingHistory() {
-    savedHistory.addAll(pendingHistory);
-    pendingHistory.clear();
+  /// Moves a [VideoHistory] to saved
+  void pendingToSaved(final VideoHistory history) {
+    final toMove = pendingHistory
+        .where((final pending) => history.id == pending.id)
+        .firstOrNull;
+
+    if (toMove != null) {
+      savedHistory.add(toMove);
+      pendingHistory.remove(toMove);
+    }
   }
 
   /// Removes a history
