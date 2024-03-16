@@ -27,12 +27,12 @@ class PlaylistPage extends StatelessWidget {
   Widget build(BuildContext context) {
     if (playlist == null) return const SizedBox.shrink();
 
-    Provider.of<PlaylistStorageProvider>(context);
-    Provider.of<RefreshingProvider>(context);
+    context.watch<PlaylistStorageProvider>();
+    context.watch<RefreshingProvider>();
 
     return DefaultTabController(
       length: 3,
-      initialIndex: 1,
+      initialIndex: playlist!.hasChanges ? 0 : 1,
       child: Scaffold(
         appBar: AppBar(
           title: Text(playlist!.title),
