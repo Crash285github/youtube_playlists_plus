@@ -23,4 +23,17 @@ class PopupService {
         useRootNavigator: true,
         items: items,
       );
+
+  static Future<T?> showPopup<T>({
+    required BuildContext context,
+    required Widget child,
+    required List<Widget> actions,
+  }) async =>
+      showDialog<T>(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: child,
+          actions: actions,
+        ),
+      );
 }

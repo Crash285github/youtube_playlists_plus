@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/enum_title_case.dart';
+import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
 class SettingsSchemeMode extends StatelessWidget {
   const SettingsSchemeMode({super.key});
 
   Future _set(BuildContext context, Offset offset) async {
-    final scheme = await PopupService.contextMenu<ColorSchemeSetting>(
+    final scheme = await offset.showContextMenu<ColorSchemeSetting>(
       context: context,
-      offset: offset,
       items: [
         ...ColorSchemeSetting.values.map((e) => PopupMenuItem(
               value: e,

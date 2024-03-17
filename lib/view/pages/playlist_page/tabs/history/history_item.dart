@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/datetime_timeago.dart';
 import 'package:ytp_new/extensions/media_context.dart';
+import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/popup_service.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;
@@ -49,9 +49,8 @@ class HistoryItem extends StatelessWidget {
         bottom: 2.0,
       ),
       child: InkWell(
-        onTapUp: (details) => PopupService.contextMenu(
+        onTapUp: (details) => details.globalPosition.showContextMenu(
           context: context,
-          offset: details.globalPosition,
           items: [
             history.contextOpen,
             history.contextCopyTitle,

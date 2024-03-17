@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/media_context.dart';
+import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video.dart';
@@ -46,9 +47,8 @@ class VideoItem extends StatelessWidget {
     context.watch<SettingsProvider>();
 
     return MediaItemTemplate(
-      onTap: (offset) => PopupService.contextMenu(
+      onTap: (offset) => offset.showContextMenu(
         context: context,
-        offset: offset,
         items: [
           video.contextOpen,
           video.contextCopyTitle,
@@ -57,6 +57,14 @@ class VideoItem extends StatelessWidget {
           PopupMenuItem(
             onTap: () => video.download(),
             child: const Text("Download"),
+          ),
+          PopupMenuItem(
+            onTap: () => PopupService.showPopup(
+              context: context,
+              child: const Text("data"),
+              actions: [],
+            ),
+            child: const Text("Set Anchor"),
           )
         ],
       ),

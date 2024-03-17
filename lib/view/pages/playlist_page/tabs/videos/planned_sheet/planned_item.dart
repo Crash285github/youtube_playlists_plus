@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_to_clipboard.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/service/popup_service.dart';
 
 class PlannedItem extends StatelessWidget {
   final String playlistId;
@@ -29,9 +29,8 @@ class PlannedItem extends StatelessWidget {
           overlayColor: MaterialStatePropertyAll(
             Theme.of(context).colorScheme.primary.withOpacity(.3),
           ),
-          onTapUp: (details) => PopupService.contextMenu(
+          onTapUp: (details) => details.globalPosition.showContextMenu(
             context: context,
-            offset: details.globalPosition,
             items: [
               PopupMenuItem(
                 onTap: () => text.copyToClipboard(),
