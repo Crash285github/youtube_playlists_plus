@@ -26,6 +26,7 @@ class Thumbnail extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: thumbnail,
           fit: BoxFit.cover,
+          memCacheHeight: height * MediaQuery.devicePixelRatioOf(context) ~/ 1,
           fadeInDuration: AppConfig.defaultAnimationDuration,
           errorWidget: (_, __, ___) => const Center(
             child: Icon(Icons.warning_amber_rounded),
