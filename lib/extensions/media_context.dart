@@ -47,7 +47,7 @@ extension VideoContext on Video {
           AnchorPosition position = AnchorPosition.start;
           int offset = 0;
 
-          await PopupService.showPopup<Anchor>(
+          final anchor = await PopupService.showPopup<Anchor>(
             context: context,
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -81,7 +81,10 @@ extension VideoContext on Video {
                 child: const Text("Unset"),
               ),
               TextButton(
-                onPressed: () => Navigator.pop(context, false),
+                onPressed: () => Navigator.pop(
+                  context,
+                  const Anchor(offset: -1, position: AnchorPosition.start),
+                ),
                 child: const Text("Cancel"),
               ),
               TextButton(
@@ -93,6 +96,8 @@ extension VideoContext on Video {
               ),
             ],
           );
+
+          print("${anchor?.position} ${anchor?.offset}");
         },
         child: const Text("Set Anchor"),
       );
