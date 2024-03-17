@@ -129,14 +129,17 @@ extension VideoContext on Video {
           );
 
           if (anchor != null) {
-            PlaylistStorageProvider().update(() {
-              if (anchor.position == AnchorPosition.start &&
-                  anchor.offset == -1) {
-                this.anchor = null;
-              } else {
-                this.anchor = anchor;
-              }
-            });
+            PlaylistStorageProvider().update(
+              () {
+                if (anchor.position == AnchorPosition.start &&
+                    anchor.offset == -1) {
+                  this.anchor = null;
+                } else {
+                  this.anchor = anchor;
+                }
+              },
+              save: true,
+            );
           }
         },
         child: const Text("Set Anchor"),
