@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/extensions/string_to_clipboard.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
@@ -42,11 +43,101 @@ extension VideoContext on Video {
       );
 
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
-        onTap: () => PopupService.showPopup(
-          context: context,
-          child: const Text("asd"),
-          actions: [],
-        ),
+        onTap: () async {
+          AnchorPosition position = AnchorPosition.start;
+          int offset = 0;
+
+          await PopupService.showPopup<Anchor>(
+            context: context,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    _AnchorChip(
+                      "Start",
+                      () => position = AnchorPosition.start,
+                    ),
+                    _AnchorChip(
+                      "Middle",
+                      () => position = AnchorPosition.middle,
+                    ),
+                    _AnchorChip(
+                      "End",
+                      () => position = AnchorPosition.end,
+                    ),
+                  ],
+                ),
+                _AnchorSlider(
+                  20,
+                  (changed) => offset = changed.toInt(),
+                )
+              ],
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context, null),
+                child: const Text("Unset"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(context, false),
+                child: const Text("Cancel"),
+              ),
+              TextButton(
+                onPressed: () => Navigator.pop(
+                  context,
+                  Anchor(offset: offset, position: position),
+                ),
+                child: const Text("Set"),
+              ),
+            ],
+          );
+        },
         child: const Text("Set Anchor"),
+      );
+}
+
+class _AnchorChip extends StatelessWidget {
+  final String text;
+  final Function()? onTap;
+  const _AnchorChip(this.text, this.onTap);
+
+  @override
+  Widget build(BuildContext context) => Material(
+        borderRadius: BorderRadius.circular(1000),
+        clipBehavior: Clip.antiAlias,
+        child: InkWell(
+          onTap: onTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 12.0,
+              vertical: 4.0,
+            ),
+            child: Text(text),
+          ),
+        ),
+      );
+}
+
+class _AnchorSlider extends StatefulWidget {
+  final int max;
+  final Function(double changed) onChanged;
+  const _AnchorSlider(this.max, this.onChanged);
+
+  @override
+  State<_AnchorSlider> createState() => __AnchorSliderState();
+}
+
+class __AnchorSliderState extends State<_AnchorSlider> {
+  double value = 0;
+  @override
+  Widget build(BuildContext context) => Slider(
+        value: value,
+        max: widget.max.toDouble(),
+        onChanged: (double changed) {
+          widget.onChanged(changed);
+          setState(() => value = changed);
+        },
       );
 }
