@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:ytp_new/model/media.dart';
+import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/anchor.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/download_service.dart';
 
 class Video extends Media {
+  final String playlistId;
   Anchor? anchor;
 
   Video({
@@ -12,8 +15,15 @@ class Video extends Media {
     required super.title,
     required super.author,
     required super.thumbnail,
+    required this.playlistId,
     this.anchor,
   });
+
+  /// The [Playlist] this [Video] belongs to
+  Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
+
+  /// The position of this [Video] in it's [Playlist]
+  int get position => playlist.videos.indexOf(this) + 1;
 
   @override
   String get link => "https://www.youtube.com/watch?v=$id";
@@ -30,6 +40,7 @@ class Video extends Media {
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
+        'playlistId': playlistId,
         'title': title,
         'author': author,
         'thumbnail': thumbnail,
@@ -38,6 +49,7 @@ class Video extends Media {
 
   factory Video.fromMap(final Map<String, dynamic> map) => Video(
         id: map['id'] as String,
+        playlistId: map['playlistId'],
         title: map['title'] as String,
         author: map['author'] as String,
         thumbnail: map['thumbnail'] as String,

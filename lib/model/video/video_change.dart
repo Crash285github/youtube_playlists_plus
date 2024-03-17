@@ -7,6 +7,7 @@ class VideoChange extends Video {
 
   VideoChange({
     required super.id,
+    required super.playlistId,
     required super.title,
     required super.author,
     required super.thumbnail,
@@ -26,6 +27,7 @@ class VideoChange extends Video {
   ) =>
       VideoChange(
         id: video.id,
+        playlistId: video.playlistId,
         title: video.title,
         author: video.author,
         thumbnail: video.thumbnail,

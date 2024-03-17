@@ -10,6 +10,7 @@ class VideoHistory extends VideoChange {
     required this.created,
     required super.type,
     required super.id,
+    required super.playlistId,
     required super.title,
     required super.author,
   }) : super(thumbnail: "");
@@ -21,6 +22,7 @@ class VideoHistory extends VideoChange {
   ) =>
       VideoHistory(
         id: video.id,
+        playlistId: video.playlistId,
         title: video.title,
         author: video.author,
         type: type,
@@ -37,6 +39,7 @@ class VideoHistory extends VideoChange {
   @override
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
+        'playlistId': playlistId,
         'title': title,
         'author': author,
         'type': type.index,
@@ -45,6 +48,7 @@ class VideoHistory extends VideoChange {
 
   factory VideoHistory.fromMap(final Map<String, dynamic> map) => VideoHistory(
         id: map['id'] as String,
+        playlistId: map['playlistId'],
         title: map['title'] as String,
         author: map['author'] as String,
         type: VideoChangeType.values[map['type'] as int],

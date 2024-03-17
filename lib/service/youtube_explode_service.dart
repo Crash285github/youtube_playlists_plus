@@ -37,6 +37,7 @@ class YoutubeService {
       videos.add(
         Video(
           id: video.id.toString(),
+          playlistId: playlist.id,
           title: video.title,
           author: video.author,
           thumbnail: video.thumbnails.mediumResUrl,
