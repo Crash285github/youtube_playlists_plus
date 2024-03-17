@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/service/popup_service.dart';
 
 extension AnchorDialog on PopupService {
+  //Todo: bounds of offset
+  //todo: auto-calculate current position of video
+
   static Future<Anchor?> show(
       {required BuildContext context, required Video video}) async {
     AnchorPosition position = video.anchor?.position ?? AnchorPosition.start;
     int offset = video.anchor?.offset ?? 0;
+
+    final offsetController = TextEditingController(text: "${video.position}");
 
     final anchor = await PopupService.dialog<Anchor>(
       context: context,
@@ -57,11 +63,13 @@ extension AnchorDialog on PopupService {
                 ),
               ),
             ),
-            _AnchorSlider(
-              -20,
-              offset,
-              20,
-              (changed) => offset = changed.toInt(),
+            TextField(
+              decoration: const InputDecoration(labelText: "Offset"),
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
+              ],
+              controller: offsetController,
             )
           ],
         ),
@@ -84,55 +92,24 @@ extension AnchorDialog on PopupService {
           child: const Text("Cancel"),
         ),
         TextButton(
-          onPressed: () => Navigator.pop(
-            context,
-            Anchor(
-              playlistId: video.playlistId,
-              videoId: video.id,
-              offset: offset,
-              position: position,
-            ),
-          ),
+          onPressed: () {
+            offset = int.tryParse(offsetController.value.text) ?? 0;
+            Navigator.pop(
+              context,
+              Anchor(
+                playlistId: video.playlistId,
+                videoId: video.id,
+                offset: offset,
+                position: position,
+              ),
+            );
+          },
           child: const Text("Set"),
         ),
       ],
     );
+
+    offsetController.dispose();
     return anchor;
   }
-}
-
-class _AnchorSlider extends StatefulWidget {
-  final int min;
-  final int max;
-  final int initialValue;
-  final Function(double changed) onChanged;
-  const _AnchorSlider(
-    this.min,
-    this.initialValue,
-    this.max,
-    this.onChanged,
-  );
-
-  @override
-  State<_AnchorSlider> createState() => __AnchorSliderState();
-}
-
-class __AnchorSliderState extends State<_AnchorSlider> {
-  late double value = widget.initialValue.toDouble();
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Slider(
-            value: value,
-            min: widget.min.toDouble(),
-            max: widget.max.toDouble(),
-            onChanged: (double changed) {
-              widget.onChanged(changed);
-              setState(() => value = changed);
-            },
-          ),
-          Text(value.toInt().toString())
-        ],
-      );
 }
