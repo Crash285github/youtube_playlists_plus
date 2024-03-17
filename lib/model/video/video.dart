@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/video/anchor.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/download_service.dart';
 
@@ -23,6 +25,9 @@ class Video extends Media {
 
   /// The position of this [Video] in it's [Playlist]
   int get position => playlist.videos.indexOf(this) + 1;
+
+  /// Returns the [Anchor] of this [Video]
+  Anchor? get anchor => AnchorStorageProvider().fromVideo(this);
 
   @override
   String get link => "https://www.youtube.com/watch?v=$id";

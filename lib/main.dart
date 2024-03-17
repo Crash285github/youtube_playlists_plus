@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
@@ -22,6 +23,9 @@ Future main() async {
       providers: [
         ChangeNotifierProvider(
           create: (_) => PlaylistStorageProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => AnchorStorageProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => SettingsProvider(),
