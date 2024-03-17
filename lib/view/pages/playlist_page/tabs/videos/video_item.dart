@@ -36,11 +36,6 @@ class VideoItem extends StatelessWidget {
   String get author =>
       SettingsProvider().hideTopic ? video.author.hideTopic() : video.author;
 
-  String? get anchorText => video.anchor == null
-      ? null
-      : "${video.anchor?.position.name[0].toUpperCase()}"
-          "${(video.anchor?.offset ?? 0) > 0 ? '+' : ''}${video.anchor?.offset.toString()}";
-
   @override
   Widget build(BuildContext context) {
     context.watch<SettingsProvider>();
@@ -97,14 +92,6 @@ class VideoItem extends StatelessWidget {
               ],
             ),
           ),
-          if (anchorText != null)
-            Positioned(
-              bottom: 0,
-              right: 4,
-              child: Text(
-                "Anchored: $anchorText",
-              ),
-            )
         ],
       ),
     );

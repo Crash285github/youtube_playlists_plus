@@ -45,9 +45,8 @@ extension VideoContext on Video {
 
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
         onTap: () async {
-          AnchorPosition position =
-              this.anchor?.position ?? AnchorPosition.start;
-          int offset = this.anchor?.offset ?? 0;
+          AnchorPosition position = AnchorPosition.start;
+          int offset = 0;
 
           final anchor = await PopupService.dialog<Anchor>(
             context: context,
@@ -110,7 +109,12 @@ extension VideoContext on Video {
               TextButton(
                 onPressed: () => Navigator.pop(
                   context,
-                  const Anchor(position: AnchorPosition.start, offset: -1),
+                  Anchor(
+                    playlistId: playlistId,
+                    videoId: id,
+                    position: AnchorPosition.start,
+                    offset: -1,
+                  ),
                 ),
                 child: const Text("Unset"),
               ),
@@ -121,7 +125,12 @@ extension VideoContext on Video {
               TextButton(
                 onPressed: () => Navigator.pop(
                   context,
-                  Anchor(offset: offset, position: position),
+                  Anchor(
+                    playlistId: playlistId,
+                    videoId: id,
+                    offset: offset,
+                    position: position,
+                  ),
                 ),
                 child: const Text("Set"),
               ),
@@ -129,17 +138,7 @@ extension VideoContext on Video {
           );
 
           if (anchor != null) {
-            PlaylistStorageProvider().update(
-              () {
-                if (anchor.position == AnchorPosition.start &&
-                    anchor.offset == -1) {
-                  this.anchor = null;
-                } else {
-                  this.anchor = anchor;
-                }
-              },
-              save: true,
-            );
+            //todo: add anchor
           }
         },
         child: const Text("Set Anchor"),

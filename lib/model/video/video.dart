@@ -1,22 +1,21 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/download_service.dart';
 
+@immutable
 class Video extends Media {
   final String playlistId;
-  Anchor? anchor;
 
-  Video({
+  const Video({
     required super.id,
     required super.title,
     required super.author,
     required super.thumbnail,
     required this.playlistId,
-    this.anchor,
   });
 
   /// The [Playlist] this [Video] belongs to
@@ -44,7 +43,6 @@ class Video extends Media {
         'title': title,
         'author': author,
         'thumbnail': thumbnail,
-        'anchor': anchor?.toMap()
       };
 
   factory Video.fromMap(final Map<String, dynamic> map) => Video(
@@ -53,7 +51,6 @@ class Video extends Media {
         title: map['title'] as String,
         author: map['author'] as String,
         thumbnail: map['thumbnail'] as String,
-        anchor: map['anchor'] == null ? null : Anchor.fromMap(map['anchor']),
       );
 
   String toJson() => json.encode(toMap());
