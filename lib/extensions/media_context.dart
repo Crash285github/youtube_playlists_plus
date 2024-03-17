@@ -5,6 +5,7 @@ import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
 
@@ -45,8 +46,9 @@ extension VideoContext on Video {
 
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
         onTap: () async {
-          AnchorPosition position = AnchorPosition.start;
-          int offset = 0;
+          AnchorPosition position =
+              this.anchor?.position ?? AnchorPosition.start;
+          int offset = this.anchor?.offset ?? 0;
 
           final anchor = await PopupService.dialog<Anchor>(
             context: context,
@@ -138,7 +140,7 @@ extension VideoContext on Video {
           );
 
           if (anchor != null) {
-            //todo: add anchor
+            AnchorStorageProvider().change(anchor);
           }
         },
         child: const Text("Set Anchor"),

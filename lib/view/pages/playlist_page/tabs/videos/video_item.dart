@@ -5,6 +5,7 @@ import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
@@ -36,9 +37,16 @@ class VideoItem extends StatelessWidget {
   String get author =>
       SettingsProvider().hideTopic ? video.author.hideTopic() : video.author;
 
+  String? get anchorText => video.anchor == null
+      ? null
+      : "${video.anchor!.position.name[0].toUpperCase()}"
+          "${video.anchor!.offset > 0 ? '+' : ''}"
+          "${video.anchor!.offset}";
+
   @override
   Widget build(BuildContext context) {
     context.watch<SettingsProvider>();
+    context.watch<AnchorStorageProvider>();
 
     return MediaItemTemplate(
       onTap: (offset) => offset.showContextMenu(
@@ -92,6 +100,12 @@ class VideoItem extends StatelessWidget {
               ],
             ),
           ),
+          if (video.anchor != null)
+            Positioned(
+              bottom: 0,
+              right: 4,
+              child: Text(anchorText ?? ""),
+            )
         ],
       ),
     );
