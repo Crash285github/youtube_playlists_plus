@@ -6,7 +6,6 @@ import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -54,18 +53,8 @@ class VideoItem extends StatelessWidget {
           video.contextCopyTitle,
           video.contextCopyId,
           video.contextCopyLink,
-          PopupMenuItem(
-            onTap: () => video.download(),
-            child: const Text("Download"),
-          ),
-          PopupMenuItem(
-            onTap: () => PopupService.showPopup(
-              context: context,
-              child: const Text("data"),
-              actions: [],
-            ),
-            child: const Text("Set Anchor"),
-          )
+          video.contextDownload,
+          video.contextSetAnchor(context),
         ],
       ),
       borderRadius: borderRadius,

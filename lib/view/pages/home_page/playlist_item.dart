@@ -49,6 +49,7 @@ class PlaylistItem extends StatelessWidget {
             playlist.contextCopyTitle,
             playlist.contextCopyId,
             playlist.contextCopyLink,
+            playlist.contextDelete,
           ],
         ),
         borderRadius: borderRadius,
