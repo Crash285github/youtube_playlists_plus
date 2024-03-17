@@ -39,7 +39,7 @@ class VideoItem extends StatelessWidget {
   String? get anchorText => video.anchor == null
       ? null
       : "${video.anchor?.position.name[0].toUpperCase()}"
-          "${video.anchor?.offset.toString()}";
+          "${(video.anchor?.offset ?? 0) > 0 ? '+' : ''}${video.anchor?.offset.toString()}";
 
   @override
   Widget build(BuildContext context) {

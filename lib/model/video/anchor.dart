@@ -21,7 +21,7 @@ class Anchor {
       };
 
   factory Anchor.fromMap(Map<String, dynamic> map) => Anchor(
-        position: AnchorPosition.values[map['offset'] as int],
+        position: AnchorPosition.values[map['position'] as int],
         offset: map['offset'] as int,
       );
 

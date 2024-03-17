@@ -6,7 +6,7 @@ class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made
   final DateTime created;
 
-  const VideoHistory({
+  VideoHistory({
     required this.created,
     required super.type,
     required super.id,

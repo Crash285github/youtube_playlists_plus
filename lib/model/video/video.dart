@@ -1,15 +1,13 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:ytp_new/model/media.dart';
 import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/service/download_service.dart';
 
-@immutable
 class Video extends Media {
-  final Anchor? anchor;
+  Anchor? anchor;
 
-  const Video({
+  Video({
     required super.id,
     required super.title,
     required super.author,
@@ -43,7 +41,7 @@ class Video extends Media {
         title: map['title'] as String,
         author: map['author'] as String,
         thumbnail: map['thumbnail'] as String,
-        anchor: map['anchor'] == null ? null : Anchor.fromJson(map['anchor']),
+        anchor: map['anchor'] == null ? null : Anchor.fromMap(map['anchor']),
       );
 
   String toJson() => json.encode(toMap());

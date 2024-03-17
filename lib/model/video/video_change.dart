@@ -5,7 +5,7 @@ class VideoChange extends Video {
   /// The type of change
   final VideoChangeType type;
 
-  const VideoChange({
+  VideoChange({
     required super.id,
     required super.title,
     required super.author,
