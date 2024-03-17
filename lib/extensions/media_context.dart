@@ -140,7 +140,12 @@ extension VideoContext on Video {
           );
 
           if (anchor != null) {
-            AnchorStorageProvider().change(anchor);
+            if (anchor.position == AnchorPosition.start &&
+                anchor.offset == -1) {
+              AnchorStorageProvider().remove(anchor);
+            } else {
+              AnchorStorageProvider().change(anchor);
+            }
           }
         },
         child: const Text("Set Anchor"),

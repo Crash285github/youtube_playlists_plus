@@ -13,4 +13,5 @@ class AppConfig {
   static const settingsSplitKey = "split";
   static const settingsHideTopicKey = "hideTopic";
   static const playlistsKey = "playlists";
+  static const anchorsKey = 'anchors';
 }

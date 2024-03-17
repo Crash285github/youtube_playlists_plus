@@ -1,8 +1,10 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ytp_new/config.dart';
+import 'package:ytp_new/model/anchor_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/model/video/anchor.dart';
 
 /// Handles saving and loading local data
 class Persistence {
@@ -64,6 +66,30 @@ class Persistence {
 
     PlaylistStorage.replace(
       [...playlists.map((final json) => Playlist.fromJson(json))],
+    );
+  }
+
+  /// Saves all [Anchors] to `Persistence`
+  static Future saveAnchors() async {
+    _prefs.setStringList(
+      AppConfig.anchorsKey,
+      [
+        ...AnchorStorage.anchors.map(
+          (final anchor) => anchor.toJson(),
+        ),
+      ],
+    );
+  }
+
+  /// Loads [Anchors] from `Persistence`
+  ///
+  /// Does not notify
+  static void loadAnchors() {
+    final anchors = _prefs.getStringList(AppConfig.anchorsKey);
+    if (anchors == null) return;
+
+    AnchorStorage.replace(
+      [...anchors.map((final json) => Anchor.fromJson(json))],
     );
   }
 }

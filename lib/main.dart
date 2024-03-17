@@ -15,6 +15,7 @@ Future main() async {
   await Persistence.init();
   Persistence.loadSettings();
   Persistence.loadPlaylists();
+  Persistence.loadAnchors();
 
   await ThemeCreator.createColorScheme();
 
