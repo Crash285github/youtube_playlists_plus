@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 
-/// Universal Context Menus
-class ContextMenuService {
+/// Handles Popups
+class PopupService {
   /// Shows a context menu
-  static Future<T?> show<T>({
+  static Future<T?> contextMenu<T>({
     required BuildContext context,
     required Offset offset,
     required List<PopupMenuEntry<T>> items,
-    bool separateFirst = false,
   }) async =>
       showMenu<T>(
         context: context,

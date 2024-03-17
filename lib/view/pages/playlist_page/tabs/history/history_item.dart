@@ -8,7 +8,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/context_menu_service.dart';
+import 'package:ytp_new/service/popup_service.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;
@@ -49,7 +49,7 @@ class HistoryItem extends StatelessWidget {
         bottom: 2.0,
       ),
       child: InkWell(
-        onTapUp: (details) => ContextMenuService.show(
+        onTapUp: (details) => PopupService.contextMenu(
           context: context,
           offset: details.globalPosition,
           items: [
