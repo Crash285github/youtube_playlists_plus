@@ -10,7 +10,7 @@ import 'package:ytp_new/model/video/video.dart';
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
-  /// Downloads a `Playlist`
+  /// Downloads a `Playlist`'s data
   static Future<Playlist> download(final Playlist playlist) async =>
       Isolate.run(() => _download(playlist));
 
@@ -21,15 +21,18 @@ class YoutubeService {
         .onError((error, stackTrace) {
       if (error is HandshakeException) {
         throw YoutubeServiceException.handshake(
-            "Couldn't download [${playlist.title}]: HandshakeException.");
+          "Couldn't download [${playlist.title}]: HandshakeException.",
+        );
       }
       if (error is TimeoutException) {
         throw YoutubeServiceException.timeout(
-            "Downloading [${playlist.title}] timed out.");
+          "Downloading [${playlist.title}] timed out.",
+        );
       }
 
       throw YoutubeServiceException.unknown(
-          "Unknown error occurred while downloading [${playlist.title}].");
+        "Unknown error occurred while downloading [${playlist.title}].",
+      );
     });
 
     final List<Video> videos = [];

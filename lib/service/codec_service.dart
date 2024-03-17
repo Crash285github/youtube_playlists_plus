@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:ytp_new/config.dart';
+import 'package:ytp_new/model/anchor_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/model/video/anchor.dart';
 
 /// Handles exportin & importing
 class CodecService {
@@ -22,6 +24,7 @@ class CodecService {
       AppConfig.settingsSplitKey: Settings.splitMode.index,
       AppConfig.settingsHideTopicKey: Settings.hideTopic,
       AppConfig.playlistsKey: PlaylistStorage.playlists,
+      AppConfig.anchorsKey: AnchorStorage.anchors,
     };
 
     file.writeAsString(jsonEncode(json));
@@ -36,11 +39,9 @@ class CodecService {
       allowedExtensions: ['json'],
       type: FileType.custom,
     );
-
     if (picked == null) return null;
 
     final file = File(picked.files.first.path!);
-
     final json = jsonDecode(file.readAsStringSync());
 
     final Map<String, dynamic> parsed = {
@@ -54,6 +55,11 @@ class CodecService {
       AppConfig.playlistsKey: [
         ...(json['playlists'] as List).map(
           (final jsonPlylst) => Playlist.fromJson(jsonPlylst),
+        )
+      ],
+      AppConfig.anchorsKey: [
+        ...(json['anchors'] as List).map(
+          (final jsonAnchor) => Anchor.fromJson(jsonAnchor),
         )
       ]
     };

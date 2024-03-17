@@ -24,6 +24,7 @@ class PopupService {
         items: items,
       );
 
+  /// Shows an [AlertDialog]
   static Future<T?> dialog<T>({
     required BuildContext context,
     required Widget child,

@@ -8,6 +8,7 @@ import 'package:ytp_new/model/video/video.dart';
 class DownloadService {
   static final _yt = YoutubeExplode();
 
+  /// Downloads a Youtube video
   static Future<bool> download(final Video video) async {
     final String? dir = await FilePicker.platform.getDirectoryPath();
     if (dir == null) return false;
