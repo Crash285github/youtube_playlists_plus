@@ -84,6 +84,7 @@ class Playlist extends Media
     }
   }
 
+  /// Refreshes this `Playlist`
   Future refresh() async {
     RefreshingProvider().add(id);
 

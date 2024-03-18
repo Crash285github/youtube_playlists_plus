@@ -104,7 +104,12 @@ class VideoItem extends StatelessWidget {
             Positioned(
               bottom: 0,
               right: 4,
-              child: Text(anchorText ?? ""),
+              child: Text(
+                anchorText ?? "",
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                      color: video.anchorInPlace ? Colors.green : Colors.red,
+                    ),
+              ),
             )
         ],
       ),

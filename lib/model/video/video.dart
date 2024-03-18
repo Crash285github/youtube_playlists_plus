@@ -23,11 +23,14 @@ class Video extends Media {
   /// The [Playlist] this [Video] belongs to
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
-  /// The position of this [Video] in it's [Playlist]
-  int get position => playlist.videos.indexOf(this) + 1;
+  /// The index of this [Video] in it's [Playlist]
+  int get index => playlist.videos.indexOf(this);
 
   /// Returns the [Anchor] of this [Video]
   Anchor? get anchor => AnchorStorageProvider().fromVideo(this);
+
+  /// Is this [Video] anchored in it's correct position?
+  bool get anchorInPlace => anchor?.offset == index;
 
   @override
   String get link => "https://www.youtube.com/watch?v=$id";
