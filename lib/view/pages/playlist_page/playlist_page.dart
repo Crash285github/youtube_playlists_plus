@@ -4,11 +4,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/playlist/playlist_state.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
-import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/tab_changes.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/tab_videos.dart';
@@ -39,33 +37,7 @@ class PlaylistPage extends StatelessWidget {
           centerTitle: true,
           actions: [
             IconButton(
-                onPressed: refreshing
-                    ? null
-                    : () async {
-                        try {
-                          RefreshingProvider().add(playlistId);
-
-                          PlaylistStorageProvider().update(
-                            () => playlist!.state = PlaylistState.checking,
-                          );
-
-                          final other =
-                              await YoutubeService.download(playlist!);
-
-                          PlaylistStorageProvider().update(() {
-                            playlist!.changesFrom(other);
-                            playlist!.state = playlist!.hasChanges
-                                ? PlaylistState.changed
-                                : PlaylistState.unchanged;
-                          });
-                        } catch (_) {
-                          PlaylistStorageProvider().update(
-                            () => playlist!.state = null,
-                          );
-                        } finally {
-                          RefreshingProvider().remove(playlistId);
-                        }
-                      },
+                onPressed: refreshing ? null : () => playlist!.refresh(),
                 icon: const Icon(Icons.refresh)),
             IconButton(
                 onPressed: () {

@@ -9,6 +9,9 @@ import 'package:ytp_new/model/video/change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 import 'package:ytp_new/model/video/video_history.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/service/youtube_explode_service.dart';
 
 class Playlist extends Media
     with PlaylistChanges, PlaylistHistory, PlaylistPlanned {
@@ -78,6 +81,25 @@ class Playlist extends Media
       videos
         ..clear()
         ..addAll(other.videos);
+    }
+  }
+
+  Future refresh() async {
+    RefreshingProvider().add(id);
+
+    try {
+      PlaylistStorageProvider().update(() => state = PlaylistState.checking);
+
+      final newPlaylist = await YoutubeService.download(this);
+
+      PlaylistStorageProvider().update(() {
+        changesFrom(newPlaylist);
+        state = hasChanges ? PlaylistState.changed : PlaylistState.unchanged;
+      });
+    } catch (_) {
+      PlaylistStorageProvider().update(() => state = null);
+    } finally {
+      RefreshingProvider().remove(id);
     }
   }
 
