@@ -65,7 +65,7 @@ class ChangeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<SettingsProvider>(context);
+    context.watch<SettingsProvider>();
     return Opacity(
       opacity: enabled ? 1 : 0.7,
       child: MediaItemTemplate(

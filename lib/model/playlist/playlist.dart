@@ -34,6 +34,10 @@ class Playlist extends Media
   /// This [Playlist]'s videos
   final List<Video> videos;
 
+  /// Gets the videos that are anchored
+  List<Video> get anchoredVideos =>
+      videos.where((final video) => video.anchor != null).toList();
+
   /// Gets the changes from a [Playlist] with the same id,
   /// but different [videos]
   ///
@@ -93,10 +97,13 @@ class Playlist extends Media
 
       final newPlaylist = await YoutubeService.download(this);
 
-      PlaylistStorageProvider().update(() {
-        changesFrom(newPlaylist);
-        state = hasChanges ? PlaylistState.changed : PlaylistState.unchanged;
-      });
+      PlaylistStorageProvider().update(
+        () {
+          changesFrom(newPlaylist);
+          state = hasChanges ? PlaylistState.changed : PlaylistState.unchanged;
+        },
+        save: true,
+      );
     } catch (_) {
       PlaylistStorageProvider().update(() => state = null);
     } finally {

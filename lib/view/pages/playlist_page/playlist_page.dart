@@ -95,18 +95,9 @@ class PlaylistPage extends StatelessWidget {
               child: SafeArea(
                 child: TabBarView(
                   children: [
-                    PlaylistPageTabChanges(
-                      playlistId: playlistId,
-                      changes: playlist!.changes,
-                    ),
-                    PlaylistPageTabVideos(
-                      playlistId: playlistId,
-                      videos: playlist!.videos,
-                    ),
-                    PlaylistPageTabHistory(
-                      playlistId: playlistId,
-                      history: playlist!.history,
-                    ),
+                    PlaylistPageTabChanges(playlistId: playlistId),
+                    PlaylistPageTabVideos(playlistId: playlistId),
+                    PlaylistPageTabHistory(playlistId: playlistId),
                   ],
                 ),
               ),

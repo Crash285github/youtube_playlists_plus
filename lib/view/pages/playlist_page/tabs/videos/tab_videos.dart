@@ -9,10 +9,8 @@ import 'planned_sheet/planned_sheet.dart';
 
 class PlaylistPageTabVideos extends StatefulWidget {
   final String playlistId;
-  final Iterable<Video> videos;
   const PlaylistPageTabVideos({
     super.key,
-    required this.videos,
     required this.playlistId,
   });
 
@@ -24,6 +22,7 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 
+  List<Video> get videos => playlist.videos;
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -32,12 +31,12 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
         FadingListView(
           gradientHeight: 50,
           bottom: false,
-          itemCount: widget.videos.length,
+          itemCount: videos.length,
           padding: const EdgeInsets.only(bottom: 60),
           itemBuilder: (context, index) => VideoItem(
-            video: widget.videos.elementAt(index),
+            video: videos.elementAt(index),
             isFirst: index == 0,
-            isLast: index == widget.videos.length - 1,
+            isLast: index == videos.length - 1,
           ),
         ),
         PlannedSheet(
