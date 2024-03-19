@@ -5,27 +5,27 @@ import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/playlist_item.dart';
 
 class PlaylistListView extends StatefulWidget {
-  const PlaylistListView({super.key, required this.playlists});
-
   final List<Playlist> playlists;
+  const PlaylistListView({super.key, required this.playlists});
 
   @override
   State<PlaylistListView> createState() => _PlaylistListViewState();
 }
 
 class _PlaylistListViewState extends State<PlaylistListView> {
+  late final playlists = widget.playlists.toList();
   @override
   Widget build(BuildContext context) {
     return SliverReorderableList(
-      itemCount: widget.playlists.length,
+      itemCount: playlists.length,
       itemBuilder: (context, index) => ReorderableDragStartListener(
         index: index,
         enabled: SettingsProvider().canReorder,
-        key: ValueKey(widget.playlists[index]),
+        key: ValueKey(playlists[index]),
         child: PlaylistItem(
-          playlist: widget.playlists[index],
+          playlist: playlists[index],
           isFirst: index == 0,
-          isLast: index == widget.playlists.length - 1,
+          isLast: index == playlists.length - 1,
         ),
       ),
       onReorder: (oldIndex, newIndex) {
@@ -34,11 +34,11 @@ class _PlaylistListViewState extends State<PlaylistListView> {
         }
 
         setState(() {
-          final playlist = widget.playlists.removeAt(oldIndex);
-          widget.playlists.insert(newIndex, playlist);
+          final playlist = playlists.removeAt(oldIndex);
+          playlists.insert(newIndex, playlist);
         });
 
-        PlaylistStorage.replace(widget.playlists);
+        PlaylistStorage.replace(playlists);
       },
     );
   }
