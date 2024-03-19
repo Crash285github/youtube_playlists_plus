@@ -31,7 +31,7 @@ class Video extends Media {
   Anchor? get anchor => AnchorStorageProvider().fromVideo(this);
 
   /// Is this [Video] anchored in it's correct position?
-  bool get anchorInPlace => anchor?.offset == index;
+  bool get anchorInPlace => anchor?.index == index;
 
   @override
   String get link => "https://www.youtube.com/watch?v=$id";

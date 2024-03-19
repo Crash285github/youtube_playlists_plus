@@ -14,7 +14,7 @@ extension AnchorDialog on PopupService {
     AnchorPosition position = video.anchor?.position ?? AnchorPosition.start;
     int offset = video.anchor?.offset ?? 0;
 
-    final offsetController = TextEditingController(text: "${video.index}");
+    final offsetController = TextEditingController(text: "$offset");
 
     final anchor = await PopupService.dialog<Anchor>(
       context: context,

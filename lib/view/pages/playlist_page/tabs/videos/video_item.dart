@@ -40,8 +40,8 @@ class VideoItem extends StatelessWidget {
   String? get anchorText => video.anchor == null
       ? null
       : "${video.anchor!.position.name[0].toUpperCase()}"
-          "${video.anchor!.offset > 0 ? '+' : ''}"
-          "${video.anchor!.offset}";
+          "${video.anchor!.index > 0 ? '+' : ''}"
+          "${video.anchor!.index}";
 
   @override
   Widget build(BuildContext context) {
@@ -100,15 +100,15 @@ class VideoItem extends StatelessWidget {
               ],
             ),
           ),
-          if (video.anchor != null)
+          if (video.anchor != null && !video.anchorInPlace)
             Positioned(
               bottom: 0,
               right: 4,
-              child: Text(
-                anchorText ?? "",
-                style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                      color: video.anchorInPlace ? Colors.green : Colors.red,
-                    ),
+              child: Icon(
+                video.index > video.anchor!.index
+                    ? Icons.keyboard_arrow_up_rounded
+                    : Icons.keyboard_arrow_down_rounded,
+                color: Theme.of(context).colorScheme.primary,
               ),
             )
         ],

@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart' show immutable;
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 
 enum AnchorPosition { start, middle, end }
 
@@ -18,6 +19,16 @@ class Anchor {
 
   /// The offset of this [Anchor]
   final int offset;
+
+  /// The index this [Anchor] represents in it's [Playlist]
+  int get index => switch (position) {
+        AnchorPosition.start => offset,
+        AnchorPosition.middle => _playlistLength ~/ 2 + offset,
+        AnchorPosition.end => _playlistLength + offset,
+      };
+
+  int get _playlistLength =>
+      PlaylistStorageProvider().fromId(playlistId)!.videos.length - 1;
 
   const Anchor({
     required this.playlistId,
