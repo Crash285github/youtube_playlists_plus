@@ -10,6 +10,7 @@ import 'package:ytp_new/service/download_service.dart';
 
 @immutable
 class Video extends Media {
+  /// The id of the [Playlist] this [Video] belongs to
   final String playlistId;
 
   const Video({

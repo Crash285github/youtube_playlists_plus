@@ -9,8 +9,9 @@ import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/model/video/anchor.dart';
 
-/// Handles exportin & importing
+/// Handles exporting & importing
 class CodecService {
+  /// Exports the app data
   static Future<bool> export() async {
     final String? dir = await FilePicker.platform.getDirectoryPath();
     if (dir == null) return false;
@@ -31,6 +32,7 @@ class CodecService {
     return true;
   }
 
+  /// Imports the app data
   static Future<Map?> import() async {
     final dir = await getApplicationDocumentsDirectory();
     final picked = await FilePicker.platform.pickFiles(

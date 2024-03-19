@@ -10,7 +10,7 @@ import 'package:ytp_new/model/video/video.dart';
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
-  /// Downloads a `Playlist`'s data
+  /// Downloads a [Playlist]'s data
   static Future<Playlist> download(final Playlist playlist) async =>
       Isolate.run(() => _download(playlist));
 

@@ -1,14 +1,16 @@
 import 'package:ytp_new/model/video/video_history.dart';
 
-/// A `Playlist's` history
+/// The history of a [Playlist]
 mixin PlaylistHistory {
-  /// History that is locally stored
+  /// History that has been saved
   final List<VideoHistory> savedHistory = [];
 
-  /// History that has not yet been stored locally
+  /// History that has not yet been saved
   final List<VideoHistory> pendingHistory = [];
 
-  /// Shows all of history from most recent first
+  /// All the history
+  ///
+  /// Sorted by created
   List<VideoHistory> get history => (savedHistory + pendingHistory)
     ..sort((final fst, final snd) => snd.created.compareTo(fst.created));
 
@@ -24,7 +26,7 @@ mixin PlaylistHistory {
     }
   }
 
-  /// Removes a history
+  /// Removes a [History]
   bool removeHistory(final VideoHistory history) =>
       savedHistory.remove(history) || pendingHistory.remove(history);
 }

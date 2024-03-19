@@ -8,9 +8,11 @@ import 'package:ytp_new/service/codec_service.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
 class SettingsProvider extends ChangeNotifier {
+  /// The current [ThemeData] of the app
   ThemeData get themeData =>
       theme == ThemeSetting.dark ? ThemeData.dark() : ThemeData.light();
 
+  /// The current [ThemeSetting] of the app
   ThemeSetting get theme => Settings.theme;
   set theme(final ThemeSetting setting) {
     Settings.theme = setting;
@@ -19,6 +21,7 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  /// The current [SplitSetting] of the app
   SplitSetting get splitMode => Settings.splitMode;
   set splitMode(final SplitSetting setting) {
     Settings.splitMode = setting;
@@ -27,6 +30,7 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  /// The current [ColorSchemeSetting] of the app
   ColorSchemeSetting get colorScheme => Settings.colorScheme;
   set colorScheme(final ColorSchemeSetting colorScheme) {
     Settings.colorScheme = colorScheme;
@@ -35,6 +39,7 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  /// Whether to hide the `- Topic` suffix from authors
   bool get hideTopic => Settings.hideTopic;
   set hideTopic(final bool hideTopic) {
     Settings.hideTopic = hideTopic;
@@ -43,6 +48,7 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  /// Whether to allow reordering of [Playlist]s
   bool get canReorder => Settings.canReorder;
   set canReorder(final bool canReorder) {
     Settings.canReorder = canReorder;
@@ -54,15 +60,19 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
+  /// Exports the app data
   Future export() async => CodecService.export();
 
   bool _managingAppData = false;
+
+  /// Whether the app is currently managing data
   bool get managingAppData => _managingAppData;
   set managingAppData(final bool value) {
     _managingAppData = value;
     notifyListeners();
   }
 
+  /// Imports the app data
   Future import() async {
     managingAppData = true;
     final imported = await CodecService.import();

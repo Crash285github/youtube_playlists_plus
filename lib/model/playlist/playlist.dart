@@ -15,10 +15,10 @@ import 'package:ytp_new/service/youtube_explode_service.dart';
 
 class Playlist extends Media
     with PlaylistChanges, PlaylistHistory, PlaylistPlanned {
-  /// The description of this `Playlist`
+  /// The description of this [Playlist]
   final String description;
 
-  /// The state of this `Playlist`
+  /// The state of this [Playlist]
   PlaylistState? state;
 
   Playlist({
@@ -31,10 +31,10 @@ class Playlist extends Media
     this.state,
   });
 
-  /// This `Playlist's` videos
+  /// This [Playlist]'s videos
   final List<Video> videos;
 
-  /// Gets the changes from a `Playlist` with the same id,
+  /// Gets the changes from a [Playlist] with the same id,
   /// but different [videos]
   ///
   /// Changes will be put into
@@ -84,7 +84,7 @@ class Playlist extends Media
     }
   }
 
-  /// Refreshes this `Playlist`
+  /// Refreshes this [Playlist]
   Future refresh() async {
     RefreshingProvider().add(id);
 
@@ -104,7 +104,7 @@ class Playlist extends Media
     }
   }
 
-  /// Does this `Playlist` have any changes
+  /// Does this [Playlist] have any changes
   bool get hasChanges => changes.isNotEmpty;
 
   @override

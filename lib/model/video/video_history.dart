@@ -33,7 +33,7 @@ class VideoHistory extends VideoChange {
 
   @override
   bool operator ==(covariant VideoHistory other) =>
-      identical(this, other) || (other.id == id && other.created == created);
+      super == (other) && created == other.created;
 
   @override
   int get hashCode => id.hashCode ^ created.hashCode;

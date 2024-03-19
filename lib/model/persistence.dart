@@ -13,7 +13,7 @@ class Persistence {
   /// Gets the instance of `SharedPreferences`
   static Future init() async => _prefs = await SharedPreferences.getInstance();
 
-  /// Saves `Settings` to `Persistence`
+  /// Saves [Settings] to [Persistence]
   static Future saveSettings() async => _prefs
     ..setInt(AppConfig.settingsThemeKey, Settings.theme.index)
     ..setInt(AppConfig.settingsSchemeKey, Settings.colorScheme.index)
@@ -45,7 +45,7 @@ class Persistence {
     }
   }
 
-  /// Saves all `Playlists` to `Persistence`
+  /// Saves all [Playlist]s to [Persistence]
   static Future savePlaylists() async {
     _prefs.setStringList(
       AppConfig.playlistsKey,
@@ -57,7 +57,7 @@ class Persistence {
     );
   }
 
-  /// Loads playlists from persistence
+  /// Loads playlists from [Persistence]
   ///
   /// Does not notify
   static void loadPlaylists() {
@@ -69,7 +69,7 @@ class Persistence {
     );
   }
 
-  /// Saves all [Anchors] to `Persistence`
+  /// Saves all [Anchor]s to [Persistence]
   static Future saveAnchors() async {
     _prefs.setStringList(
       AppConfig.anchorsKey,
@@ -81,7 +81,7 @@ class Persistence {
     );
   }
 
-  /// Loads [Anchors] from `Persistence`
+  /// Loads [Anchor]s from [Persistence]
   ///
   /// Does not notify
   static void loadAnchors() {

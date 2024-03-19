@@ -7,9 +7,16 @@ enum AnchorPosition { start, middle, end }
 
 @immutable
 class Anchor {
+  /// The id of the [Playlist] this [Anchor] belongs to
   final String playlistId;
+
+  /// The id of the [Video] this [Anchor] belongs to
   final String videoId;
+
+  /// The position of this [Anchor]
   final AnchorPosition position;
+
+  /// The offset of this [Anchor]
   final int offset;
 
   const Anchor({
