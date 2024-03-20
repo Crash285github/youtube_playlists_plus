@@ -57,8 +57,10 @@ class _SearchResultState extends State<SearchResult> {
 
                   PlaylistStorageProvider().add(pl);
                 } catch (_) {
-                  setState(() => downloaded =
-                      PlaylistStorageProvider().playlists.contains(pl));
+                  if (mounted) {
+                    setState(() => downloaded =
+                        PlaylistStorageProvider().playlists.contains(pl));
+                  }
                 }
               },
         child: Padding(

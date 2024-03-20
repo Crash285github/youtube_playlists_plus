@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 
 class PlannedSheetTitle extends StatelessWidget {
   final void Function()? onTap;
@@ -12,6 +13,37 @@ class PlannedSheetTitle extends StatelessWidget {
   });
 
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
+
+  Future addPlanned(BuildContext context) async {
+    final controller = TextEditingController();
+
+    final planned = await PopupService.dialog<String>(
+      context: context,
+      child: TextField(
+        controller: controller,
+        decoration: const InputDecoration(
+          label: Text("Add a video title to planned"),
+        ),
+        autofocus: true,
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () => Navigator.pop(context, controller.text),
+          child: const Text("Add"),
+        )
+      ],
+    );
+
+    if (planned != null && planned.trim().isNotEmpty) {
+      PlaylistStorageProvider().update(
+        () => playlist.planned.add(planned.trim()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +72,7 @@ class PlannedSheetTitle extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     IconButton(
-                      onPressed: () => PlaylistStorageProvider()
-                          .update(() => playlist.planned.add("ad")),
+                      onPressed: () => addPlanned(context),
                       icon: const Icon(Icons.add),
                     )
                   ],
