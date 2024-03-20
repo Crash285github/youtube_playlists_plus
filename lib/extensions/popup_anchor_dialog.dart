@@ -6,13 +6,10 @@ import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/service/popup_service.dart';
 
 extension AnchorDialog on PopupService {
-  //Todo: bounds of offset
-  //todo: auto-calculate current position of video
-
   static Future<Anchor?> show(
       {required BuildContext context, required Video video}) async {
     AnchorPosition position = video.anchor?.position ?? AnchorPosition.start;
-    int offset = video.anchor?.offset ?? 0;
+    int offset = video.anchor?.offset ?? video.index;
 
     final offsetController = TextEditingController(text: "$offset");
 
@@ -22,44 +19,50 @@ extension AnchorDialog on PopupService {
         builder: (context, setState) => Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Material(
-              color: Theme.of(context).colorScheme.surface,
-              borderRadius: BorderRadius.circular(10000),
-              clipBehavior: Clip.antiAlias,
-              child: InkWell(
-                onTapUp: (details) async {
-                  final selected = await details.globalPosition
-                      .showContextMenu<AnchorPosition>(
-                    context: context,
-                    items: [
-                      const PopupMenuItem(
-                        value: AnchorPosition.start,
-                        child: Text("Start"),
-                      ),
-                      const PopupMenuItem(
-                        value: AnchorPosition.middle,
-                        child: Text("Middle"),
-                      ),
-                      const PopupMenuItem(
-                        value: AnchorPosition.end,
-                        child: Text("End"),
-                      )
-                    ],
-                  );
+            InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTapUp: (details) async {
+                final selected = await details.globalPosition
+                    .showContextMenu<AnchorPosition>(
+                  context: context,
+                  items: [
+                    const PopupMenuItem(
+                      value: AnchorPosition.start,
+                      child: Text("Start"),
+                    ),
+                    const PopupMenuItem(
+                      value: AnchorPosition.middle,
+                      child: Text("Middle"),
+                    ),
+                    const PopupMenuItem(
+                      value: AnchorPosition.end,
+                      child: Text("End"),
+                    )
+                  ],
+                );
 
-                  if (selected != null) {
-                    setState(() => position = selected);
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12.0,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    position.name[0].toUpperCase() + position.name.substring(1),
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
+                if (selected != null) {
+                  setState(() {
+                    position = selected;
+                    offsetController.text = switch (position) {
+                      AnchorPosition.start => video.index,
+                      AnchorPosition.middle =>
+                        video.index - video.playlist.videos.length ~/ 2 + 1,
+                      AnchorPosition.end =>
+                        video.index - video.playlist.videos.length + 1,
+                    }
+                        .toString();
+                  });
+                }
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12.0,
+                  vertical: 4,
+                ),
+                child: Text(
+                  position.name[0].toUpperCase() + position.name.substring(1),
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
               ),
             ),
