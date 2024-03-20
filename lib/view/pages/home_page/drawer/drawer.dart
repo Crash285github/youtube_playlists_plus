@@ -42,10 +42,15 @@ class HomePageDrawer extends StatelessWidget {
             const AppDataButtons(),
             const Divider(indent: 8.0, endIndent: 8.0),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0, 0.0, 8.0, 8.0),
+              padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),
               child: InkWell(
                 onTap: () => AppNavigator.tryPushLeft(const AboutPage()),
-                borderRadius: BorderRadius.circular(16.0),
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.zero,
+                  topLeft: Radius.zero,
+                  bottomRight: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                ),
                 overlayColor: MaterialStatePropertyAll(
                     Theme.of(context).colorScheme.primary.withOpacity(.3)),
                 child: const Padding(
