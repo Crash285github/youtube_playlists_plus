@@ -37,12 +37,12 @@ class PlaylistItem extends StatelessWidget {
       : playlist.author;
 
   @override
-  Widget build(BuildContext context) => MediaItemTemplate(
-        onTap: (_) {
+  Widget build(BuildContext context) => MediaItem(
+        primaryAction: (_) {
           AppNavigator.tryPopRight();
           AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
         },
-        onSecondary: (offset) => offset.showContextMenu(
+        secondaryAction: (offset) => offset.showContextMenu(
           context: context,
           items: [
             playlist.contextOpen,

@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 
 class AdaptiveSecondaryInkWell extends StatelessWidget {
   final void Function(Offset offset)? onSecondary;
-  final void Function(Offset offset)? onTap;
+  final void Function(Offset offset)? onPrimary;
   final BorderRadius? borderRadius;
   final MaterialStateProperty<Color?>? overlayColor;
   final Widget? child;
 
   const AdaptiveSecondaryInkWell({
     super.key,
-    this.onTap,
+    this.onPrimary,
     this.onSecondary,
     this.child,
     this.borderRadius,
@@ -19,29 +19,36 @@ class AdaptiveSecondaryInkWell extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) => GestureDetector(
-        onSecondaryTapUp: Platform.isWindows
-            ? (details) {
-                if (onSecondary != null) {
-                  onSecondary!(details.globalPosition);
-                }
-              }
-            : null,
-        onLongPressStart: Platform.isAndroid
-            ? (details) {
-                if (onSecondary != null) {
-                  onSecondary!(details.globalPosition);
-                }
-              }
-            : null,
-        child: InkWell(
-          onTap: () {},
-          borderRadius: borderRadius,
-          overlayColor: overlayColor,
-          onTapUp: onTap == null
-              ? null
-              : (details) => onTap!(details.globalPosition),
-          child: child,
-        ),
+  Widget build(BuildContext context) {
+    if (Platform.isWindows) {
+      return InkWell(
+        borderRadius: borderRadius,
+        overlayColor: overlayColor,
+        onSecondaryTap: () {},
+        onTap: () {},
+        onSecondaryTapUp: onSecondary == null
+            ? null
+            : (details) => onSecondary!(details.globalPosition),
+        onTapUp: onPrimary == null
+            ? null
+            : (details) => onPrimary!(details.globalPosition),
+        child: child,
       );
+    }
+
+    return GestureDetector(
+      onLongPressStart: onSecondary == null
+          ? null
+          : (details) => onSecondary!(details.globalPosition),
+      child: InkWell(
+        borderRadius: borderRadius,
+        overlayColor: overlayColor,
+        onTap: () {},
+        onTapUp: onPrimary == null
+            ? null
+            : (details) => onPrimary!(details.globalPosition),
+        child: child,
+      ),
+    );
+  }
 }

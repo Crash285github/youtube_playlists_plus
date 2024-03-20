@@ -35,8 +35,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final playlists = context.watch<PlaylistStorageProvider>().playlists;
-
     final canReorder = context.select<SettingsProvider, bool>(
         (final settings) => settings.canReorder);
 
@@ -64,8 +62,8 @@ class _HomePageState extends State<HomePage> {
               ),
             ],
           ),
-          PlaylistListView(playlists: playlists),
-          const SliverToBoxAdapter(child: SizedBox(height: 80))
+          const PlaylistListView(),
+          const SliverToBoxAdapter(child: SizedBox(height: 80)),
         ],
       ),
       floatingActionButton: showFab || canReorder

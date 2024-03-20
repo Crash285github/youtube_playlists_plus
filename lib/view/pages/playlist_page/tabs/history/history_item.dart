@@ -9,6 +9,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
 class HistoryItem extends StatelessWidget {
   final String playlistId;
@@ -39,7 +40,7 @@ class HistoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<SettingsProvider>(context);
+    context.watch<SettingsProvider>();
     return Card(
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
       margin: const EdgeInsets.only(
@@ -48,8 +49,8 @@ class HistoryItem extends StatelessWidget {
         top: 2.0,
         bottom: 2.0,
       ),
-      child: InkWell(
-        onTapUp: (details) => details.globalPosition.showContextMenu(
+      child: AdaptiveSecondaryInkWell(
+        onSecondary: (details) => details.showContextMenu(
           context: context,
           items: [
             history.contextOpen,

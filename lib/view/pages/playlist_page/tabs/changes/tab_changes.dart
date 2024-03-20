@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_change.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/anchor_item.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
@@ -30,6 +32,8 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<AnchorStorageProvider>();
+
     super.build(context);
     return changes.isEmpty
         ? anchorIssues.isEmpty

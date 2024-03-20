@@ -68,9 +68,10 @@ class ChangeItem extends StatelessWidget {
     context.watch<SettingsProvider>();
     return Opacity(
       opacity: enabled ? 1 : 0.7,
-      child: MediaItemTemplate(
+      child: MediaItem(
         borderRadius: borderRadius,
-        onTap: (offset) => offset.showContextMenu(
+        primaryAction: (offset) => _update(),
+        secondaryAction: (offset) => offset.showContextMenu(
           context: context,
           items: [
             change.contextOpen,

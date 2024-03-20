@@ -48,8 +48,8 @@ class VideoItem extends StatelessWidget {
     context.watch<SettingsProvider>();
     context.watch<AnchorStorageProvider>();
 
-    return MediaItemTemplate(
-      onTap: (offset) => offset.showContextMenu(
+    return MediaItem(
+      secondaryAction: (offset) => offset.showContextMenu(
         context: context,
         items: [
           video.contextOpen,

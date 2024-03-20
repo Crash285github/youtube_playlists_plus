@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
-class MediaItemTemplate extends StatelessWidget {
-  final void Function(Offset offset)? onTap;
-  final void Function(Offset offset)? onSecondary;
+class MediaItem extends StatelessWidget {
+  final void Function(Offset offset)? primaryAction;
+  final void Function(Offset offset)? secondaryAction;
   final BorderRadiusGeometry? borderRadius;
   final Widget? child;
-  const MediaItemTemplate({
+  const MediaItem({
     super.key,
-    this.onTap,
-    this.onSecondary,
+    this.primaryAction,
+    this.secondaryAction,
     this.borderRadius,
     this.child,
   });
@@ -22,8 +22,8 @@ class MediaItemTemplate extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: AdaptiveSecondaryInkWell(
-        onTap: onTap,
-        onSecondary: onSecondary,
+        onPrimary: primaryAction,
+        onSecondary: secondaryAction,
         child: child,
       ),
     );

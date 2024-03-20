@@ -41,13 +41,13 @@ class _SearchResultState extends State<SearchResult> {
   @override
   Widget build(BuildContext context) {
     context.watch<PlaylistStorageProvider>();
-    
+
     return AnimatedOpacity(
       duration: AppConfig.defaultAnimationDuration,
       opacity: downloaded ? .5 : 1,
-      child: MediaItemTemplate(
+      child: MediaItem(
         borderRadius: borderRadius,
-        onTap: downloaded
+        primaryAction: downloaded
             ? null
             : (_) async {
                 setState(() => downloaded = true);

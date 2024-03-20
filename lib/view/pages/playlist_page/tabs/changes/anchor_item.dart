@@ -47,7 +47,7 @@ class AnchorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.watch<SettingsProvider>();
-    return MediaItemTemplate(
+    return MediaItem(
       borderRadius: borderRadius,
       child: Padding(
         padding: const EdgeInsets.all(3.0),

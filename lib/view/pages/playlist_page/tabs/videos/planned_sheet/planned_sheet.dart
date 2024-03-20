@@ -43,8 +43,13 @@ class _PlannedSheetState extends State<PlannedSheet> {
         return Stack(
           children: [
             if (showDim)
-              Container(
-                color: Colors.transparent,
+              GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => _controller.animateTo(
+                  minSize,
+                  duration: AppConfig.defaultAnimationDuration,
+                  curve: Curves.decelerate,
+                ),
               ),
             DraggableScrollableSheet(
               controller: _controller,
@@ -64,8 +69,9 @@ class _PlannedSheetState extends State<PlannedSheet> {
                   )),
                   margin: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0),
                   child: ScrollConfiguration(
-                    behavior: const MaterialScrollBehavior()
-                        .copyWith(scrollbars: false, ),
+                    behavior: const MaterialScrollBehavior().copyWith(
+                      scrollbars: false,
+                    ),
                     child: FadingListView(
                       padding: const EdgeInsets.only(bottom: 20),
                       itemBuilder: (context, index) {
