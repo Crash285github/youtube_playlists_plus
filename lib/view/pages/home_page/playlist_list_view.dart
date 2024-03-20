@@ -14,11 +14,15 @@ class PlaylistListView extends StatefulWidget {
 }
 
 class _PlaylistListViewState extends State<PlaylistListView> {
-  List<Playlist> get playlists => [...PlaylistStorage.playlists];
+  final List<Playlist> playlists = [...PlaylistStorage.playlists];
 
   @override
   Widget build(BuildContext context) {
     context.watch<PlaylistStorageProvider>();
+    context.select<SettingsProvider, bool>(
+      (final settings) => settings.canReorder,
+    );
+
     return SliverReorderableList(
       itemCount: playlists.length,
       itemBuilder: (context, index) => ReorderableDragStartListener(
