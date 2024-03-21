@@ -13,6 +13,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Persistence.init();
+
   Persistence.loadSettings();
   Persistence.loadPlaylists();
   Persistence.loadAnchors();

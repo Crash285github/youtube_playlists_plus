@@ -14,11 +14,9 @@ class PlaylistListView extends StatefulWidget {
 }
 
 class _PlaylistListViewState extends State<PlaylistListView> {
-  final List<Playlist> playlists = [...PlaylistStorage.playlists];
-
   @override
   Widget build(BuildContext context) {
-    context.watch<PlaylistStorageProvider>();
+    final playlists = context.watch<PlaylistStorageProvider>().playlists;
     context.select<SettingsProvider, bool>(
       (final settings) => settings.canReorder,
     );
@@ -36,16 +34,17 @@ class _PlaylistListViewState extends State<PlaylistListView> {
         ),
       ),
       onReorder: (oldIndex, newIndex) {
+        final copy = playlists.toList();
         if (oldIndex < newIndex) {
           newIndex -= 1;
         }
 
         setState(() {
-          final playlist = playlists.removeAt(oldIndex);
-          playlists.insert(newIndex, playlist);
+          final playlist = copy.removeAt(oldIndex);
+          copy.insert(newIndex, playlist);
         });
 
-        PlaylistStorage.replace(playlists);
+        PlaylistStorage.replace(copy);
       },
     );
   }
