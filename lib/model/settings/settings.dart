@@ -35,6 +35,7 @@ class Settings {
 
   /// The current split mode of the app
   static SplitSetting splitMode = SplitSetting.disabled;
+  static bool isSplit = false;
 
   /// Should we hide '- Topic' from channel names
   static bool hideTopic = false;

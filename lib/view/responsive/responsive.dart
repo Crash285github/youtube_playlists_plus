@@ -16,8 +16,10 @@ class Responsive extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 700 && mode != SplitSetting.disabled) {
+          Settings.isSplit = true;
           return const SplitView();
         } else {
+          Settings.isSplit = false;
           return const HomePage();
         }
       },
