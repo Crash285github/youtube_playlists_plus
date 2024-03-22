@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         (final settings) => settings.canReorder);
 
     return Scaffold(
-      drawer: const HomePageDrawer(),
+      drawer: HomePageDrawer(),
       body: CustomScrollView(
         controller: _scrollController,
         slivers: [
@@ -59,6 +59,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     : null,
                 icon: const Icon(Icons.refresh),
+                tooltip: "Refresh all",
               ),
             ],
           ),
@@ -77,6 +78,7 @@ class _HomePageState extends State<HomePage> {
               ),
               extendedIconLabelSpacing: canReorder ? 8 : 0,
               extendedPadding: const EdgeInsets.all(16),
+              tooltip: canReorder ? "Finish reordering" : "Search",
               onPressed: canReorder
                   ? () => SettingsProvider().canReorder = false
                   : () => AppNavigator.tryPushLeft(const SearchPage()),

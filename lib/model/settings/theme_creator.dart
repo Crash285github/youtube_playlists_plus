@@ -36,8 +36,15 @@ class ThemeCreator {
           color: _isAmoled ? Colors.black : _scheme.surface,
           elevation: _isAmoled ? 3 : 1,
         ),
-        tooltipTheme: const TooltipThemeData(
-          waitDuration: Duration(seconds: 1),
+        tooltipTheme: TooltipThemeData(
+          waitDuration: const Duration(seconds: 1),
+          decoration: BoxDecoration(
+            color: _scheme.secondary,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+          textStyle: TextStyle(
+            color: _scheme.onPrimary,
+          ),
         ),
         appBarTheme: _isLight
             ? AppBarTheme(backgroundColor: _scheme.surfaceVariant)

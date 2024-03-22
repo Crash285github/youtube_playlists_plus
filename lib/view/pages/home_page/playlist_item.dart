@@ -87,11 +87,15 @@ class PlaylistItem extends StatelessWidget {
                                   .withOpacity(.5),
                             ),
                           ),
-                          if (playlist.state != null)
-                            Icon(
-                              playlist.state!.icon,
-                              color: playlist.state!.color,
-                            )
+                          playlist.state != null
+                              ? Icon(
+                                  playlist.state!.icon,
+                                  color: playlist.state!.color,
+                                )
+                              : const Icon(
+                                  Icons.question_mark,
+                                  color: Colors.transparent,
+                                )
                         ],
                       ),
                     ],

@@ -10,9 +10,19 @@ import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart
 import 'package:ytp_new/view/pages/home_page/drawer/settings/scheme_mode.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/split_mode.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/theme_mode.dart';
+import 'package:ytp_new/view/widget/fading_listview.dart';
 
 class HomePageDrawer extends StatelessWidget {
-  const HomePageDrawer({super.key});
+  HomePageDrawer({super.key});
+
+  final preferences = <Widget>[
+    const SettingsThemeMode(),
+    const SettingsSchemeMode(),
+    const SettingsHideTopicToggle(),
+    const SettingsSplitMode(),
+    if (PlaylistStorageProvider().playlists.isNotEmpty)
+      const SettingsReorderToggle(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +30,7 @@ class HomePageDrawer extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
           child: Text(
             "Preferences",
             style: Theme.of(context).textTheme.headlineLarge,
@@ -28,15 +38,9 @@ class HomePageDrawer extends StatelessWidget {
         ),
         const Divider(indent: 8.0, endIndent: 8.0),
         Expanded(
-          child: ListView(
-            children: [
-              const SettingsThemeMode(),
-              const SettingsSchemeMode(),
-              const SettingsHideTopicToggle(),
-              const SettingsSplitMode(),
-              if (PlaylistStorageProvider().playlists.isNotEmpty)
-                const SettingsReorderToggle(),
-            ],
+          child: FadingListView(
+            itemCount: preferences.length,
+            itemBuilder: (context, index) => preferences[index],
           ),
         ),
         const AppDataButtons(),

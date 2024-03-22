@@ -48,11 +48,13 @@ class PlaylistPage extends StatelessWidget {
             IconButton(
               onPressed: refreshing ? null : () => playlist!.refresh(),
               icon: const Icon(Icons.refresh),
+              tooltip: "Refresh",
             ),
             if (Platform.isWindows)
               IconButton(
                 onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
                 icon: const Icon(Icons.list_alt_outlined),
+                tooltip: "Planned",
               ),
             IconButton(
               onPressed: () {
@@ -61,6 +63,7 @@ class PlaylistPage extends StatelessWidget {
                 PlaylistStorageProvider().remove(playlist!);
               },
               icon: const Icon(Icons.delete_outline),
+              tooltip: "Delete",
             ),
           ],
           backgroundColor: Colors.transparent,
