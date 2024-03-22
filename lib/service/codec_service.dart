@@ -43,29 +43,33 @@ class CodecService {
     );
     if (picked == null) return null;
 
-    final file = File(picked.files.first.path!);
-    final json = jsonDecode(file.readAsStringSync());
+    try {
+      final file = File(picked.files.first.path!);
+      final json = jsonDecode(file.readAsStringSync());
 
-    final Map<String, dynamic> parsed = {
-      AppConfig.settingsThemeKey:
-          ThemeSetting.values[json[AppConfig.settingsThemeKey]],
-      AppConfig.settingsSchemeKey:
-          ColorSchemeSetting.values[json[AppConfig.settingsSchemeKey]],
-      AppConfig.settingsSplitKey:
-          SplitSetting.values[json[AppConfig.settingsSplitKey]],
-      AppConfig.settingsHideTopicKey: json[AppConfig.settingsHideTopicKey],
-      AppConfig.playlistsKey: [
-        ...(json['playlists'] as List).map(
-          (final jsonPlylst) => Playlist.fromJson(jsonPlylst),
-        )
-      ],
-      AppConfig.anchorsKey: [
-        ...(json['anchors'] as List).map(
-          (final jsonAnchor) => Anchor.fromJson(jsonAnchor),
-        )
-      ]
-    };
+      final Map<String, dynamic> parsed = {
+        AppConfig.settingsThemeKey:
+            ThemeSetting.values[json[AppConfig.settingsThemeKey]],
+        AppConfig.settingsSchemeKey:
+            ColorSchemeSetting.values[json[AppConfig.settingsSchemeKey]],
+        AppConfig.settingsSplitKey:
+            SplitSetting.values[json[AppConfig.settingsSplitKey]],
+        AppConfig.settingsHideTopicKey: json[AppConfig.settingsHideTopicKey],
+        AppConfig.playlistsKey: [
+          ...(json['playlists'] as List).map(
+            (final jsonPlylst) => Playlist.fromJson(jsonPlylst),
+          )
+        ],
+        AppConfig.anchorsKey: [
+          ...(json['anchors'] as List).map(
+            (final jsonAnchor) => Anchor.fromJson(jsonAnchor),
+          )
+        ]
+      };
 
-    return parsed;
+      return parsed;
+    } on Exception {
+      return null;
+    }
   }
 }

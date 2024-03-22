@@ -42,7 +42,7 @@ extension VideoContext on Video {
         onTap: () => download(),
         child: const Text("Download"),
       );
-  
+
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
         onTap: () async {
           final anchor = await AnchorDialog.show(context: context, video: this);

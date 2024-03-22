@@ -75,7 +75,7 @@ class SettingsProvider extends ChangeNotifier {
   /// Imports the app data
   Future import() async {
     managingAppData = true;
-    final imported = await CodecService.import();
+    final imported = await CodecService.import().onError((_, __) => null);
     if (imported == null) {
       managingAppData = false;
       return;
@@ -83,12 +83,26 @@ class SettingsProvider extends ChangeNotifier {
 
     AppNavigator.tryPopRight();
 
-    theme = imported[AppConfig.settingsThemeKey];
-    colorScheme = imported[AppConfig.settingsSchemeKey];
-    splitMode = imported[AppConfig.settingsSplitKey];
-    hideTopic = imported[AppConfig.settingsHideTopicKey];
+    try {
+      theme = imported[AppConfig.settingsThemeKey];
+    } finally {}
 
-    PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
+    try {
+      colorScheme = imported[AppConfig.settingsSchemeKey];
+    } finally {}
+
+    try {
+      splitMode = imported[AppConfig.settingsSplitKey];
+    } finally {}
+
+    try {
+      hideTopic = imported[AppConfig.settingsHideTopicKey];
+    } finally {}
+
+    try {
+      PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
+    } finally {}
+
     managingAppData = false;
   }
 
