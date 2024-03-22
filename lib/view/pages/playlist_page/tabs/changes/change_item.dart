@@ -111,10 +111,13 @@ class ChangeItem extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              change.title,
-                              overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.titleMedium,
+                            Tooltip(
+                              message: change.title,
+                              child: Text(
+                                change.title,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
                             ),
                             const SizedBox(height: 8),
                             Text(

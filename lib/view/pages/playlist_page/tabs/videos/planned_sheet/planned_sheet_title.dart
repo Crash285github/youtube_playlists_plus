@@ -19,17 +19,22 @@ class PlannedSheetTitle extends StatelessWidget {
 
     final planned = await PopupService.dialog<String>(
       context: context,
-      child: TextField(
-        controller: controller,
-        decoration: const InputDecoration(
-          label: Text("Add a video title to planned"),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 500),
+        child: TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            label: Text("Add a video title to planned"),
+          ),
+          minLines: 1,
+          maxLines: 5,
+          autofocus: true,
+          onSubmitted: (value) {
+            if (value.trim().isNotEmpty) {
+              Navigator.pop(context, value);
+            }
+          },
         ),
-        autofocus: true,
-        onSubmitted: (value) {
-          if (value.trim().isNotEmpty) {
-            Navigator.pop(context, value);
-          }
-        },
       ),
       actions: [
         TextButton(
