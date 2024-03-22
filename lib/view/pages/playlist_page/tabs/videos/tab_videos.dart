@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/video/video.dart';
@@ -39,10 +41,11 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
             isLast: index == videos.length - 1,
           ),
         ),
-        PlannedSheet(
-          playlistId: playlist.id,
-          planned: playlist.planned.reversed,
-        )
+        if (Platform.isAndroid)
+          PlannedSheet(
+            playlistId: playlist.id,
+            planned: playlist.planned.reversed,
+          )
       ],
     );
   }

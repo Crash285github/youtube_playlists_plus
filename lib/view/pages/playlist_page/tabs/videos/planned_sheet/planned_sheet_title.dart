@@ -25,6 +25,11 @@ class PlannedSheetTitle extends StatelessWidget {
           label: Text("Add a video title to planned"),
         ),
         autofocus: true,
+        onSubmitted: (value) {
+          if (value.trim().isNotEmpty) {
+            Navigator.pop(context, value);
+          }
+        },
       ),
       actions: [
         TextButton(
@@ -68,7 +73,7 @@ class PlannedSheetTitle extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Planned (${playlist.planned.length})",
+                      "Planned",
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     IconButton(

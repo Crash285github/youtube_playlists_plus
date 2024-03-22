@@ -3,6 +3,7 @@ import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_to_clipboard.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
 class PlannedItem extends StatelessWidget {
   final String playlistId;
@@ -21,7 +22,7 @@ class PlannedItem extends StatelessWidget {
       padding: const EdgeInsets.only(right: 8.0, top: 2.0, bottom: 2.0),
       child: Material(
         type: MaterialType.transparency,
-        child: InkWell(
+        child: AdaptiveSecondaryInkWell(
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(8.0),
             bottomRight: Radius.circular(8.0),
@@ -29,7 +30,7 @@ class PlannedItem extends StatelessWidget {
           overlayColor: MaterialStatePropertyAll(
             Theme.of(context).colorScheme.primary.withOpacity(.3),
           ),
-          onTapUp: (details) => details.globalPosition.showContextMenu(
+          onSecondary: (details) => details.showContextMenu(
             context: context,
             items: [
               PopupMenuItem(

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -7,20 +8,25 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/tab_changes.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/tab_videos.dart';
+import 'package:ytp_new/view/widget/fading_listview.dart';
 
 class PlaylistPage extends StatelessWidget {
   final String playlistId;
-  const PlaylistPage({
+  PlaylistPage({
     super.key,
     required this.playlistId,
   });
 
   Playlist? get playlist => PlaylistStorageProvider().fromId(playlistId);
   bool get refreshing => RefreshingProvider().isRefreshingPlaylist(playlistId);
+
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -33,21 +39,29 @@ class PlaylistPage extends StatelessWidget {
       length: 3,
       initialIndex: playlist!.hasChanges ? 0 : 1,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text(playlist!.title),
           centerTitle: true,
           automaticallyImplyLeading: !Settings.isSplit,
           actions: [
             IconButton(
-                onPressed: refreshing ? null : () => playlist!.refresh(),
-                icon: const Icon(Icons.refresh)),
+              onPressed: refreshing ? null : () => playlist!.refresh(),
+              icon: const Icon(Icons.refresh),
+            ),
+            if (Platform.isWindows)
+              IconButton(
+                onPressed: () => _scaffoldKey.currentState?.openEndDrawer(),
+                icon: const Icon(Icons.list_alt_outlined),
+              ),
             IconButton(
-                onPressed: () {
-                  AppNavigator.tryPopRight(context);
+              onPressed: () {
+                AppNavigator.tryPopRight(context);
 
-                  PlaylistStorageProvider().remove(playlist!);
-                },
-                icon: const Icon(Icons.delete_outline)),
+                PlaylistStorageProvider().remove(playlist!);
+              },
+              icon: const Icon(Icons.delete_outline),
+            ),
           ],
           backgroundColor: Colors.transparent,
           bottom: const TabBar(
@@ -105,6 +119,32 @@ class PlaylistPage extends StatelessWidget {
               ),
             ),
           ],
+        ),
+        endDrawer: Padding(
+          padding: const EdgeInsets.only(
+            top: kToolbarHeight,
+            bottom: 16.0,
+            left: 16.0,
+            right: 16.0,
+          ),
+          child: Drawer(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0)),
+            child: Column(
+              children: [
+                PlannedSheetTitle(playlistId: playlistId),
+                Expanded(
+                  child: FadingListView(
+                    itemCount: playlist!.planned.length,
+                    itemBuilder: (context, index) => PlannedItem(
+                      playlistId: playlistId,
+                      text: playlist!.planned[index],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
