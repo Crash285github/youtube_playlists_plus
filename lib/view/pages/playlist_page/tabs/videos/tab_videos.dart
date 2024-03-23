@@ -29,7 +29,7 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
     return Stack(
       children: [
         FadingListView(
-          gradientHeight: 50,
+          gradientHeight: 70,
           bottom: false,
           itemCount: playlist.length,
           padding: const EdgeInsets.only(bottom: 60, top: 20),

@@ -23,9 +23,9 @@ class _PlaylistPageTabHistoryState extends State<PlaylistPageTabHistory>
     return history.isEmpty
         ? const Center(child: Text("No history."))
         : FadingListView(
-            gradientHeight: 50,
+            gradientHeight: 70,
             bottom: false,
-            padding: const EdgeInsets.only(bottom: 80),
+            padding: const EdgeInsets.only(bottom: 80, top: 20),
             itemBuilder: (context, index) => HistoryItem(
               playlistId: widget.playlistId,
               history: history[index],

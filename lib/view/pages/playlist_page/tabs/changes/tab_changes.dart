@@ -36,9 +36,9 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
         ? anchorIssues.isEmpty
             ? const Center(child: Text("No changes."))
             : FadingListView(
-                gradientHeight: 50,
+                gradientHeight: 70,
                 bottom: false,
-                padding: const EdgeInsets.only(bottom: 80),
+                padding: const EdgeInsets.only(bottom: 80, top: 20),
                 itemBuilder: (context, index) => AnchorItem(
                   playlistId: playlist.id,
                   video: anchorIssues[index],
