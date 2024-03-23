@@ -46,7 +46,7 @@ extension AnchorDialog on PopupService {
                     offsetController.text = switch (position) {
                       AnchorPosition.start => video.index,
                       AnchorPosition.middle =>
-                        video.index - video.playlist.videos.length ~/ 2 + 1,
+                        video.index - video.playlist.videos.length ~/ 2,
                       AnchorPosition.end =>
                         video.index - video.playlist.videos.length + 1,
                     }
