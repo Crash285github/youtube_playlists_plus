@@ -4,8 +4,8 @@ import 'package:ytp_new/config.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 
-class AppDataButtons extends StatelessWidget {
-  const AppDataButtons({super.key});
+class CodecButtons extends StatelessWidget {
+  const CodecButtons({super.key});
 
   @override
   Widget build(BuildContext context) {

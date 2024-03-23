@@ -60,6 +60,15 @@ class SettingsProvider extends ChangeNotifier {
     }
   }
 
+  /// Whether the app should ask before proceeding with deletions
+  bool get confirmDeletes => Settings.confirmDeletes;
+  set confirmDeletes(final bool confirmDeletes) {
+    Settings.confirmDeletes = confirmDeletes;
+    notifyListeners();
+
+    Persistence.saveSettings();
+  }
+
   /// Exports the app data
   Future export() async => CodecService.export();
 

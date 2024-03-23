@@ -1,15 +1,17 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/app_data_buttons.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/codec_buttons.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/confirm_delete_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/hide_topic_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/scheme_mode.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/split_mode.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/theme_mode.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
 class HomePageDrawer extends StatelessWidget {
@@ -18,6 +20,7 @@ class HomePageDrawer extends StatelessWidget {
   final preferences = <Widget>[
     const SettingsThemeMode(),
     const SettingsSchemeMode(),
+    const SettingsConfirmDeleteToggle(),
     const SettingsHideTopicToggle(),
     const SettingsSplitMode(),
     if (PlaylistStorageProvider().playlists.isNotEmpty)
@@ -43,7 +46,7 @@ class HomePageDrawer extends StatelessWidget {
             itemBuilder: (context, index) => preferences[index],
           ),
         ),
-        const AppDataButtons(),
+        const CodecButtons(),
         const Divider(indent: 8.0, endIndent: 8.0),
         Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),

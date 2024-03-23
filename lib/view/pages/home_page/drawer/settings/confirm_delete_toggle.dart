@@ -4,17 +4,18 @@ import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
-class SettingsHideTopicToggle extends StatelessWidget {
-  const SettingsHideTopicToggle({super.key});
+class SettingsConfirmDeleteToggle extends StatelessWidget {
+  const SettingsConfirmDeleteToggle({super.key});
 
-  bool get _enabled => Settings.hideTopic;
+  bool get _enabled => Settings.confirmDeletes;
 
-  void _toggle() => SettingsProvider().hideTopic = !Settings.hideTopic;
+  void _toggle() =>
+      SettingsProvider().confirmDeletes = !Settings.confirmDeletes;
 
   @override
   Widget build(BuildContext context) {
     context.select<SettingsProvider, bool>(
-      (final settings) => settings.hideTopic,
+      (final settings) => settings.confirmDeletes,
     );
 
     return SettingTemplate(
@@ -24,17 +25,17 @@ class SettingsHideTopicToggle extends StatelessWidget {
         children: [
           const Row(
             children: [
-              Icon(Icons.note_outlined),
+              Icon(Icons.delete_outline),
               Padding(
                 padding: EdgeInsets.only(left: 8.0),
-                child: Text("Hide '- Topic'"),
+                child: Text("Confirm deletions"),
               )
             ],
           ),
           Switch(
             value: _enabled,
             onChanged: (_) => _toggle(),
-          )
+          ),
         ],
       ),
     );

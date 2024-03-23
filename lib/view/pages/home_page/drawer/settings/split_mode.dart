@@ -29,7 +29,9 @@ class SettingsSplitMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mode = Provider.of<SettingsProvider>(context).splitMode.titleCase;
+    final mode = context.select<SettingsProvider, String>(
+      (final settings) => settings.splitMode.titleCase,
+    );
 
     return SettingTemplate(
       onTapUp: (details) => _set(context, details.globalPosition),

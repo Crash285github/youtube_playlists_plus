@@ -11,18 +11,16 @@ class SettingsReorderToggle extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return SettingTemplate(
-      onTap: () => _toggle(context),
-      child: const Row(
-        children: [
-          Icon(Icons.sort),
-          Padding(
-            padding: EdgeInsets.only(left: 8.0),
-            child: Text("Reorder Playlists"),
-          )
-        ],
-      ),
-    );
-  }
+  Widget build(BuildContext context) => SettingTemplate(
+        onTap: () => _toggle(context),
+        child: const Row(
+          children: [
+            Icon(Icons.sort),
+            Padding(
+              padding: EdgeInsets.only(left: 8.0),
+              child: Text("Reorder Playlists"),
+            )
+          ],
+        ),
+      );
 }

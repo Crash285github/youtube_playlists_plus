@@ -27,7 +27,9 @@ class SettingsSchemeMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Provider.of<SettingsProvider>(context).colorScheme.titleCase;
+    final scheme = context.select<SettingsProvider, String>(
+      (final settings) => settings.colorScheme.titleCase,
+    );
 
     return SettingTemplate(
       onTapUp: (details) => _set(context, details.globalPosition),
