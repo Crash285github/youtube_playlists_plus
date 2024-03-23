@@ -27,7 +27,7 @@ class Anchor {
       };
 
   int get _playlistLength =>
-      PlaylistStorageProvider().fromId(playlistId)!.videos.length - 1;
+      PlaylistStorageProvider().fromId(playlistId)!.length - 1;
 
   const Anchor({
     required this.playlistId,

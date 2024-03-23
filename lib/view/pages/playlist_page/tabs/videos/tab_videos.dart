@@ -31,12 +31,12 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
         FadingListView(
           gradientHeight: 50,
           bottom: false,
-          itemCount: videos.length,
+          itemCount: playlist.length,
           padding: const EdgeInsets.only(bottom: 60, top: 20),
           itemBuilder: (context, index) => VideoItem(
-            video: videos.elementAt(index),
+            video: playlist.elementAt(index),
             isFirst: index == 0,
-            isLast: index == videos.length - 1,
+            isLast: index == playlist.length - 1,
           ),
         ),
         if (Platform.isAndroid)

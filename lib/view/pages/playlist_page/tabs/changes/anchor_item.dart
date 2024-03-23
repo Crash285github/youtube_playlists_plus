@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/int_to_ordinal.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
@@ -155,7 +153,7 @@ class AnchorItem extends StatelessWidget {
                     "Video at position:",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
-                  VideoItem(video: playlist.videos[video.anchor!.index]),
+                  VideoItem(video: playlist[video.anchor!.index]),
                 ],
               ),
             )),

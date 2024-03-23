@@ -41,15 +41,15 @@ class ChangeItem extends StatelessWidget {
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   bool get enabled =>
-      (change.isAddition && !playlist.videos.contains(change)) ||
-      (change.isRemoval && playlist.videos.contains(change));
+      (change.isAddition && !playlist.contains(change)) ||
+      (change.isRemoval && playlist.contains(change));
 
   void _update() => PlaylistStorageProvider().update(
         () {
           if (change.type == VideoChangeType.addition) {
-            playlist.videos.add(change);
+            playlist.add(change);
           } else {
-            playlist.videos.remove(change);
+            playlist.remove(change);
           }
 
           playlist.pendingToSaved(

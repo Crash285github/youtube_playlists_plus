@@ -25,26 +25,27 @@ class Playlist extends Media
     required super.author,
     required super.thumbnail,
     required this.description,
-    required this.videos,
+    required List<Video> videos,
     this.state,
-  });
+  }) : _videos = videos;
 
   /// This [Playlist]'s videos
-  final List<Video> videos;
+  List<Video> get videos => _videos;
+  final List<Video> _videos;
 
   /// Gets the videos that are anchored
   List<Video> get anchoredVideos =>
-      videos.where((final video) => video.anchor != null).toList();
+      _videos.where((final video) => video.anchor != null).toList();
 
   /// Gets the changes from a [Playlist] with the same id,
-  /// but different [videos]
+  /// but different [_videos]
   ///
   /// Changes will be put into
   /// [additions], [removals] & [pendingHistory]
   void changesFrom(final Playlist other) {
     if (this != other) return;
 
-    final Set<Video> added = other.videos.toSet().difference(videos.toSet());
+    final Set<Video> added = other._videos.toSet().difference(_videos.toSet());
     additions
       ..clear()
       ..addAll(
@@ -54,7 +55,7 @@ class Playlist extends Media
         ),
       );
 
-    final removed = videos.toSet().difference(other.videos.toSet());
+    final removed = _videos.toSet().difference(other._videos.toSet());
     removals
       ..clear()
       ..addAll(
@@ -80,9 +81,9 @@ class Playlist extends Media
       );
 
     if (changes.isEmpty) {
-      videos
+      _videos
         ..clear()
-        ..addAll(other.videos);
+        ..addAll(other._videos);
     }
   }
 
@@ -125,13 +126,27 @@ class Playlist extends Media
   @override
   String toString() => 'Playlist(title: $title)';
 
+  operator [](int i) => _videos[i];
+
+  int get length => _videos.length;
+
+  bool contains(final Video video) => _videos.contains(video);
+
+  int indexOf(final Video video) => _videos.indexOf(video);
+
+  void add(final Video video) => _videos.add(video);
+
+  bool remove(final Video video) => _videos.remove(video);
+
+  Video elementAt(int i) => _videos.elementAt(i);
+
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
         'title': title,
         'author': author,
         'description': description,
         'thumbnail': thumbnail,
-        'videos': [...videos.map((x) => x.toMap())],
+        'videos': [..._videos.map((x) => x.toMap())],
         'history': [...savedHistory.map((x) => x.toMap())],
         'planned': planned,
       };

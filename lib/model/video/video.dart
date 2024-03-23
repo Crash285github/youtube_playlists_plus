@@ -24,7 +24,7 @@ class Video extends Media {
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
   /// The index of this [Video] in it's [Playlist]
-  int get index => playlist.videos.indexOf(this);
+  int get index => playlist.indexOf(this);
 
   /// Returns the [Anchor] of this [Video]
   Anchor? get anchor => AnchorStorageProvider().fromVideo(this);
