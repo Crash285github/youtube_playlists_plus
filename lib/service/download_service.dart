@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
     show StreamInfoIterableExt, YoutubeExplode;
+import 'package:ytp_new/extensions/string_file_name.dart';
 import 'package:ytp_new/model/video/video.dart';
 
 class DownloadService {
@@ -21,7 +22,7 @@ class DownloadService {
 
       final muxedStream = _yt.videos.streamsClient.get(muxedStreaminfo);
 
-      final file = File("$dir/${video.title}.mp4").openWrite();
+      final file = File("$dir/${video.title.toFileName()}.mp4").openWrite();
 
       await muxedStream.pipe(file);
       await file.flush();
