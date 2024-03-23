@@ -103,15 +103,19 @@ class VideoItem extends StatelessWidget {
               ],
             ),
           ),
-          if (video.anchor != null && !video.anchorInPlace)
+          if (video.anchor != null)
             Positioned(
               bottom: 0,
               right: 4,
               child: Icon(
                 video.index > video.anchor!.index
                     ? Icons.keyboard_arrow_up_rounded
-                    : Icons.keyboard_arrow_down_rounded,
-                color: Theme.of(context).colorScheme.primary,
+                    : video.index < video.anchor!.index
+                        ? Icons.keyboard_arrow_down_rounded
+                        : Icons.check,
+                color: Theme.of(context).colorScheme.primary.withOpacity(
+                      video.index == video.anchor!.index ? .1 : 1,
+                    ),
               ),
             )
         ],

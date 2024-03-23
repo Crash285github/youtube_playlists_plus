@@ -126,7 +126,7 @@ class Playlist extends Media
   @override
   String toString() => 'Playlist(title: $title)';
 
-  operator [](int i) => _videos[i];
+  Video operator [](int i) => _videos[i];
 
   int get length => _videos.length;
 

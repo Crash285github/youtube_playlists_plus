@@ -46,7 +46,7 @@ extension AnchorDialog on PopupService {
                     offsetController.text = switch (position) {
                       AnchorPosition.start => video.index,
                       AnchorPosition.middle =>
-                        video.index - video.playlist.length ~/ 2,
+                        video.index - video.playlist.length ~/ 2 + 1,
                       AnchorPosition.end =>
                         video.index - video.playlist.length + 1,
                     }
@@ -72,6 +72,15 @@ extension AnchorDialog on PopupService {
                 FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
               ],
               controller: offsetController,
+              onSubmitted: (value) => Navigator.pop(
+                context,
+                Anchor(
+                  playlistId: video.playlistId,
+                  videoId: video.id,
+                  position: position,
+                  offset: offset,
+                ),
+              ),
             )
           ],
         ),
