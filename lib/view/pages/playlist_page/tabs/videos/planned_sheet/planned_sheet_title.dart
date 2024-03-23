@@ -71,7 +71,7 @@ class PlannedSheetTitle extends StatelessWidget {
               overlayColor: MaterialStatePropertyAll(
                 Theme.of(context).colorScheme.primary.withOpacity(.3),
               ),
-              borderRadius: BorderRadius.circular(6.0),
+              borderRadius: BorderRadius.circular(14.0),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(

@@ -34,7 +34,7 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
           gradientHeight: 50,
           bottom: false,
           itemCount: videos.length,
-          padding: const EdgeInsets.only(bottom: 60),
+          padding: const EdgeInsets.only(bottom: 60, top: 20),
           itemBuilder: (context, index) => VideoItem(
             video: videos.elementAt(index),
             isFirst: index == 0,

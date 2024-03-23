@@ -62,7 +62,10 @@ class PlaylistPage extends StatelessWidget {
 
                 PlaylistStorageProvider().remove(playlist!);
               },
-              icon: const Icon(Icons.delete_outline),
+              icon: Icon(
+                Icons.delete_outline,
+                color: Theme.of(context).colorScheme.error,
+              ),
               tooltip: "Delete",
             ),
           ],
@@ -123,6 +126,7 @@ class PlaylistPage extends StatelessWidget {
             ),
           ],
         ),
+        endDrawerEnableOpenDragGesture: false,
         endDrawer: Padding(
           padding: const EdgeInsets.only(
             top: kToolbarHeight,

@@ -54,8 +54,8 @@ class _PlannedSheetState extends State<PlannedSheet> {
               elevation: 16,
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                topRight: Radius.circular(8.0),
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
                 bottomLeft: Radius.zero,
                 bottomRight: Radius.zero,
               )),
