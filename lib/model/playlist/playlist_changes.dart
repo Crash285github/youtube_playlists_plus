@@ -1,4 +1,5 @@
 import 'package:ytp_new/model/video/video_change.dart';
+export 'package:ytp_new/model/video/video_change.dart';
 
 /// A `Playlist's` changes
 mixin PlaylistChanges {
@@ -9,7 +10,7 @@ mixin PlaylistChanges {
   final List<VideoChange> removals = [];
 
   /// All the changes made to this [Playlist]
-  /// 
+  ///
   /// Sorted by title
   List<VideoChange> get changes => (additions + removals)
     ..sort(

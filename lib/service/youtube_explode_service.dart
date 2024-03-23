@@ -4,7 +4,6 @@ import 'dart:isolate';
 
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/video.dart';
 
 /// Handles the communication with Youtube
 class YoutubeService {

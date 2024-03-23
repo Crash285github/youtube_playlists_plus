@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/video/change_type.dart';
+import 'package:ytp_new/model/video/video_change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
+
+export 'package:ytp_new/model/video/video_change_type.dart';
 
 @immutable
 class VideoChange extends Video {

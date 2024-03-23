@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
+
 import 'package:ytp_new/extensions/popup_anchor_dialog.dart';
 import 'package:ytp_new/extensions/string_to_clipboard.dart';
-import 'package:ytp_new/model/media.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/anchor.dart';
-import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 

@@ -38,6 +38,10 @@ class _HomePageState extends State<HomePage> {
     final canReorder = context.select<SettingsProvider, bool>(
         (final settings) => settings.canReorder);
 
+    final hasPLaylists = context.select<PlaylistStorageProvider, bool>(
+      (final playlistStorage) => playlistStorage.playlists.isNotEmpty,
+    );
+
     return Scaffold(
       drawer: HomePageDrawer(),
       body: CustomScrollView(
@@ -49,18 +53,19 @@ class _HomePageState extends State<HomePage> {
             floating: true,
             snap: true,
             actions: [
-              IconButton(
-                onPressed: RefreshingProvider().refreshingList.isEmpty
-                    ? () async {
-                        for (final playlist
-                            in PlaylistStorageProvider().playlists) {
-                          playlist.refresh();
+              if (hasPLaylists)
+                IconButton(
+                  onPressed: RefreshingProvider().refreshingList.isEmpty
+                      ? () async {
+                          for (final playlist
+                              in PlaylistStorageProvider().playlists) {
+                            playlist.refresh();
+                          }
                         }
-                      }
-                    : null,
-                icon: const Icon(Icons.refresh),
-                tooltip: "Refresh all",
-              ),
+                      : null,
+                  icon: const Icon(Icons.refresh),
+                  tooltip: "Refresh all",
+                ),
             ],
           ),
           const PlaylistListView(),

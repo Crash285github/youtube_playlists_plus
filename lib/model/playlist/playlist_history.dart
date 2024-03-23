@@ -1,4 +1,5 @@
 import 'package:ytp_new/model/video/video_history.dart';
+export 'package:ytp_new/model/video/video_history.dart';
 
 /// The history of a [Playlist]
 mixin PlaylistHistory {

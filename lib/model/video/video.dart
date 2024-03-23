@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:ytp_new/model/media.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/anchor.dart';
+import 'package:flutter/material.dart' show immutable;
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/download_service.dart';
+
+export 'package:ytp_new/model/video/anchor.dart';
 
 @immutable
 class Video extends Media {

@@ -4,7 +4,6 @@ import 'package:ytp_new/model/anchor_storage.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/model/settings/settings.dart';
-import 'package:ytp_new/model/video/anchor.dart';
 
 /// Handles saving and loading local data
 class Persistence {
@@ -18,9 +17,10 @@ class Persistence {
     ..setInt(AppConfig.settingsThemeKey, Settings.theme.index)
     ..setInt(AppConfig.settingsSchemeKey, Settings.colorScheme.index)
     ..setInt(AppConfig.settingsSplitKey, Settings.splitMode.index)
-    ..setBool(AppConfig.settingsHideTopicKey, Settings.hideTopic);
+    ..setBool(AppConfig.settingsHideTopicKey, Settings.hideTopic)
+    ..setBool(AppConfig.settingsConfirmDeletesKey, Settings.confirmDeletes);
 
-  /// Load & apply persisted settings
+  /// Loads [Settings] from [Persistence]
   ///
   /// Does not notify
   static void loadSettings() {
@@ -43,6 +43,11 @@ class Persistence {
     if (hideTopic != null) {
       Settings.hideTopic = hideTopic;
     }
+
+    final confirmDeletes = _prefs.getBool(AppConfig.settingsConfirmDeletesKey);
+    if (confirmDeletes != null) {
+      Settings.confirmDeletes = confirmDeletes;
+    }
   }
 
   /// Saves all [Playlist]s to [Persistence]
@@ -57,7 +62,7 @@ class Persistence {
     );
   }
 
-  /// Loads playlists from [Persistence]
+  /// Loads [Playlist]s from [Persistence]
   ///
   /// Does not notify
   static void loadPlaylists() {

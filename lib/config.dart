@@ -12,6 +12,7 @@ class AppConfig {
   static const settingsSchemeKey = "appScheme";
   static const settingsSplitKey = "split";
   static const settingsHideTopicKey = "hideTopic";
+  static const settingsConfirmDeletesKey = "hideTopic";
   static const playlistsKey = "playlists";
   static const anchorsKey = 'anchors';
 }

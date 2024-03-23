@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
-import 'package:ytp_new/model/video/anchor.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/service/popup_service.dart';
 

@@ -42,4 +42,7 @@ class Settings {
 
   /// Can the app's playlists be reordered currently
   static bool canReorder = false;
+
+  /// Should the app ask before proceeding deletions
+  static bool confirmDeletes = true;
 }

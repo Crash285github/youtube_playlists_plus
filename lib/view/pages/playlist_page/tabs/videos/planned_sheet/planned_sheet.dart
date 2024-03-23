@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';

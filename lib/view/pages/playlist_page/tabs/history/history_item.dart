@@ -5,8 +5,6 @@ import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/video/video_history.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
