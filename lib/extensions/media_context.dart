@@ -27,13 +27,6 @@ extension MediaContext on Media {
       );
 }
 
-extension PlaylistContext on Playlist {
-  PopupMenuItem get contextDelete => PopupMenuItem(
-        onTap: () => PlaylistStorageProvider().remove(this),
-        child: const Text("Delete"),
-      );
-}
-
 extension VideoContext on Video {
   PopupMenuItem get contextDownload => PopupMenuItem(
         onTap: () => download(),

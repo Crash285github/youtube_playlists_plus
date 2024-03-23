@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
@@ -41,6 +44,7 @@ class PlaylistItem extends StatelessWidget {
         primaryAction: (_) {
           AppNavigator.tryPopRight();
           AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
+          Persistence.currentlyShowingPlaylistId = playlist.id;
         },
         secondaryAction: (offset) => offset.showContextMenu(
           context: context,
@@ -49,7 +53,34 @@ class PlaylistItem extends StatelessWidget {
             playlist.contextCopyTitle,
             playlist.contextCopyId,
             playlist.contextCopyLink,
-            playlist.contextDelete,
+            PopupMenuItem(
+              onTap: () {
+                if (Settings.confirmDeletes) {
+                  PopupService.confirmDialog(
+                    context: context,
+                    child: Text(
+                      "'${playlist.title}' will be deleted.",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ).then((value) {
+                    if (value ?? false) {
+                      if (playlist.id ==
+                          Persistence.currentlyShowingPlaylistId) {
+                        AppNavigator.tryPopRight(context);
+                      }
+                      PlaylistStorageProvider().remove(playlist);
+                    }
+                  });
+                  return;
+                }
+
+                if (playlist.id == Persistence.currentlyShowingPlaylistId) {
+                  AppNavigator.tryPopRight(context);
+                }
+                PlaylistStorageProvider().remove(playlist);
+              },
+              child: const Text("Delete"),
+            )
           ],
         ),
         borderRadius: borderRadius,

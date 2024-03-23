@@ -28,6 +28,6 @@ mixin PlaylistHistory {
   }
 
   /// Removes a [History]
-  bool removeHistory(final VideoHistory history) =>
+  bool deleteHistory(final VideoHistory history) =>
       savedHistory.remove(history) || pendingHistory.remove(history);
 }

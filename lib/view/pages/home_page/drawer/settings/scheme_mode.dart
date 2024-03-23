@@ -41,7 +41,7 @@ class SettingsSchemeMode extends StatelessWidget {
               Icon(Icons.color_lens_outlined),
               Padding(
                 padding: EdgeInsets.only(left: 8.0),
-                child: Text("Color Scheme"),
+                child: Text("Color scheme"),
               ),
             ],
           ),

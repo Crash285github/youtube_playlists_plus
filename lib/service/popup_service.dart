@@ -27,8 +27,8 @@ class PopupService {
   /// Shows an [AlertDialog]
   static Future<T?> dialog<T>({
     required BuildContext context,
-    required Widget child,
     required List<Widget> actions,
+    required Widget child,
   }) async =>
       showDialog<T>(
         useRootNavigator: false,
@@ -37,5 +37,26 @@ class PopupService {
           content: child,
           actions: actions,
         ),
+      );
+
+  static Future<bool?> confirmDialog({
+    required BuildContext context,
+    String confirmText = "Proceed",
+    String cancelText = "Cancel",
+    required Widget child,
+  }) =>
+      dialog<bool>(
+        context: context,
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(cancelText),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(confirmText),
+          ),
+        ],
+        child: child,
       );
 }

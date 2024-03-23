@@ -7,6 +7,8 @@ import 'package:ytp_new/model/settings/settings.dart';
 
 /// Handles saving and loading local data
 class Persistence {
+  static String? currentlyShowingPlaylistId;
+
   static late final SharedPreferences _prefs;
 
   /// Gets the instance of `SharedPreferences`

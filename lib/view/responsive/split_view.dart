@@ -10,6 +10,8 @@ import 'package:ytp_new/view/responsive/empty_right.dart';
 class SplitView extends StatelessWidget {
   const SplitView({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     final isEven = context.select<SettingsProvider, bool>(

@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
@@ -57,8 +58,23 @@ class PlaylistPage extends StatelessWidget {
               ),
             IconButton(
               onPressed: () {
-                AppNavigator.tryPopRight(context);
+                if (Settings.confirmDeletes) {
+                  PopupService.confirmDialog(
+                    context: context,
+                    child: Text(
+                      "'${playlist!.title}' will be deleted.",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ).then((value) {
+                    if (value ?? false) {
+                      AppNavigator.tryPopRight(context);
+                      PlaylistStorageProvider().remove(playlist!);
+                    }
+                  });
+                  return;
+                }
 
+                AppNavigator.tryPopRight(context);
                 PlaylistStorageProvider().remove(playlist!);
               },
               icon: Icon(
@@ -135,7 +151,7 @@ class PlaylistPage extends StatelessWidget {
           ),
           child: Drawer(
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
+                borderRadius: BorderRadius.circular(8.0)),
             child: Column(
               children: [
                 PlannedSheetTitle(playlistId: playlistId),

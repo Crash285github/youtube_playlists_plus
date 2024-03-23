@@ -5,8 +5,10 @@ import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/extensions/string_hide_topic.dart';
 import 'package:ytp_new/extensions/text_style_with_opacity.dart';
+import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
 class HistoryItem extends StatelessWidget {
@@ -56,11 +58,30 @@ class HistoryItem extends StatelessWidget {
             history.contextCopyLink,
             history.contextCopyId,
             PopupMenuItem(
-              onTap: () => PlaylistStorageProvider().update(
-                () => playlist.removeHistory(history),
-                save: true,
-              ),
-              child: const Text("Remove"),
+              onTap: () {
+                if (Settings.confirmDeletes) {
+                  PopupService.confirmDialog(
+                    context: context,
+                    child: Text(
+                      "'${history.title}' will be deleted from history.",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ).then((value) {
+                    if (value ?? false) {
+                      PlaylistStorageProvider().update(
+                        () => playlist.deleteHistory(history),
+                        save: true,
+                      );
+                    }
+                  });
+                  return;
+                }
+                PlaylistStorageProvider().update(
+                  () => playlist.deleteHistory(history),
+                  save: true,
+                );
+              },
+              child: const Text("Delete"),
             ),
           ],
         ),
