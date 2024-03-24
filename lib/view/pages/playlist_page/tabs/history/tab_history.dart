@@ -30,11 +30,19 @@ class _PlaylistPageTabHistoryState extends State<PlaylistPageTabHistory>
               bool first = true;
               bool last = true;
               try {
-                last = history[index].created != history[index + 1].created;
+                last = history[index]
+                        .created
+                        .difference(history[index + 1].created)
+                        .inMilliseconds >
+                    1;
               } catch (_) {}
 
               try {
-                first = history[index - 1].created != history[index].created;
+                first = history[index - 1]
+                        .created
+                        .difference(history[index].created)
+                        .inSeconds >
+                    1;
               } catch (_) {}
 
               return Padding(

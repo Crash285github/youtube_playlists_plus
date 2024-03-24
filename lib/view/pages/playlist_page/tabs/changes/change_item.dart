@@ -66,7 +66,7 @@ class ChangeItem extends StatelessWidget {
       opacity: enabled ? 1 : 0.7,
       child: MediaItem(
         borderRadius: borderRadius,
-        primaryAction: (offset) => _update(),
+        primaryAction: enabled ? (offset) => _update() : null,
         secondaryAction: (offset) => offset.showContextMenu(
           context: context,
           items: <PopupMenuEntry>[
