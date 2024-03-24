@@ -73,13 +73,19 @@ class ChangeItem extends StatelessWidget {
             PopupMenuItem(
               enabled: enabled,
               onTap: _update,
-              child: Text(change.isAddition ? "Add" : "Remove"),
+              child: ContextBody(
+                text: change.isAddition ? "Add" : "Remove",
+                icon: change.isAddition ? Icons.add : Icons.remove,
+              ),
             ),
             if (change.isRemoval)
               PopupMenuItem(
                 onTap: () => PlaylistStorageProvider()
                     .update(() => playlist.planned.add(change.title)),
-                child: const Text("Add to planned"),
+                child: const ContextBody(
+                  text: "Add to planned",
+                  icon: Icons.list_alt,
+                ),
               ),
             const PopupMenuDivider(height: 0),
             change.contextOpen,

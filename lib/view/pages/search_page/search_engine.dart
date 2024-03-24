@@ -6,12 +6,14 @@ import 'package:ytp_new/model/playlist_storage.dart';
 
 class SearchEngine {
   /// Searches Youtube Playlists
-  static Future<List<Playlist>> search(String query) async =>
+  static Future<List<Playlist>> search(final String query) async =>
       (await _search(query))
-        ..removeWhere((element) => PlaylistStorage.playlists.contains(element));
+        ..removeWhere(
+          (final result) => PlaylistStorage.playlists.contains(result),
+        );
 
   /// Searches Youtube Playlists, either with a link or plain text
-  static Future<List<Playlist>> _search(String query) async {
+  static Future<List<Playlist>> _search(final String query) async {
     if (query.isYoutubePlaylistLink()) {
       final pl = await _searchByLink(query);
       return pl == null ? [] : [pl];
@@ -45,7 +47,7 @@ class SearchEngine {
   /// Searches Youtube Playlists with plain text
   static Future<List<Playlist>> _searchByText(String query) async {
     query += " ";
-    var yt = YoutubeExplode();
+    final yt = YoutubeExplode();
     final result =
         await yt.search.searchContent(query, filter: TypeFilters.playlist);
     yt.close();

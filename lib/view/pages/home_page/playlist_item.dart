@@ -81,7 +81,10 @@ class PlaylistItem extends StatelessWidget {
                 }
                 PlaylistStorageProvider().remove(playlist);
               },
-              child: const Text("Delete"),
+              child: const ContextBody(
+                text: "Delete",
+                icon: Icons.delete_outline,
+              ),
             )
           ],
         ),

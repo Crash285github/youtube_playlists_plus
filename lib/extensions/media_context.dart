@@ -5,32 +5,69 @@ import 'package:ytp_new/extensions/string_to_clipboard.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 
+class ContextBody extends StatelessWidget {
+  final String text;
+  final IconData icon;
+  const ContextBody({super.key, required this.text, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(text),
+        Padding(
+          padding: const EdgeInsets.only(left: 8.0),
+          child: Icon(
+            icon,
+            color: Theme.of(context).colorScheme.onBackground.withOpacity(.5),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 extension MediaContext on Media {
   PopupMenuItem get contextOpen => PopupMenuItem(
-        onTap: () => open(),
-        child: const Text("Open"),
-      );
+      onTap: () => open(),
+      child: const ContextBody(
+        text: "Open",
+        icon: Icons.open_in_new,
+      ));
 
   PopupMenuItem get contextCopyTitle => PopupMenuItem(
         onTap: () => title.copyToClipboard(),
-        child: const Text("Copy title"),
+        child: const ContextBody(
+          text: "Copy title",
+          icon: Icons.copy,
+        ),
       );
 
   PopupMenuItem get contextCopyId => PopupMenuItem(
         onTap: () => id.copyToClipboard(),
-        child: const Text("Copy id"),
+        child: const ContextBody(
+          text: "Copy id",
+          icon: Icons.copy,
+        ),
       );
 
   PopupMenuItem get contextCopyLink => PopupMenuItem(
         onTap: () => link.copyToClipboard(),
-        child: const Text("Copy link"),
+        child: const ContextBody(
+          text: "Copy link",
+          icon: Icons.copy,
+        ),
       );
 }
 
 extension VideoContext on Video {
   PopupMenuItem get contextDownload => PopupMenuItem(
         onTap: () => download(),
-        child: const Text("Download"),
+        child: const ContextBody(
+          text: "Download",
+          icon: Icons.download,
+        ),
       );
 
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
@@ -46,6 +83,9 @@ extension VideoContext on Video {
             }
           }
         },
-        child: const Text("Set Anchor"),
+        child: const ContextBody(
+          text: "Set Anchor",
+          icon: Icons.anchor,
+        ),
       );
 }

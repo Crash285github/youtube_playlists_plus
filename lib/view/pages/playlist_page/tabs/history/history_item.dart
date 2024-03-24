@@ -83,7 +83,10 @@ class HistoryItem extends StatelessWidget {
                   save: true,
                 );
               },
-              child: const Text("Delete"),
+              child: const ContextBody(
+                text: "Delete",
+                icon: Icons.delete_outline,
+              ),
             ),
           ],
         ),

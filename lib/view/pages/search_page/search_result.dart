@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
+import 'package:ytp_new/extensions/media_context.dart';
+import 'package:ytp_new/extensions/offset_context_menu.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
@@ -62,6 +64,16 @@ class _SearchResultState extends State<SearchResult> {
                   }
                 }
               },
+        secondaryAction: (offset) => offset.showContextMenu(
+          context: context,
+          items: <PopupMenuEntry>[
+            widget.playlist.contextOpen,
+            const PopupMenuDivider(),
+            widget.playlist.contextCopyTitle,
+            widget.playlist.contextCopyId,
+            widget.playlist.contextCopyLink,
+          ],
+        ),
         child: Padding(
           padding: const EdgeInsets.all(3.0),
           child: Row(
