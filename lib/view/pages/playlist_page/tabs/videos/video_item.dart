@@ -51,11 +51,13 @@ class VideoItem extends StatelessWidget {
     return MediaItem(
       secondaryAction: (offset) => offset.showContextMenu(
         context: context,
-        items: [
+        items: <PopupMenuEntry>[
           video.contextOpen,
+          const PopupMenuDivider(height: 0),
           video.contextCopyTitle,
           video.contextCopyId,
           video.contextCopyLink,
+          const PopupMenuDivider(height: 0),
           video.contextDownload,
           video.contextSetAnchor(context),
         ],
@@ -89,7 +91,7 @@ class VideoItem extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          author,
+                          "by $author",
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context)
                               .textTheme

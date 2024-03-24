@@ -72,15 +72,9 @@ extension AnchorDialog on PopupService {
                 FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
               ],
               controller: offsetController,
-              onSubmitted: (value) => Navigator.pop(
-                context,
-                Anchor(
-                  playlistId: video.playlistId,
-                  videoId: video.id,
-                  position: position,
-                  offset: offset,
-                ),
-              ),
+              onSubmitted: (_) {
+                offset = int.tryParse(offsetController.value.text) ?? 0;
+              },
             )
           ],
         ),

@@ -95,7 +95,6 @@ class AnchorItem extends StatelessWidget {
         builder: (context) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Container(
-              padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(16.0),
@@ -106,108 +105,102 @@ class AnchorItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "Anchor info",
-                    style: Theme.of(context).textTheme.headlineSmall,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0.0),
+                    child: Text(
+                      "Anchor info",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
                   ),
                   const Divider(),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Row(
-                        children: [
-                          Thumbnail(
-                            thumbnail: video.thumbnail,
-                            height: 80,
-                            width: 80,
-                            borderRadius: BorderRadius.circular(6.0),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    video.title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    "Should be "
-                                    "${video.anchor!.index.toOrdinalString()} "
-                                    "in playlist",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .withOpacity(.5),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                  _AnchorSheetItem(video: video),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Should be "
+                      "${video.anchor!.index.toOrdinalString()} "
+                      "video in playlist.",
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  Text(
-                    "Video at this position:",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Row(
-                        children: [
-                          Thumbnail(
-                            thumbnail: playlist[video.anchor!.index].thumbnail,
-                            height: 80,
-                            width: 80,
-                            borderRadius: BorderRadius.circular(6.0),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    playlist[video.anchor!.index].title,
-                                    overflow: TextOverflow.ellipsis,
-                                    style:
-                                        Theme.of(context).textTheme.titleMedium,
-                                  ),
-                                  const SizedBox(height: 8),
-                                  Text(
-                                    SettingsProvider().hideTopic
-                                        ? playlist[video.anchor!.index]
-                                            .author
-                                            .hideTopic()
-                                        : playlist[video.anchor!.index].author,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall!
-                                        .withOpacity(.5),
-                                  )
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Video currently at this position:",
+                      style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
+                  _AnchorSheetItem(video: playlist[video.anchor!.index])
                 ],
               ),
             )),
       );
+}
+
+class _AnchorSheetItem extends StatelessWidget {
+  const _AnchorSheetItem({
+    required this.video,
+  });
+
+  final Video video;
+
+  String get author =>
+      SettingsProvider().hideTopic ? video.author.hideTopic() : video.author;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.zero,
+          topLeft: Radius.zero,
+          bottomRight: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
+      ),
+      margin: const EdgeInsets.fromLTRB(0, 0, 16.0, 0),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 3.0, 3.0, 3.0),
+        child: Row(
+          children: [
+            Thumbnail(
+              thumbnail: video.thumbnail,
+              height: 80,
+              width: 80,
+              borderRadius: const BorderRadius.only(
+                bottomLeft: Radius.zero,
+                topLeft: Radius.zero,
+                bottomRight: Radius.circular(6.0),
+                topRight: Radius.circular(6.0),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      video.title,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      "by $author",
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleSmall!
+                          .withOpacity(.5),
+                    )
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
 }

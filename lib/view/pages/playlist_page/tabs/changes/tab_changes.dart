@@ -48,9 +48,9 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
                 itemCount: anchorIssues.length,
               )
         : FadingListView(
-            gradientHeight: 50,
+            gradientHeight: 70,
             bottom: false,
-            padding: const EdgeInsets.only(bottom: 80),
+            padding: const EdgeInsets.only(bottom: 80, top: 20),
             itemBuilder: (context, index) => ChangeItem(
               change: changes[index],
               playlistId: playlist.id,

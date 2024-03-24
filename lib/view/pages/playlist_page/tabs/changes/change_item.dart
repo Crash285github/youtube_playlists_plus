@@ -69,8 +69,7 @@ class ChangeItem extends StatelessWidget {
         primaryAction: (offset) => _update(),
         secondaryAction: (offset) => offset.showContextMenu(
           context: context,
-          items: [
-            change.contextOpen,
+          items: <PopupMenuEntry>[
             PopupMenuItem(
               enabled: enabled,
               onTap: _update,
@@ -82,6 +81,9 @@ class ChangeItem extends StatelessWidget {
                     .update(() => playlist.planned.add(change.title)),
                 child: const Text("Add to planned"),
               ),
+            const PopupMenuDivider(height: 0),
+            change.contextOpen,
+            const PopupMenuDivider(height: 0),
             change.contextCopyTitle,
             change.contextCopyId,
             change.contextCopyLink,
@@ -117,7 +119,7 @@ class ChangeItem extends StatelessWidget {
                             ),
                             const SizedBox(height: 8),
                             Text(
-                              author,
+                              "by $author",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
@@ -127,13 +129,9 @@ class ChangeItem extends StatelessWidget {
                         ),
                       ),
                     ),
-                    IconButton(
-                      onPressed: enabled ? _update : null,
-                      icon: Icon(change.type.icon),
+                    Icon(
+                      change.type.icon,
                       color: change.type.color,
-                      style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(EdgeInsets.all(4.0)),
-                      ),
                     ),
                   ],
                 ),

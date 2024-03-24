@@ -52,11 +52,13 @@ class HistoryItem extends StatelessWidget {
       child: AdaptiveSecondaryInkWell(
         onSecondary: (details) => details.showContextMenu(
           context: context,
-          items: [
+          items: <PopupMenuEntry>[
             history.contextOpen,
+            const PopupMenuDivider(height: 0),
             history.contextCopyTitle,
             history.contextCopyLink,
             history.contextCopyId,
+            const PopupMenuDivider(height: 0),
             PopupMenuItem(
               onTap: () {
                 if (Settings.confirmDeletes) {
@@ -104,7 +106,7 @@ class HistoryItem extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        "$author • ${history.created.timeago()}",
+                        "by $author • ${history.created.timeago()}",
                         style: Theme.of(context)
                             .textTheme
                             .titleSmall!

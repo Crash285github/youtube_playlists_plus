@@ -48,11 +48,13 @@ class PlaylistItem extends StatelessWidget {
         },
         secondaryAction: (offset) => offset.showContextMenu(
           context: context,
-          items: [
+          items: <PopupMenuEntry>[
             playlist.contextOpen,
+            const PopupMenuDivider(height: 0),
             playlist.contextCopyTitle,
             playlist.contextCopyId,
             playlist.contextCopyLink,
+            const PopupMenuDivider(height: 0),
             PopupMenuItem(
               onTap: () {
                 if (Settings.confirmDeletes) {
@@ -114,7 +116,7 @@ class PlaylistItem extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              author,
+                              "by $author",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
