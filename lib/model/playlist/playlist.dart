@@ -94,7 +94,7 @@ class Playlist extends Media
     try {
       PlaylistStorageProvider().update(() => state = PlaylistState.checking);
 
-      final newPlaylist = await YoutubeService.download(this);
+      final newPlaylist = await YoutubeService.fetch(this);
 
       PlaylistStorageProvider().update(
         () {

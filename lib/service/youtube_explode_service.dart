@@ -9,11 +9,11 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
-  /// Downloads a [Playlist]'s data
-  static Future<Playlist> download(final Playlist playlist) async =>
-      Isolate.run(() => _download(playlist));
+  /// Fetches a [Playlist]'s data
+  static Future<Playlist> fetch(final Playlist playlist) async =>
+      Isolate.run(() => _fetch(playlist));
 
-  static Future<Playlist> _download(final Playlist playlist) async {
+  static Future<Playlist> _fetch(final Playlist playlist) async {
     final metadata = await youtube.playlists
         .get(playlist.id)
         .timeout(const Duration(seconds: 20))

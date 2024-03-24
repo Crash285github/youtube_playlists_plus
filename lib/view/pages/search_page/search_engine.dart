@@ -27,7 +27,7 @@ class SearchEngine {
     final String? id = PlaylistId.parsePlaylistId(link);
 
     if (id == null) return null;
-    var yt = YoutubeExplode();
+    final yt = YoutubeExplode();
 
     final pl = yt.playlists.get(id);
     final v = yt.playlists.getVideos(id).first;

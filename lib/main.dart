@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
@@ -7,6 +9,7 @@ import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/refreshing_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/sharing_service.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
@@ -41,8 +44,23 @@ Future main() async {
   );
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  @override
+  void initState() {
+    super.initState();
+    if (Platform.isAndroid) {
+      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+        SharingService.receive();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

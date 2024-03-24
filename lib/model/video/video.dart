@@ -36,7 +36,7 @@ class Video extends Media {
   String get link => "https://www.youtube.com/watch?v=$id";
 
   /// Downloads this [Video]
-  Future<bool> download() async => await DownloadService.download(this);
+  Future<bool> download() async => await DownloadService.video(this);
 
   @override
   bool operator ==(covariant Video other) =>

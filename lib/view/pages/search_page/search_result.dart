@@ -54,7 +54,9 @@ class _SearchResultState extends State<SearchResult> {
                 setState(() => downloaded = true);
                 Playlist? pl;
                 try {
-                  pl = await YoutubeService.download(widget.playlist);
+                  pl = await YoutubeService.fetch(
+                    widget.playlist,
+                  );
 
                   PlaylistStorageProvider().add(pl);
                 } catch (_) {
