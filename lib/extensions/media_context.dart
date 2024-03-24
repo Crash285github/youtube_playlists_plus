@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 
 import 'package:ytp_new/extensions/popup_anchor_dialog.dart';
@@ -62,7 +64,7 @@ extension MediaContext on Media {
 
 extension VideoContext on Video {
   PopupMenuItem get contextDownload => PopupMenuItem(
-        onTap: () => download(),
+        onTap: () => Isolate.run(() => download()),
         child: const ContextBody(
           text: "Download",
           icon: Icons.download,
