@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/media_context.dart';
 import 'package:ytp_new/extensions/offset_context_menu.dart';
+import 'package:ytp_new/extensions/text_style_with_opacity.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
@@ -23,7 +24,10 @@ class SearchResult extends StatefulWidget {
 }
 
 class _SearchResultState extends State<SearchResult> {
-  bool downloaded = false;
+  bool tapped = false;
+
+  bool get downloaded =>
+      PlaylistStorageProvider().playlists.contains(widget.playlist);
 
   BorderRadiusGeometry get borderRadius => BorderRadius.only(
         bottomLeft: Radius.circular(widget.isLast ? 16.0 : 4.0),
@@ -45,13 +49,13 @@ class _SearchResultState extends State<SearchResult> {
 
     return AnimatedOpacity(
       duration: AppConfig.defaultAnimationDuration,
-      opacity: downloaded ? .5 : 1,
+      opacity: tapped ? .5 : 1,
       child: MediaItem(
         borderRadius: borderRadius,
-        primaryAction: downloaded
+        primaryAction: tapped
             ? null
             : (_) async {
-                setState(() => downloaded = true);
+                setState(() => tapped = true);
                 Playlist? pl;
                 try {
                   pl = await YoutubeService.fetch(
@@ -61,7 +65,7 @@ class _SearchResultState extends State<SearchResult> {
                   PlaylistStorageProvider().add(pl);
                 } catch (_) {
                   if (mounted) {
-                    setState(() => downloaded =
+                    setState(() => tapped =
                         PlaylistStorageProvider().playlists.contains(pl));
                   }
                 }
@@ -89,15 +93,34 @@ class _SearchResultState extends State<SearchResult> {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    widget.playlist.title,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.playlist.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Text(
+                        tapped && !downloaded
+                            ? "Downloading..."
+                            : downloaded
+                                ? "Downloaded."
+                                : "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .withOpacity(.5),
+                      )
+                    ],
                   ),
                 ),
               ),
-              if (PlaylistStorageProvider().playlists.contains(widget.playlist))
+              if (tapped && !downloaded)
+                const SizedBox(
+                    height: 20, width: 20, child: CircularProgressIndicator()),
+              if (tapped && downloaded)
                 const Icon(
                   Icons.download_done,
                   color: Colors.green,
