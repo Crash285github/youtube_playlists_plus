@@ -35,7 +35,14 @@ class AnchorItem extends StatelessWidget {
       );
 
   String get anchorInformation {
-    String text = 'Position changed: ${video.anchor!.index} > ${video.index}';
+    String text = 'Position changed: ${video.anchor!.index} > ${video.index}. ';
+    if (video.anchor!.index > video.index) {
+      text +=
+          "\nIt should be moved down by ${video.anchor!.index - video.index}.";
+    } else {
+      text +=
+          "\nIt should be moved up by ${video.index - video.anchor!.index}.";
+    }
 
     return text;
   }
@@ -61,7 +68,7 @@ class AnchorItem extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -70,7 +77,6 @@ class AnchorItem extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
-                    const SizedBox(height: 8),
                     Text(
                       anchorInformation,
                       style: Theme.of(context)
