@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 
 class CodecButtons extends StatelessWidget {
@@ -51,7 +51,7 @@ class _Template extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final enabled = context.select<RefreshingProvider, bool>(
+    final enabled = context.select<FetchingProvider, bool>(
           (final provider) => provider.refreshingList.isEmpty,
         ) &&
         !context.select<SettingsProvider, bool>(

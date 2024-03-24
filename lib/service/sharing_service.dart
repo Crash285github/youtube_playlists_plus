@@ -1,6 +1,5 @@
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
-import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/settings/settings.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
@@ -24,7 +24,7 @@ class PlaylistPage extends StatelessWidget {
   });
 
   Playlist? get playlist => PlaylistStorageProvider().fromId(playlistId);
-  bool get refreshing => RefreshingProvider().isRefreshingPlaylist(playlistId);
+  bool get refreshing => FetchingProvider().isRefreshingPlaylist(playlistId);
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -33,7 +33,7 @@ class PlaylistPage extends StatelessWidget {
     if (playlist == null) return const SizedBox.shrink();
 
     context.watch<PlaylistStorageProvider>();
-    context.watch<RefreshingProvider>();
+    context.watch<FetchingProvider>();
 
     return DefaultTabController(
       length: 3,

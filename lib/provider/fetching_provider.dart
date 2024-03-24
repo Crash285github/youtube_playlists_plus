@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 
 /// Handles Playlist refreshing permissions
-class RefreshingProvider extends ChangeNotifier {
+class FetchingProvider extends ChangeNotifier {
   final Set<String> _refreshing = {};
+  int _downloadCount = 0;
 
   /// Set of [Playlist]s currently being refreshed
   Set<String> get refreshingList => Set.unmodifiable(_refreshing);
+
+  /// Whether we are currently downloading new [Playlist]s
+  bool get downloading => _downloadCount > 0;
+
+  /// Increases the counter
+  void increaseDownload() {
+    _downloadCount++;
+    notifyListeners();
+  }
+
+  /// Decreases the counter
+  void decreaseDownload() {
+    _downloadCount--;
+    notifyListeners();
+  }
 
   /// Whether a [Playlist] is currently being refreshed or not
   bool isRefreshingPlaylist(final String playlistId) =>
@@ -25,7 +41,7 @@ class RefreshingProvider extends ChangeNotifier {
   }
 
   //_ Singleton
-  static final _provider = RefreshingProvider._();
-  factory RefreshingProvider() => _provider;
-  RefreshingProvider._();
+  static final _provider = FetchingProvider._();
+  factory FetchingProvider() => _provider;
+  FetchingProvider._();
 }

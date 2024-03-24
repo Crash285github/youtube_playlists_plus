@@ -4,14 +4,19 @@ import 'dart:isolate';
 
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 
 /// Handles the communication with Youtube
 class YoutubeService {
   static final youtube = yt.YoutubeExplode();
 
   /// Fetches a [Playlist]'s data
-  static Future<Playlist> fetch(final Playlist playlist) async =>
-      Isolate.run(() => _fetch(playlist));
+  static Future<Playlist> fetch(final Playlist playlist) async {
+    FetchingProvider().increaseDownload();
+    final fetched = await Isolate.run(() => _fetch(playlist));
+    FetchingProvider().decreaseDownload();
+    return fetched;
+  }
 
   static Future<Playlist> _fetch(final Playlist playlist) async {
     final metadata = await youtube.playlists

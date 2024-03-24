@@ -7,7 +7,7 @@ import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/settings/theme_creator.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/sharing_service.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
@@ -36,7 +36,7 @@ Future main() async {
           create: (_) => SettingsProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => RefreshingProvider(),
+          create: (_) => FetchingProvider(),
         )
       ],
       child: const MainApp(),

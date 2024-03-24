@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/refreshing_provider.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 
 export 'package:ytp_new/model/media.dart';
@@ -89,7 +89,7 @@ class Playlist extends Media
 
   /// Refreshes this [Playlist]
   Future refresh() async {
-    RefreshingProvider().add(id);
+    FetchingProvider().add(id);
 
     try {
       PlaylistStorageProvider().update(() => state = PlaylistState.checking);
@@ -106,7 +106,7 @@ class Playlist extends Media
     } catch (_) {
       PlaylistStorageProvider().update(() => state = null);
     } finally {
-      RefreshingProvider().remove(id);
+      FetchingProvider().remove(id);
     }
   }
 
