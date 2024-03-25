@@ -1,16 +1,13 @@
-import 'package:flutter/material.dart' show immutable;
-
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/model/video/video_change.dart';
 
 export 'package:ytp_new/model/video/video_change.dart';
 
-@immutable
 class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made
   final DateTime created;
 
-  const VideoHistory({
+  VideoHistory({
     required this.created,
     required super.type,
     required super.id,

@@ -95,6 +95,9 @@ class Playlist extends Media
       PlaylistStorageProvider().update(() => state = PlaylistState.checking);
 
       final newPlaylist = await YoutubeService.fetch(this);
+      thumbnail = newPlaylist[0].thumbnail;
+      title = newPlaylist.title;
+      author = newPlaylist.author;
 
       PlaylistStorageProvider().update(
         () {

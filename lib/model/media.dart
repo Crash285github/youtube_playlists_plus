@@ -6,15 +6,15 @@ abstract class Media {
   final String id;
 
   /// The title of this `Media`
-  final String title;
+  String title;
 
   /// The author of this `Media`
-  final String author;
+  String author;
 
   /// The thumbnail of this `Media`
-  final String thumbnail;
+  String thumbnail;
 
-  const Media({
+  Media({
     required this.id,
     required this.title,
     required this.author,

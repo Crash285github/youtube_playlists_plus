@@ -1,18 +1,16 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart' show immutable;
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/download_service.dart';
 
 export 'package:ytp_new/model/video/anchor.dart';
 
-@immutable
 class Video extends Media {
   /// The id of the [Playlist] this [Video] belongs to
   final String playlistId;
 
-  const Video({
+  Video({
     required super.id,
     required super.title,
     required super.author,

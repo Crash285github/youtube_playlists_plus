@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:ytp_new/model/video/video_change_type.dart';
 import 'package:ytp_new/model/video/video.dart';
 
 export 'package:ytp_new/model/video/video_change_type.dart';
 
-@immutable
 class VideoChange extends Video {
   /// The type of change
   final VideoChangeType type;
 
-  const VideoChange({
+  VideoChange({
     required super.id,
     required super.playlistId,
     required super.title,
