@@ -51,7 +51,7 @@ class _PlaylistListViewState extends State<PlaylistListView> {
                 ),
               ),
               child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                filter: ImageFilter.blur(sigmaX: 2.5, sigmaY: 2.5),
                 child: const SizedBox.expand(),
               ),
             ),
