@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/playlist_storage.dart';
@@ -21,6 +23,45 @@ class _PlaylistListViewState extends State<PlaylistListView> {
     );
 
     return SliverReorderableList(
+      proxyDecorator: (final child, final index, final animation) =>
+          ScaleTransition(
+        alignment: Alignment.centerRight,
+        scale: animation.drive(Tween<double>(begin: 1, end: 1.1)),
+        filterQuality: FilterQuality.none,
+        child: Stack(
+          children: [
+            Container(
+              margin:
+                  const EdgeInsets.symmetric(vertical: 2.0, horizontal: 4.0),
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: index == playlists.length - 1
+                      ? const Radius.circular(20.0)
+                      : const Radius.circular(4.0),
+                  bottomRight: index == playlists.length - 1
+                      ? const Radius.circular(20.0)
+                      : const Radius.circular(4.0),
+                  topLeft: index == 0
+                      ? const Radius.circular(20.0)
+                      : const Radius.circular(4.0),
+                  topRight: index == 0
+                      ? const Radius.circular(20.0)
+                      : const Radius.circular(4.0),
+                ),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                child: const SizedBox.expand(),
+              ),
+            ),
+            Opacity(
+              opacity: .6,
+              child: child,
+            ),
+          ],
+        ),
+      ),
       itemCount: playlists.length,
       itemBuilder: (context, index) => ReorderableDragStartListener(
         index: index,
