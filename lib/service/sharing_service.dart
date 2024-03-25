@@ -1,6 +1,7 @@
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
 import 'package:ytp_new/model/playlist_storage.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 
@@ -8,13 +9,17 @@ class SharingService {
   static void receive() {
     ReceiveSharingIntent.getMediaStream().listen((event) async {
       if (event.isNotEmpty) {
+        FetchingProvider().increaseDownload();
         _handleIntent(event.first.path);
+        FetchingProvider().decreaseDownload();
       }
     });
 
     ReceiveSharingIntent.getInitialMedia().then((value) async {
       if (value.isNotEmpty) {
+        FetchingProvider().increaseDownload();
         _handleIntent(value.first.path);
+        FetchingProvider().decreaseDownload();
       }
       ReceiveSharingIntent.reset();
     });

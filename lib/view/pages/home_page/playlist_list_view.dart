@@ -56,7 +56,7 @@ class _PlaylistListViewState extends State<PlaylistListView> {
               ),
             ),
             Opacity(
-              opacity: .6,
+              opacity: .8,
               child: child,
             ),
           ],
