@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/view/pages/search_page/search_engine.dart';
 import 'package:ytp_new/view/pages/search_page/search_result.dart';
@@ -15,11 +16,24 @@ class _SearchPageState extends State<SearchPage> {
   final _node = FocusNode();
   late final TextEditingController _textEditingController;
   bool isSearching = false;
+  bool hasSearched = false;
+
+  String get message {
+    if (!hasSearched) {
+      return "You can search by plain text or by providing a URL.";
+    }
+
+    if (results.isEmpty) {
+      return "Found nothing. \nMaybe the Playlists were already added?";
+    }
+
+    return "Error.";
+  }
 
   @override
   void initState() {
-    _textEditingController = TextEditingController();
     super.initState();
+    _textEditingController = TextEditingController();
   }
 
   @override
@@ -28,7 +42,8 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  void _search(String query) {
+  void _search(final String query) {
+    hasSearched = true;
     setState(() => isSearching = true);
 
     SearchEngine.search(query).then(
@@ -68,29 +83,51 @@ class _SearchPageState extends State<SearchPage> {
                     ),
                   ),
                   IconButton(
-                      onPressed: isSearching
-                          ? null
-                          : () => _search(_textEditingController.text.trim()),
-                      icon: const Icon(Icons.search))
+                    onPressed: isSearching
+                        ? null
+                        : () => _search(_textEditingController.text.trim()),
+                    icon: const Icon(Icons.search),
+                  )
                 ],
               ),
-              bottom: isSearching
-                  ? const PreferredSize(
-                      preferredSize: Size.fromHeight(4),
-                      child: LinearProgressIndicator())
-                  : null,
-            ),
-            SliverList.builder(
-              itemCount: results.length,
-              itemBuilder: (context, index) => SearchResult(
-                playlist: results[index],
-                isFirst: index == 0,
-                isLast: index == results.length - 1,
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(4),
+                child: isSearching
+                    ? const LinearProgressIndicator()
+                    : const SizedBox.shrink(),
               ),
             ),
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 80),
-            )
+            ...hasSearched && results.isNotEmpty
+                ? [
+                    SliverList.builder(
+                      itemCount: results.length,
+                      itemBuilder: (context, index) => SearchResult(
+                        playlist: results[index],
+                        isFirst: index == 0,
+                        isLast: index == results.length - 1,
+                      ),
+                    ),
+                    const SliverToBoxAdapter(
+                      child: SizedBox(height: 80),
+                    )
+                  ]
+                : [
+                    SliverFillRemaining(
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            message,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .labelLarge!
+                                .withOpacity(.5),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
           ],
         ),
       );
