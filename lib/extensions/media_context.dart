@@ -1,11 +1,5 @@
-import 'dart:isolate';
+part of extensions;
 
-import 'package:flutter/material.dart';
-
-import 'package:ytp_new/extensions/popup_anchor_dialog.dart';
-import 'package:ytp_new/extensions/string_to_clipboard.dart';
-import 'package:ytp_new/provider/anchor_storage_provider.dart';
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
 
 class ContextBody extends StatelessWidget {
   final String text;

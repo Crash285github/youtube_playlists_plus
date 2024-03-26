@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:ytp_new/service/popup_service.dart';
+part of extensions;
 
 extension OffsetContextMenu on Offset {
   /// Shows a context menu at the given offset

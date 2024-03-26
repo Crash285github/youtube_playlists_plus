@@ -1,16 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/settings/settings.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/home_page/home_page.dart';
-import 'package:ytp_new/view/responsive/empty_right.dart';
+part of responsive;
 
 /// A left & right navigator layout
-class SplitView extends StatelessWidget {
-  const SplitView({super.key});
-
-  
+class _SplitView extends StatelessWidget {
+  const _SplitView();
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +18,7 @@ class SplitView extends StatelessWidget {
           child: Navigator(
             key: AppConfig.splitRightNavigatorKey,
             onGenerateRoute: (settings) => MaterialPageRoute(
-              builder: (context) => const EmptyRightSide(),
+              builder: (context) => const _EmptyRightSide(),
             ),
           ),
         ),

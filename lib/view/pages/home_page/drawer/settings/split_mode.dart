@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytp_new/extensions/enum_title_case.dart';
-import 'package:ytp_new/extensions/offset_context_menu.dart';
-import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/extensions/extensions.dart';
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 

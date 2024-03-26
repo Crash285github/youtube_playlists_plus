@@ -1,4 +1,4 @@
-import 'package:ytp_new/model/video/anchor.dart';
+part of persistence;
 
 class AnchorStorage {
   static final List<Anchor> _anchors = [];

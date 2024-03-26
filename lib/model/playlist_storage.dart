@@ -1,4 +1,4 @@
-import 'package:ytp_new/model/playlist/playlist.dart';
+part of persistence;
 
 /// Contains all Playlists
 class PlaylistStorage {

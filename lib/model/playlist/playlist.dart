@@ -1,18 +1,23 @@
+library playlist;
+
 import 'dart:convert';
 
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:flutter/material.dart';
+
 import 'package:ytp_new/provider/fetching_provider.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 
 export 'package:ytp_new/model/media.dart';
 export 'package:ytp_new/model/video/video.dart';
-export 'package:ytp_new/model/playlist/playlist_changes.dart';
-export 'package:ytp_new/model/playlist/playlist_planned.dart';
-export 'package:ytp_new/model/playlist/playlist_history.dart';
-export 'package:ytp_new/model/playlist/playlist_state.dart';
+
+part 'playlist_changes.dart';
+part 'playlist_history.dart';
+part 'playlist_planned.dart';
+part 'playlist_state.dart';
 
 class Playlist extends Media
-    with PlaylistChanges, PlaylistHistory, PlaylistPlanned {
+    with _PlaylistChanges, _PlaylistHistory, _PlaylistPlanned {
   /// The description of this [Playlist]
   final String description;
 

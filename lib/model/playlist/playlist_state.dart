@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of playlist;
 
 /// Represents a [Playlist]'s state
 enum PlaylistState {

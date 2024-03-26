@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart' show Color, Colors, IconData, Icons;
+part of video;
 
 /// The type of change a [Video] can be to the [Playlist]
 enum VideoChangeType {

@@ -1,13 +1,26 @@
+library home_page;
+
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/extensions/extensions.dart';
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/home_page_drawer.dart';
-import 'package:ytp_new/view/pages/home_page/playlist_list_view.dart';
+import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/pages/search_page/search_page.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/view/widget/media_item_template.dart';
+import 'package:ytp_new/view/widget/thumbnail.dart';
+
+part 'playlist_item.dart';
+part 'playlist_list_view.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -52,7 +65,7 @@ class HomePage extends StatelessWidget {
                       ),
                   ],
                 ),
-                const PlaylistListView(),
+                const _PlaylistListView(),
                 const SliverToBoxAdapter(child: SizedBox(height: 40)),
                 if (downloading)
                   const SliverToBoxAdapter(

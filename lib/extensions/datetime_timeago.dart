@@ -1,4 +1,4 @@
-import 'package:timeago/timeago.dart' as tm;
+part of extensions;
 
 extension TimeAgo on DateTime {
   /// Shows how long ago a `DateTime` was

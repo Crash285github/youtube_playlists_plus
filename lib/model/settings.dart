@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of persistence;
 
 /// The application's theme brightness settings
 enum ThemeSetting { light, dark, black }

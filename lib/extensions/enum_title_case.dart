@@ -1,3 +1,5 @@
+part of extensions;
+
 extension TitleCase on Enum {
   String get titleCase => switch (name.length) {
         0 => "",

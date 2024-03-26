@@ -1,9 +1,15 @@
+library persistence;
+
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/anchor_storage.dart';
+
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/playlist_storage.dart';
-import 'package:ytp_new/model/settings/settings.dart';
+
+part 'anchor_storage.dart';
+part 'playlist_storage.dart';
+part 'settings.dart';
 
 /// Handles saving and loading local data
 class Persistence {

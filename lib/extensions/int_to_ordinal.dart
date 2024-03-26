@@ -1,3 +1,5 @@
+part of extensions;
+
 extension ToOrdinal on int {
   String toOrdinalString() {
     if (this % 100 == 11) return "$this" "th";

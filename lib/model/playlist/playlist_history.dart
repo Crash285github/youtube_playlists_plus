@@ -1,8 +1,7 @@
-import 'package:ytp_new/model/video/video_history.dart';
-export 'package:ytp_new/model/video/video_history.dart';
+part of playlist;
 
 /// The history of a [Playlist]
-mixin PlaylistHistory {
+mixin _PlaylistHistory {
   /// History that has been saved
   final List<VideoHistory> savedHistory = [];
 

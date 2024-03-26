@@ -1,10 +1,17 @@
+library video;
+
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+
 import 'package:ytp_new/service/download_service.dart';
 
-export 'package:ytp_new/model/video/anchor.dart';
+part 'anchor.dart';
+part 'video_change.dart';
+part 'video_change_type.dart';
+part 'video_history.dart';
 
 class Video extends Media {
   /// The id of the [Playlist] this [Video] belongs to

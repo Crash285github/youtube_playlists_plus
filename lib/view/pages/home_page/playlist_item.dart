@@ -1,17 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/extensions/media_context.dart';
-import 'package:ytp_new/extensions/offset_context_menu.dart';
-import 'package:ytp_new/extensions/text_style_with_opacity.dart';
-import 'package:ytp_new/model/persistence.dart';
-import 'package:ytp_new/model/settings/settings.dart';
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/popup_service.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
-import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
-import 'package:ytp_new/view/widget/media_item_template.dart';
-import 'package:ytp_new/view/widget/thumbnail.dart';
+part of home_page;
 
 class PlaylistItem extends StatelessWidget {
   final Playlist playlist;

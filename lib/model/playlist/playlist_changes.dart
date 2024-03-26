@@ -1,8 +1,7 @@
-import 'package:ytp_new/model/video/video_change.dart';
-export 'package:ytp_new/model/video/video_change.dart';
+part of playlist;
 
 /// A `Playlist's` changes
-mixin PlaylistChanges {
+mixin _PlaylistChanges {
   /// The additions made to this [Playlist]
   final List<VideoChange> additions = [];
 

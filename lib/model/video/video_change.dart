@@ -1,7 +1,4 @@
-import 'package:ytp_new/model/video/video_change_type.dart';
-import 'package:ytp_new/model/video/video.dart';
-
-export 'package:ytp_new/model/video/video_change_type.dart';
+part of video;
 
 class VideoChange extends Video {
   /// The type of change

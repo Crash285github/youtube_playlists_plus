@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
+part of responsive;
 
 /// The bottom of the right navigator's stack
-class EmptyRightSide extends StatelessWidget {
-  const EmptyRightSide({super.key});
+class _EmptyRightSide extends StatelessWidget {
+  const _EmptyRightSide();
 
   @override
   Widget build(BuildContext context) {

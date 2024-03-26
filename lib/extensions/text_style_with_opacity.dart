@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of extensions;
 
 extension WithOpacity on TextStyle {
   /// Sets an opacity to the style

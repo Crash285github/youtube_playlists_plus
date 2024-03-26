@@ -1,7 +1,4 @@
-import 'package:ytp_new/model/video/video.dart';
-import 'package:ytp_new/model/video/video_change.dart';
-
-export 'package:ytp_new/model/video/video_change.dart';
+part of video;
 
 class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made

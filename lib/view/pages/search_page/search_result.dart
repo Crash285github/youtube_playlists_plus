@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/extensions/media_context.dart';
-import 'package:ytp_new/extensions/offset_context_menu.dart';
-import 'package:ytp_new/extensions/text_style_with_opacity.dart';
+import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';

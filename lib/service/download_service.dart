@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
     show StreamInfoIterableExt, YoutubeExplode;
-import 'package:ytp_new/extensions/string_file_name.dart';
+import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/video/video.dart';
 
 class DownloadService {

@@ -1,4 +1,4 @@
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+part of extensions;
 
 /// Check whether a String is a Youtube Playlist link
 extension IsYoutubePlaylistLink on String {

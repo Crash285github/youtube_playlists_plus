@@ -1,4 +1,4 @@
-import 'package:flutter/services.dart';
+part of extensions;
 
 extension ToClipboard on String {
   /// Copies a String to the clipboard

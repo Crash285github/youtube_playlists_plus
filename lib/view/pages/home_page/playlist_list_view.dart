@@ -1,20 +1,13 @@
-import 'dart:ui';
+part of home_page;
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/model/playlist_storage.dart';
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/home_page/playlist_item.dart';
-
-class PlaylistListView extends StatefulWidget {
-  const PlaylistListView({super.key});
+class _PlaylistListView extends StatefulWidget {
+  const _PlaylistListView();
 
   @override
-  State<PlaylistListView> createState() => _PlaylistListViewState();
+  State<_PlaylistListView> createState() => __PlaylistListViewState();
 }
 
-class _PlaylistListViewState extends State<PlaylistListView> {
+class __PlaylistListViewState extends State<_PlaylistListView> {
   @override
   Widget build(BuildContext context) {
     final playlists = context.watch<PlaylistStorageProvider>().playlists;

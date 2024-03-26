@@ -1,8 +1,8 @@
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
     show PlaylistId, SearchPlaylist, TypeFilters, YoutubeExplode;
-import 'package:ytp_new/extensions/string_is_youtube_link.dart';
+import 'package:ytp_new/extensions/extensions.dart';
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/model/playlist_storage.dart';
 
 class SearchEngine {
   /// Searches Youtube Playlists

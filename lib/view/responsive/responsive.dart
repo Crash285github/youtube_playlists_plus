@@ -1,9 +1,14 @@
+library responsive;
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytp_new/model/settings/settings.dart';
+import 'package:ytp_new/config.dart';
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
-import 'package:ytp_new/view/responsive/split_view.dart';
+
+part 'empty_right.dart';
+part 'split_view.dart';
 
 /// Handles splitting the app on big screens
 class Responsive extends StatelessWidget {
@@ -11,13 +16,15 @@ class Responsive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mode = Provider.of<SettingsProvider>(context).splitMode;
+    final mode = context.select<SettingsProvider, SplitSetting>(
+      (final settings) => settings.splitMode,
+    );
 
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 700 && mode != SplitSetting.disabled) {
           Settings.isSplit = true;
-          return const SplitView();
+          return const _SplitView();
         } else {
           Settings.isSplit = false;
           return const HomePage();

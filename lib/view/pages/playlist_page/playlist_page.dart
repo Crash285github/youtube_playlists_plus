@@ -4,16 +4,17 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ytp_new/model/settings/settings.dart';
-import 'package:ytp_new/provider/playlist_storage_provider.dart';
+
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/tab_changes.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/tab_videos.dart';
+import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
 class PlaylistPage extends StatelessWidget {
