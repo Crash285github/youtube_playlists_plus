@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/model/settings/theme_creator.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
 class AboutPage extends StatelessWidget {
@@ -8,8 +9,43 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("About")),
+      body: ListView(
+        children: [
+          Text(
+            "Hi there!",
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => AppNavigator.pushMain(const LicensePage()),
+        onPressed: () => AppNavigator.pushMain(
+          Theme(
+            data: ThemeCreator.theme.copyWith(
+              appBarTheme: const AppBarTheme(
+                surfaceTintColor: Colors.transparent,
+              ),
+              listTileTheme: const ListTileThemeData(
+                visualDensity: VisualDensity.compact,
+                dense: true,
+              ),
+            ),
+            child: LicensePage(
+              applicationName: "Youtube Playlists+",
+              applicationVersion: "0.9.2",
+              applicationIcon: ClipRRect(
+                borderRadius: BorderRadius.circular(4.0),
+                child: const SizedBox(
+                  height: 40,
+                  width: 40,
+                  child: Image(
+                    image: AssetImage("assets/app_icon.png"),
+                    color: null,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
         tooltip: "Licenses",
         child: const Icon(
           Icons.assignment,
