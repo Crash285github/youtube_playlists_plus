@@ -34,12 +34,10 @@ class AboutPage extends StatelessWidget {
               applicationVersion: "0.9.2",
               applicationIcon: ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
-                child: const SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: Image(
-                    image: AssetImage("assets/app_icon.png"),
-                    color: null,
+                child: const Image(
+                  image: ResizeImage(
+                    height: 40,
+                    AssetImage("assets/app_icon.png"),
                   ),
                 ),
               ),
