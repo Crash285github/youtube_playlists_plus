@@ -51,7 +51,7 @@ class HomePageDrawer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),
           child: InkWell(
-            onTap: () => AppNavigator.tryPushLeft(const AboutPage()),
+            onTap: () => AppNavigator.pushMain(const AboutPage()),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.zero,
               topLeft: Radius.zero,
