@@ -15,7 +15,10 @@ enum PlaylistState {
   missing(Colors.red, Icons.remove_circle_outline),
   ;
 
+  /// The color of the State for visualization
   final Color color;
+
+  /// The Icon of the State for visualization
   final IconData icon;
 
   const PlaylistState(this.color, this.icon);

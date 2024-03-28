@@ -16,6 +16,7 @@ part 'playlist_history.dart';
 part 'playlist_planned.dart';
 part 'playlist_state.dart';
 
+/// Represents a `Youtube Playlist`
 class Playlist extends Media
     with _PlaylistChanges, _PlaylistHistory, _PlaylistPlanned {
   /// The description of this [Playlist]
@@ -40,7 +41,7 @@ class Playlist extends Media
 
   /// Gets the videos that are anchored
   List<Video> get anchoredVideos =>
-      _videos.where((final video) => video.anchor != null).toList();
+      [..._videos.where((final video) => video.anchor != null)];
 
   /// Gets the changes from a [Playlist] with the same id,
   /// but different [_videos]
@@ -111,7 +112,7 @@ class Playlist extends Media
         },
         save: true,
       );
-    } catch (_) {
+    } on Exception {
       PlaylistStorageProvider().update(() => state = null);
     } finally {
       FetchingProvider().remove(id);
@@ -134,20 +135,25 @@ class Playlist extends Media
   @override
   String toString() => 'Playlist(title: $title)';
 
+  /// Returns a [Video] at position `i` in this [Playlist]
   Video operator [](int i) => _videos[i];
 
+  /// Returns the number of [Video]s in this [Playlist]
   int get length => _videos.length;
 
+  /// Returns `true` if this [Playlist] contains `video`
   bool contains(final Video video) => _videos.contains(video);
 
+  /// Returns the index of `video` in this [Playlist]
   int indexOf(final Video video) => _videos.indexOf(video);
 
+  /// Adds a [Video] to this [Playlist]
   void add(final Video video) => _videos.add(video);
 
+  /// Removes a [Video] from this [Playlist]
   bool remove(final Video video) => _videos.remove(video);
 
-  Video elementAt(int i) => _videos.elementAt(i);
-
+  /// Converts this [Playlist] into a json-able [Map]
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
         'title': title,
@@ -159,6 +165,7 @@ class Playlist extends Media
         'planned': planned,
       };
 
+  /// Converts a `valid` [Map] into a [Playlist]
   factory Playlist.fromMap(Map<String, dynamic> map) => Playlist(
         id: map['id'] as String,
         title: map['title'] as String,
@@ -184,8 +191,10 @@ class Playlist extends Media
           ),
         );
 
+  /// Converts this [Playlist] into a `json` formatted [String]
   String toJson() => json.encode(toMap());
 
+  /// Converts a `valid` [String] into a [Playlist]
   factory Playlist.fromJson(String source) =>
       Playlist.fromMap(json.decode(source) as Map<String, dynamic>);
 }

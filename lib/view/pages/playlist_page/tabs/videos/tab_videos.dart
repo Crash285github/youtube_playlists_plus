@@ -34,7 +34,7 @@ class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
           itemCount: playlist.length,
           padding: const EdgeInsets.only(bottom: 60, top: 20),
           itemBuilder: (context, index) => VideoItem(
-            video: playlist.elementAt(index),
+            video: playlist[index],
             isFirst: index == 0,
             isLast: index == playlist.length - 1,
           ),

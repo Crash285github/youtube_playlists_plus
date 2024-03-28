@@ -1,6 +1,6 @@
 part of playlist;
 
-/// A `Playlist's` changes
+/// A [Playlist]s changes
 mixin _PlaylistChanges {
   /// The additions made to this [Playlist]
   final List<VideoChange> additions = [];

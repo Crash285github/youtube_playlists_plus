@@ -13,6 +13,7 @@ part 'video_change.dart';
 part 'video_change_type.dart';
 part 'video_history.dart';
 
+/// Represents a `Youtube Video`
 class Video extends Media {
   /// The id of the [Playlist] this [Video] belongs to
   final String playlistId;
@@ -50,6 +51,7 @@ class Video extends Media {
   @override
   int get hashCode => id.hashCode;
 
+  /// Converts this [Video] into a json-able [Map]
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
         'playlistId': playlistId,
@@ -58,6 +60,7 @@ class Video extends Media {
         'thumbnail': thumbnail,
       };
 
+  /// Converts a `valid` [Map] into a [Video]
   factory Video.fromMap(final Map<String, dynamic> map) => Video(
         id: map['id'] as String,
         playlistId: map['playlistId'],
@@ -66,8 +69,10 @@ class Video extends Media {
         thumbnail: map['thumbnail'] as String,
       );
 
+  /// Converts this [Video] into a `json` formatted [String]
   String toJson() => json.encode(toMap());
 
+  /// Converts a `valid` [String] into a [Video]
   factory Video.fromJson(final String source) =>
       Video.fromMap(json.decode(source) as Map<String, dynamic>);
 }

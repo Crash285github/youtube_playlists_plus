@@ -1,6 +1,6 @@
 import 'package:url_launcher/url_launcher.dart';
 
-/// Represents a Youtube Media
+/// Represents a `Youtube Media`
 abstract class Media {
   /// The unique identifier of this `Media`
   final String id;
