@@ -136,7 +136,7 @@ class Playlist extends Media
   String toString() => 'Playlist(title: $title)';
 
   /// Returns a [Video] at position `i` in this [Playlist]
-  Video operator [](int i) => _videos[i];
+  Video operator [](final int i) => _videos[i];
 
   /// Returns the number of [Video]s in this [Playlist]
   int get length => _videos.length;
@@ -160,8 +160,8 @@ class Playlist extends Media
         'author': author,
         'description': description,
         'thumbnail': thumbnail,
-        'videos': [..._videos.map((x) => x.toMap())],
-        'history': [...savedHistory.map((x) => x.toMap())],
+        'videos': [..._videos.map((final video) => video.toMap())],
+        'history': [...savedHistory.map((final history) => history.toMap())],
         'planned': planned,
       };
 
@@ -174,20 +174,21 @@ class Playlist extends Media
         thumbnail: map['thumbnail'] as String,
         videos: List<Video>.from(
           (map['videos'] as List<dynamic>).map<Video>(
-            (x) => Video.fromMap(x as Map<String, dynamic>),
+            (final map) => Video.fromMap(map as Map<String, dynamic>),
           ),
         ),
       )
         ..savedHistory.addAll(
           List<VideoHistory>.from(
             (map['history'] as List<dynamic>).map<VideoHistory>(
-              (x) => VideoHistory.fromMap(x as Map<String, dynamic>),
+              (final map) => VideoHistory.fromMap(map as Map<String, dynamic>),
             ),
           ),
         )
         ..planned.addAll(
           List<String>.from(
-            (map['planned'] as List<dynamic>).map<String>((x) => x as String),
+            (map['planned'] as List<dynamic>)
+                .map<String>((final map) => map as String),
           ),
         );
 
@@ -195,6 +196,6 @@ class Playlist extends Media
   String toJson() => json.encode(toMap());
 
   /// Converts a `valid` [String] into a [Playlist]
-  factory Playlist.fromJson(String source) =>
+  factory Playlist.fromJson(final String source) =>
       Playlist.fromMap(json.decode(source) as Map<String, dynamic>);
 }

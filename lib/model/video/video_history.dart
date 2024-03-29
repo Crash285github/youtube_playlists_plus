@@ -46,7 +46,7 @@ class VideoHistory extends VideoChange {
 
   factory VideoHistory.fromMap(final Map<String, dynamic> map) => VideoHistory(
         id: map['id'] as String,
-        playlistId: map['playlistId'],
+        playlistId: map['playlistId'] as String,
         title: map['title'] as String,
         author: map['author'] as String,
         type: VideoChangeType.values[map['type'] as int],

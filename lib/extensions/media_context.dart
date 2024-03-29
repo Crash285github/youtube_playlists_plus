@@ -1,6 +1,5 @@
 part of extensions;
 
-
 class ContextBody extends StatelessWidget {
   final String text;
   final IconData icon;
@@ -58,7 +57,7 @@ extension MediaContext on Media {
 
 extension VideoContext on Video {
   PopupMenuItem get contextDownload => PopupMenuItem(
-        onTap: () => Isolate.run(() => download()),
+        onTap: () => download(),
         child: const ContextBody(
           text: "Download",
           icon: Icons.download,

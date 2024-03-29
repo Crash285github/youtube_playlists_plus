@@ -3,6 +3,7 @@ library video;
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 
@@ -42,7 +43,7 @@ class Video extends Media {
   String get link => "https://www.youtube.com/watch?v=$id";
 
   /// Downloads this [Video]
-  Future<bool> download() async => await DownloadService.video(this);
+  Future<bool> download() async => DownloadService.video(this);
 
   @override
   bool operator ==(covariant Video other) =>

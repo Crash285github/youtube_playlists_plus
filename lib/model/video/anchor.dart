@@ -1,5 +1,6 @@
 part of video;
 
+/// The position from where to calculate the offset of the [Anchor]
 enum AnchorPosition { start, middle, end }
 
 @immutable
@@ -23,6 +24,7 @@ class Anchor {
         AnchorPosition.end => _playlistLength + offset,
       };
 
+  /// Returns the length of the [Playlist] this [Anchor] belongs to
   int get _playlistLength =>
       PlaylistStorageProvider().fromId(playlistId)!.length - 1;
 
@@ -33,6 +35,7 @@ class Anchor {
     required this.offset,
   });
 
+  /// Converts this [Anchor] into a json-able [Map]
   Map<String, dynamic> toMap() => <String, dynamic>{
         'playlistId': playlistId,
         'videoId': videoId,
@@ -40,16 +43,19 @@ class Anchor {
         'offset': offset,
       };
 
+  /// Converts a `valid` [Map] into an [Anchor]
   factory Anchor.fromMap(Map<String, dynamic> map) => Anchor(
-        playlistId: map['playlistId'],
-        videoId: map['videoId'],
+        playlistId: map['playlistId'] as String,
+        videoId: map['videoId'] as String,
         position: AnchorPosition.values[map['position'] as int],
         offset: map['offset'] as int,
       );
 
+  /// Converts this [Anchor] into a `json` formatted [String]
   String toJson() => json.encode(toMap());
 
-  factory Anchor.fromJson(String source) =>
+  /// Converts a `valid` [String] into an [Anchor]
+  factory Anchor.fromJson(final String source) =>
       Anchor.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override

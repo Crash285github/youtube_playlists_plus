@@ -13,13 +13,13 @@ class VideoChange extends Video {
     required this.type,
   });
 
-  /// Has this `Video` been added to its `Playlist`
+  /// Has this [Video] been added to its [Playlist]
   bool get isAddition => type == VideoChangeType.addition;
 
-  /// Has this `Video` been removed from its `Playlist`
+  /// Has this [Video] been removed from its [Playlist]
   bool get isRemoval => type == VideoChangeType.removal;
 
-  /// Converts a `Video` to a `VideoChange`
+  /// Converts a [Video] to a [VideoChange]
   factory VideoChange.fromVideo(
     final Video video,
     final VideoChangeType type,
