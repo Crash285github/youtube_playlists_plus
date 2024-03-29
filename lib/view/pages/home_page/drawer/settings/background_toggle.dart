@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
@@ -11,6 +14,13 @@ class BackgroundToggle extends StatelessWidget {
   bool get _enabled => Settings.runInBackground;
 
   void _toggle() {
+    if (Platform.isAndroid) {
+      FlutterLocalNotificationsPlugin()
+          .resolvePlatformSpecificImplementation<
+              AndroidFlutterLocalNotificationsPlugin>()!
+          .requestNotificationsPermission();
+    }
+
     NotificationsService.show(
       title: "title",
       body: "body",
