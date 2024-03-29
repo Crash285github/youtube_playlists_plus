@@ -1,12 +1,13 @@
 part of extensions;
 
 extension AnchorDialog on PopupService {
+  static final _offsetController = TextEditingController();
+
   static Future<Anchor?> show(
       {required BuildContext context, required Video video}) async {
     AnchorPosition position = video.anchor?.position ?? AnchorPosition.start;
     int offset = video.anchor?.offset ?? video.index;
-
-    final offsetController = TextEditingController(text: "$offset");
+    _offsetController.text = "$offset";
 
     final anchor = await PopupService.dialog<Anchor>(
       context: context,
@@ -39,7 +40,7 @@ extension AnchorDialog on PopupService {
                 if (selected != null) {
                   setState(() {
                     position = selected;
-                    offsetController.text = switch (position) {
+                    _offsetController.text = switch (position) {
                       AnchorPosition.start => video.index,
                       AnchorPosition.middle =>
                         video.index - video.playlist.length ~/ 2 + 1,
@@ -67,9 +68,9 @@ extension AnchorDialog on PopupService {
               inputFormatters: <TextInputFormatter>[
                 FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
               ],
-              controller: offsetController,
+              controller: _offsetController,
               onSubmitted: (_) {
-                offset = int.tryParse(offsetController.value.text) ?? 0;
+                offset = int.tryParse(_offsetController.value.text) ?? 0;
               },
             )
           ],
@@ -94,7 +95,7 @@ extension AnchorDialog on PopupService {
         ),
         TextButton(
           onPressed: () {
-            offset = int.tryParse(offsetController.value.text) ?? 0;
+            offset = int.tryParse(_offsetController.value.text) ?? 0;
             Navigator.pop(
               context,
               Anchor(
@@ -110,7 +111,6 @@ extension AnchorDialog on PopupService {
       ],
     );
 
-    offsetController.dispose();
     return anchor;
   }
 }
