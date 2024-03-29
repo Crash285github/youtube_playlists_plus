@@ -1,11 +1,12 @@
 import 'dart:io';
 
+import 'package:background_fetch/background_fetch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/notification_service.dart';
+import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
 
 class BackgroundToggle extends StatelessWidget {
@@ -14,20 +15,31 @@ class BackgroundToggle extends StatelessWidget {
   bool get _enabled => Settings.runInBackground;
 
   void _toggle() {
-    if (Platform.isAndroid) {
+    SettingsProvider().runInBackground = !Settings.runInBackground;
+
+    if (!Platform.isAndroid) return;
+    if (_enabled) {
+      print("enabled bg");
+      BackgroundService.start();
       FlutterLocalNotificationsPlugin()
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()!
           .requestNotificationsPermission();
-    }
 
-    NotificationsService.show(
-      title: "title",
-      body: "body",
-      id: 1,
-      payload: "payload",
-    );
-    SettingsProvider().runInBackground = !Settings.runInBackground;
+      BackgroundFetch.scheduleTask(
+        TaskConfig(
+          taskId: "com.transistorsoft.customtask",
+          delay: 10000,
+          periodic: false,
+          forceAlarmManager: false,
+          stopOnTerminate: false,
+          enableHeadless: true,
+        ),
+      );
+    } else {
+      print("disabled bg");
+      BackgroundService.stop();
+    }
   }
 
   @override

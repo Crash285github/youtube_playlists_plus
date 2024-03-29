@@ -27,6 +27,7 @@ class NotificationsService {
             styleInformation: const BigTextStyleInformation('')),
       );
 
+  @pragma('vm:entry-point')
   static Future show({
     int id = 0,
     required String title,
