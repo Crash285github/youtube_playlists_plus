@@ -13,6 +13,7 @@ class AppConfig {
   static const settingsSplitKey = "split";
   static const settingsHideTopicKey = "hideTopic";
   static const settingsConfirmDeletesKey = "hideTopic";
+  static const settingsBackgroundKey = "runInBackground";
   static const playlistsKey = "playlists";
   static const anchorsKey = 'anchors';
 }

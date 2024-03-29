@@ -45,4 +45,7 @@ class Settings {
 
   /// Should the app ask before proceeding deletions
   static bool confirmDeletes = true;
+
+  /// Can the app run in the background (mobile only)
+  static bool runInBackground = false;
 }

@@ -26,7 +26,8 @@ class Persistence {
     ..setInt(AppConfig.settingsSchemeKey, Settings.colorScheme.index)
     ..setInt(AppConfig.settingsSplitKey, Settings.splitMode.index)
     ..setBool(AppConfig.settingsHideTopicKey, Settings.hideTopic)
-    ..setBool(AppConfig.settingsConfirmDeletesKey, Settings.confirmDeletes);
+    ..setBool(AppConfig.settingsConfirmDeletesKey, Settings.confirmDeletes)
+    ..setBool(AppConfig.settingsBackgroundKey, Settings.runInBackground);
 
   /// Loads [Settings] from [Persistence]
   ///
@@ -55,6 +56,11 @@ class Persistence {
     final confirmDeletes = _prefs.getBool(AppConfig.settingsConfirmDeletesKey);
     if (confirmDeletes != null) {
       Settings.confirmDeletes = confirmDeletes;
+    }
+
+    final runInBackround = _prefs.getBool(AppConfig.settingsBackgroundKey);
+    if (runInBackround != null) {
+      Settings.runInBackground = runInBackround;
     }
   }
 

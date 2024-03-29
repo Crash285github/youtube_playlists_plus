@@ -69,6 +69,15 @@ class SettingsProvider extends ChangeNotifier {
     Persistence.saveSettings();
   }
 
+  /// Whether the app can run in the background (mobile only)
+  bool get runInBackground => Settings.runInBackground;
+  set runInBackground(final bool runInBackground) {
+    Settings.runInBackground = runInBackground;
+    notifyListeners();
+
+    Persistence.saveSettings();
+  }
+
   /// Exports the app data
   Future export() async => CodecService.export();
 

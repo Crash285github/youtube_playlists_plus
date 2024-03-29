@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/codec_buttons.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/settings/background_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/confirm_delete_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/hide_topic_toggle.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart';
@@ -25,6 +26,7 @@ class HomePageDrawer extends StatelessWidget {
     const SettingsSplitMode(),
     if (PlaylistStorageProvider().playlists.isNotEmpty)
       const SettingsReorderToggle(),
+    const BackgroundToggle(),
   ];
 
   @override

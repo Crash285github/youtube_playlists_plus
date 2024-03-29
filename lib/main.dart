@@ -9,11 +9,14 @@ import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/notification_service.dart';
 import 'package:ytp_new/service/sharing_service.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await NotificationsService.init();
 
   await Persistence.init();
 
@@ -56,9 +59,8 @@ class _MainAppState extends State<MainApp> {
   void initState() {
     super.initState();
     if (Platform.isAndroid) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        SharingService.receive();
-      });
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => SharingService.receive());
     }
   }
 
