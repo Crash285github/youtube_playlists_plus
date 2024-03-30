@@ -107,8 +107,26 @@ class _SearchPageState extends State<SearchPage> {
                         isLast: index == results.length - 1,
                       ),
                     ),
-                    const SliverToBoxAdapter(
-                      child: SizedBox(height: 80),
+                    SliverToBoxAdapter(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: 80),
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              "Seems like we'we reached the end.\n"
+                              "If you haven't found what you were looking for, "
+                              "try a more specific query, "
+                              "or pass the Playlist's link as a query.",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .withOpacity(.5),
+                            ),
+                          ),
+                        ),
+                      ),
                     )
                   ]
                 : [

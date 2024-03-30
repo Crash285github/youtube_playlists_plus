@@ -1,5 +1,6 @@
 import 'package:receive_sharing_intent/receive_sharing_intent.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' as yt;
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
@@ -33,10 +34,8 @@ class SharingService {
         .where((final playlist) => playlist.id == id)
         .isNotEmpty) return;
 
-    final youtube = yt.YoutubeExplode();
-
-    final pl = youtube.playlists.get(id);
-    final v = youtube.playlists.getVideos(id).first;
+    final pl = AppConfig.youtube.playlists.get(id);
+    final v = AppConfig.youtube.playlists.getVideos(id).first;
 
     await Future.wait([pl, v]);
 
@@ -55,7 +54,5 @@ class SharingService {
     );
 
     PlaylistStorageProvider().add(fetched);
-
-    youtube.close();
   }
 }

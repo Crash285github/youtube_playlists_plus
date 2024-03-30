@@ -1,5 +1,6 @@
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
-    show PlaylistId, SearchPlaylist, TypeFilters, YoutubeExplode;
+    show PlaylistId, SearchPlaylist, TypeFilters;
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
@@ -27,11 +28,10 @@ class SearchEngine {
     final String? id = PlaylistId.parsePlaylistId(link);
 
     if (id == null) return null;
-    final yt = YoutubeExplode();
 
     try {
-      final pl = yt.playlists.get(id);
-      final v = yt.playlists.getVideos(id).first;
+      final pl = AppConfig.youtube.playlists.get(id);
+      final v = AppConfig.youtube.playlists.getVideos(id).first;
       await Future.wait([pl, v]);
 
       return Playlist(
@@ -47,14 +47,11 @@ class SearchEngine {
   }
 
   /// Searches Youtube Playlists with plain text
-  static Future<List<Playlist>> _searchByText(String query) async {
-    query += " ";
-    final yt = YoutubeExplode();
-    final result =
-        await yt.search.searchContent(query, filter: TypeFilters.playlist);
-    yt.close();
+  static Future<List<Playlist>> _searchByText(final String query) async {
+    final result = await AppConfig.youtube.search
+        .searchContent("$query ", filter: TypeFilters.playlist);
 
-    return result.map((final result) {
+    return (result).map((final result) {
       result as SearchPlaylist;
 
       return Playlist(
