@@ -29,19 +29,21 @@ class SearchEngine {
     if (id == null) return null;
     final yt = YoutubeExplode();
 
-    final pl = yt.playlists.get(id);
-    final v = yt.playlists.getVideos(id).first;
+    try {
+      final pl = yt.playlists.get(id);
+      final v = yt.playlists.getVideos(id).first;
+      await Future.wait([pl, v]);
 
-    await Future.wait([pl, v]);
-
-    return Playlist(
-      id: (await pl).id.toString(),
-      title: (await pl).title,
-      author: (await pl).author,
-      thumbnail: (await v).thumbnails.mediumResUrl,
-      description: "description",
-      videos: [],
-    );
+      return Playlist(
+        id: (await pl).id.toString(),
+        title: (await pl).title,
+        author: (await pl).author,
+        thumbnail: (await v).thumbnails.mediumResUrl,
+        description: "description",
+        videos: [],
+      );
+    } catch (_) {}
+    return null;
   }
 
   /// Searches Youtube Playlists with plain text
