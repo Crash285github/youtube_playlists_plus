@@ -95,17 +95,20 @@ class Playlist extends Media
 
   /// Refreshes this [Playlist]
   Future refresh() async {
+    PlaylistStorageProvider().update(() => state = PlaylistState.checking);
+
+    // We limit the amount of concurrent fetches here to 3, otherwise
+    // the UI could start janking
+    while (FetchingProvider().refreshingList.length >= 3) {
+      await Future.delayed(const Duration(milliseconds: 200));
+    }
+
     FetchingProvider().add(id);
-
     try {
-      PlaylistStorageProvider().update(() => state = PlaylistState.checking);
-
       final newPlaylist = await YoutubeService.fetch(this);
 
       if (newPlaylist.title.isEmpty) {
-        PlaylistStorageProvider().update(() {
-          state = PlaylistState.missing;
-        });
+        PlaylistStorageProvider().update(() => state = PlaylistState.missing);
         return;
       }
 
@@ -115,11 +118,10 @@ class Playlist extends Media
         author = newPlaylist.author;
       }
 
+      changesFrom(newPlaylist);
       PlaylistStorageProvider().update(
-        () {
-          changesFrom(newPlaylist);
-          state = hasChanges ? PlaylistState.changed : PlaylistState.unchanged;
-        },
+        () => state =
+            hasChanges ? PlaylistState.changed : PlaylistState.unchanged,
         save: true,
       );
     } on Exception {

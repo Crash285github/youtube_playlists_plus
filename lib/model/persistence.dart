@@ -65,16 +65,14 @@ class Persistence {
   }
 
   /// Saves all [Playlist]s to [Persistence]
-  static Future savePlaylists() async {
-    _prefs.setStringList(
-      AppConfig.playlistsKey,
-      [
-        ...PlaylistStorage.playlists.map(
-          (final playlist) => playlist.toJson(),
-        ),
-      ],
-    );
-  }
+  static Future savePlaylists() async => _prefs.setStringList(
+        AppConfig.playlistsKey,
+        [
+          ...PlaylistStorage.playlists.map(
+            (final playlist) => playlist.toJson(),
+          ),
+        ],
+      );
 
   /// Loads [Playlist]s from [Persistence]
   ///
