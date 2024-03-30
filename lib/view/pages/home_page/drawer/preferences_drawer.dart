@@ -24,7 +24,7 @@ class PreferencesDrawer extends StatelessWidget {
     const SettingsConfirmDeleteToggle(),
     const SettingsHideTopicToggle(),
     const SettingsSplitMode(),
-    const BackgroundToggle(),
+    if (Platform.isAndroid) const BackgroundToggle(),
     if (PlaylistStorageProvider().playlists.isNotEmpty)
       const SettingsReorderToggle(),
   ];

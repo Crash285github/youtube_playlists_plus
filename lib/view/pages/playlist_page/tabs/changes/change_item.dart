@@ -72,9 +72,8 @@ class ChangeItem extends StatelessWidget {
               onTap: _update,
               child: ContextBody(
                 text: change.isAddition ? "Add" : "Remove",
-                icon: change.isAddition
-                    ? Icons.add_circle_outline
-                    : Icons.remove_circle_outline,
+                icon: change.type.icon,
+                iconColor: change.type.color,
               ),
             ),
             if (change.isRemoval)

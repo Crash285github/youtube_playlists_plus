@@ -74,6 +74,7 @@ class _MainAppState extends State<MainApp> {
     context.watch<SettingsProvider>();
 
     return MaterialApp(
+      title: "Youtube Playlists+",
       theme: ThemeCreator.theme,
       navigatorKey: AppConfig.mainNavigatorKey,
       home: PopScope(
