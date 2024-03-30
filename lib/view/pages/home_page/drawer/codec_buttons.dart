@@ -9,32 +9,38 @@ class CodecButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        _Template(
-          onTap: () => SettingsProvider().export(),
-          borderRadius: const BorderRadius.only(
-            topRight: Radius.circular(16.0),
-            bottomRight: Radius.circular(16.0),
+    return Card(
+      shadowColor: Colors.transparent,
+      margin: const EdgeInsets.all(0),
+      shape: const RoundedRectangleBorder(),
+      color: Theme.of(context).colorScheme.background,
+      child: Row(
+        children: [
+          _Template(
+            onTap: () => SettingsProvider().export(),
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0),
+            ),
+            children: const [
+              Icon(Icons.download_outlined),
+              Text("Export"),
+            ],
           ),
-          children: const [
-            Icon(Icons.download_outlined),
-            Text("Export"),
-          ],
-        ),
-        const SizedBox(width: 32),
-        _Template(
-          onTap: () => SettingsProvider().import(),
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(16.0),
-            bottomLeft: Radius.circular(16.0),
-          ),
-          children: const [
-            Text("Import"),
-            Icon(Icons.upload_outlined),
-          ],
-        )
-      ],
+          const SizedBox(width: 32),
+          _Template(
+            onTap: () => SettingsProvider().import(),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16.0),
+              bottomLeft: Radius.circular(16.0),
+            ),
+            children: const [
+              Text("Import"),
+              Icon(Icons.upload_outlined),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

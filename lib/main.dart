@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/model/theme_creator.dart';
@@ -15,6 +16,19 @@ import 'package:ytp_new/view/responsive/responsive.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isWindows) {
+    await windowManager.ensureInitialized();
+    await windowManager.waitUntilReadyToShow().whenComplete(() async {
+      await Future.wait([
+        windowManager.setTitle("Youtube Playlists+"),
+        windowManager.setSize(const Size(1300, 800)),
+        windowManager.setMinimumSize(const Size(800, 500)),
+        windowManager.setAlignment(Alignment.center),
+      ]);
+      await windowManager.show();
+    });
+  }
 
   await Persistence.init();
   Persistence.loadSettings();
