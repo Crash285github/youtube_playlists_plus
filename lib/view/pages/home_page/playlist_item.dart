@@ -75,9 +75,10 @@ class PlaylistItem extends StatelessWidget {
               }
               PlaylistStorageProvider().remove(playlist);
             },
-            child: const ContextBody(
+            child: ContextBody(
               text: "Delete",
               icon: Icons.delete_outline,
+              iconColor: Theme.of(context).colorScheme.error,
             ),
           )
         ],

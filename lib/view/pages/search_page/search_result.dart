@@ -82,7 +82,7 @@ class _SearchResultState extends State<SearchResult> {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(3.0),
+          padding: const EdgeInsets.fromLTRB(3.0, 3.0, 8.0, 3.0),
           child: Row(
             children: [
               Thumbnail(
@@ -97,11 +97,14 @@ class _SearchResultState extends State<SearchResult> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        widget.playlist.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleLarge,
+                      Tooltip(
+                        message: widget.playlist.title,
+                        child: Text(
+                          widget.playlist.title,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                       ),
                       Text(
                         tapped && !downloaded

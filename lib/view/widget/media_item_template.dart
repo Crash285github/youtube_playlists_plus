@@ -24,6 +24,9 @@ class MediaItem extends StatelessWidget {
       child: AdaptiveSecondaryInkWell(
         onPrimary: primaryAction,
         onSecondary: secondaryAction,
+        overlayColor: MaterialStatePropertyAll(
+          Theme.of(context).colorScheme.primary.withOpacity(.2),
+        ),
         child: child,
       ),
     );

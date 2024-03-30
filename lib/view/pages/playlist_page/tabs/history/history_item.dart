@@ -46,6 +46,9 @@ class HistoryItem extends StatelessWidget {
         bottom: 2.0,
       ),
       child: AdaptiveSecondaryInkWell(
+        overlayColor: MaterialStatePropertyAll(
+          Theme.of(context).colorScheme.primary.withOpacity(.2),
+        ),
         onSecondary: (details) => details.showContextMenu(
           context: context,
           items: <PopupMenuEntry>[
@@ -79,9 +82,10 @@ class HistoryItem extends StatelessWidget {
                   save: true,
                 );
               },
-              child: const ContextBody(
+              child: ContextBody(
                 text: "Delete",
                 icon: Icons.delete_outline,
+                iconColor: Theme.of(context).colorScheme.error,
               ),
             ),
           ],

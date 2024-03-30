@@ -3,7 +3,13 @@ part of extensions;
 class ContextBody extends StatelessWidget {
   final String text;
   final IconData icon;
-  const ContextBody({super.key, required this.text, required this.icon});
+  final Color? iconColor;
+  const ContextBody({
+    super.key,
+    required this.text,
+    required this.icon,
+    this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +19,8 @@ class ContextBody extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8.0),
           child: Icon(
             icon,
-            color: Theme.of(context).colorScheme.onBackground.withOpacity(.5),
+            color: iconColor ??
+                Theme.of(context).colorScheme.onBackground.withOpacity(.5),
           ),
         ),
         Text(text),
@@ -25,9 +32,12 @@ class ContextBody extends StatelessWidget {
 extension MediaContext on Media {
   PopupMenuItem get contextOpen => PopupMenuItem(
       onTap: () => open(),
-      child: const ContextBody(
+      child: ContextBody(
         text: "Open",
         icon: Icons.open_in_new,
+        iconColor: Settings.theme == ThemeSetting.light
+            ? Colors.green
+            : Colors.greenAccent,
       ));
 
   PopupMenuItem get contextCopyTitle => PopupMenuItem(
@@ -61,6 +71,7 @@ extension VideoContext on Video {
         child: const ContextBody(
           text: "Download",
           icon: Icons.download,
+          iconColor: Colors.lightGreen,
         ),
       );
 
@@ -80,6 +91,7 @@ extension VideoContext on Video {
         child: const ContextBody(
           text: "Set Anchor",
           icon: Icons.anchor,
+          iconColor: Colors.blue,
         ),
       );
 }

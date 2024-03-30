@@ -33,12 +33,19 @@ class PlannedItem extends StatelessWidget {
             items: [
               PopupMenuItem(
                 onTap: () => text.copyToClipboard(),
-                child: const Text("Copy"),
+                child: const ContextBody(
+                  text: "Copy",
+                  icon: Icons.copy,
+                ),
               ),
               PopupMenuItem(
                 onTap: () => PlaylistStorageProvider()
                     .update(() => playlist.planned.remove(text)),
-                child: const Text("Remove"),
+                child: ContextBody(
+                  text: "Remove",
+                  icon: Icons.delete_outline,
+                  iconColor: Theme.of(context).colorScheme.error,
+                ),
               ),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_item.dart';
@@ -21,7 +22,12 @@ class _PlaylistPageTabHistoryState extends State<PlaylistPageTabHistory>
   Widget build(BuildContext context) {
     super.build(context);
     return history.isEmpty
-        ? const Center(child: Text("No history."))
+        ? Center(
+            child: Text(
+              "No history.",
+              style: Theme.of(context).textTheme.labelLarge!.withOpacity(.5),
+            ),
+          )
         : FadingListView(
             gradientHeight: 70,
             bottom: false,

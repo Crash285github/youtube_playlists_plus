@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/anchor_item.dart';
@@ -37,7 +38,13 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
     super.build(context);
     return changes.isEmpty
         ? anchorIssues.isEmpty
-            ? const Center(child: Text("No changes."))
+            ? Center(
+                child: Text(
+                  "No changes.",
+                  style:
+                      Theme.of(context).textTheme.labelLarge!.withOpacity(.5),
+                ),
+              )
             : FadingListView(
                 gradientHeight: 70,
                 bottom: false,

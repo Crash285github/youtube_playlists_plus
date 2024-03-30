@@ -23,11 +23,11 @@ class _SearchPageState extends State<SearchPage> {
       return "You can search by plain text or by providing a URL.";
     }
 
-    if (results.isEmpty) {
+    if (!isSearching && results.isEmpty) {
       return "Found nothing. \nMaybe the Playlists were already added?";
     }
 
-    return "Error.";
+    return "";
   }
 
   @override
@@ -97,7 +97,7 @@ class _SearchPageState extends State<SearchPage> {
                     : const SizedBox.shrink(),
               ),
             ),
-            ...hasSearched && results.isNotEmpty
+            ...!isSearching && hasSearched && results.isNotEmpty
                 ? [
                     SliverList.builder(
                       itemCount: results.length,

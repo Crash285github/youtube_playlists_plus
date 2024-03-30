@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:timeago/timeago.dart' as tm;
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' show PlaylistId;
 
+import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
