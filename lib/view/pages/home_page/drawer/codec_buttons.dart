@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/config.dart';
-import 'package:ytp_new/provider/fetching_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+part of 'preferences_drawer.dart';
 
 class CodecButtons extends StatelessWidget {
   const CodecButtons({super.key});

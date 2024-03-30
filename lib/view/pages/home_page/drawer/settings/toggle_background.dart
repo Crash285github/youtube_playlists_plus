@@ -1,41 +1,33 @@
-import 'dart:io';
+part of '../preferences_drawer.dart';
 
-import 'package:background_fetch/background_fetch.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/model/persistence.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/service/background_service.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
-
-class BackgroundToggle extends StatelessWidget {
-  const BackgroundToggle({super.key});
+class _ToggleBackground extends StatelessWidget {
+  const _ToggleBackground();
 
   bool get _enabled => Settings.runInBackground;
 
   void _toggle() {
-    SettingsProvider().runInBackground = !Settings.runInBackground;
-
     if (!Platform.isAndroid) return;
+
+    SettingsProvider().runInBackground = !Settings.runInBackground;
 
     if (_enabled) {
       BackgroundService.start();
+
       FlutterLocalNotificationsPlugin()
           .resolvePlatformSpecificImplementation<
               AndroidFlutterLocalNotificationsPlugin>()
           ?.requestNotificationsPermission();
 
-      BackgroundFetch.scheduleTask(
-        TaskConfig(
-          taskId: "test_task",
-          delay: 10000,
-          periodic: false,
-          forceAlarmManager: false,
-          stopOnTerminate: false,
-          enableHeadless: true,
-        ),
-      );
+      // BackgroundFetch.scheduleTask(
+      //   TaskConfig(
+      //     taskId: "test_task",
+      //     delay: 10000,
+      //     periodic: false,
+      //     forceAlarmManager: false,
+      //     stopOnTerminate: false,
+      //     enableHeadless: true,
+      //   ),
+      // );
     } else {
       BackgroundService.stop();
     }
@@ -47,7 +39,7 @@ class BackgroundToggle extends StatelessWidget {
       (final settings) => settings.runInBackground,
     );
 
-    return SettingTemplate(
+    return _SettingTemplate(
       onTap: _toggle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,9 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
+part of '../preferences_drawer.dart';
 
-class SettingsReorderToggle extends StatelessWidget {
-  const SettingsReorderToggle({super.key});
+class _ToggleReorder extends StatelessWidget {
+  const _ToggleReorder();
 
   void _toggle(context) {
     SettingsProvider().canReorder = !SettingsProvider().canReorder;
@@ -11,7 +9,7 @@ class SettingsReorderToggle extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => SettingTemplate(
+  Widget build(BuildContext context) => _SettingTemplate(
         onTap: () => _toggle(context),
         child: const Row(
           children: [

@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/model/persistence.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
+part of '../preferences_drawer.dart';
 
-class SettingsConfirmDeleteToggle extends StatelessWidget {
-  const SettingsConfirmDeleteToggle({super.key});
+class _ToggleConfirmDelete extends StatelessWidget {
+  const _ToggleConfirmDelete();
 
   bool get _enabled => Settings.confirmDeletes;
 
@@ -18,7 +14,7 @@ class SettingsConfirmDeleteToggle extends StatelessWidget {
       (final settings) => settings.confirmDeletes,
     );
 
-    return SettingTemplate(
+    return _SettingTemplate(
       onTap: _toggle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

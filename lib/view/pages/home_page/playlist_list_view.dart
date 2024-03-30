@@ -8,9 +8,13 @@ class _PlaylistListView extends StatefulWidget {
 }
 
 class __PlaylistListViewState extends State<_PlaylistListView> {
+  List<Playlist> get playlists => PlaylistStorageProvider().playlists;
+
   @override
   Widget build(BuildContext context) {
-    final playlists = context.watch<PlaylistStorageProvider>().playlists;
+    final length = context.select<PlaylistStorageProvider, int>(
+      (value) => value.playlists.length,
+    );
     context.select<SettingsProvider, bool>(
       (final settings) => settings.canReorder,
     );
@@ -29,10 +33,10 @@ class __PlaylistListViewState extends State<_PlaylistListView> {
               clipBehavior: Clip.antiAlias,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                  bottomLeft: index == playlists.length - 1
+                  bottomLeft: index == length - 1
                       ? const Radius.circular(20.0)
                       : const Radius.circular(4.0),
-                  bottomRight: index == playlists.length - 1
+                  bottomRight: index == length - 1
                       ? const Radius.circular(20.0)
                       : const Radius.circular(4.0),
                   topLeft: index == 0
@@ -55,7 +59,7 @@ class __PlaylistListViewState extends State<_PlaylistListView> {
           ],
         ),
       ),
-      itemCount: playlists.length,
+      itemCount: length,
       itemBuilder: (context, index) => ReorderableDragStartListener(
         index: index,
         enabled: SettingsProvider().canReorder,
@@ -63,7 +67,7 @@ class __PlaylistListViewState extends State<_PlaylistListView> {
         child: PlaylistItem(
           playlist: playlists[index],
           isFirst: index == 0,
-          isLast: index == playlists.length - 1,
+          isLast: index == length - 1,
         ),
       ),
       onReorder: (oldIndex, newIndex) {

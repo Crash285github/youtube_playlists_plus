@@ -1,32 +1,43 @@
+library preferences_drawer;
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:provider/provider.dart';
 
+import 'package:ytp_new/config.dart';
+import 'package:ytp_new/extensions/extensions.dart';
+import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/codec_buttons.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/background_toggle.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/confirm_delete_toggle.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/hide_topic_toggle.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/reorder_toggle.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/scheme_mode.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/split_mode.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/theme_mode.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
+
+part 'codec_buttons.dart';
+part 'settings/toggle_background.dart';
+part 'settings/toggle_confirm_delete.dart';
+part 'settings/toggle_hide_topic.dart';
+part 'settings/toggle_reorder.dart';
+part 'settings/select_scheme.dart';
+part 'settings/select_split.dart';
+part 'settings/template.dart';
+part 'settings/toggle_theme.dart';
 
 class PreferencesDrawer extends StatelessWidget {
   PreferencesDrawer({super.key});
 
   final preferences = <Widget>[
-    const SettingsThemeMode(),
-    const SettingsSchemeMode(),
-    const SettingsConfirmDeleteToggle(),
-    const SettingsHideTopicToggle(),
-    const SettingsSplitMode(),
-    if (Platform.isAndroid) const BackgroundToggle(),
-    if (PlaylistStorageProvider().playlists.isNotEmpty)
-      const SettingsReorderToggle(),
+    const _ToggleTheme(),
+    const _SelecteScheme(),
+    const _ToggleConfirmDelete(),
+    const _ToggleHideTopic(),
+    const _SelectSplit(),
+    if (Platform.isAndroid) const _ToggleBackground(),
+    if (PlaylistStorageProvider().playlists.isNotEmpty) const _ToggleReorder(),
   ];
 
   @override

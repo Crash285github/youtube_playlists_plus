@@ -1,8 +1,21 @@
+library search_page;
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart'
+    show PlaylistId, SearchPlaylist, TypeFilters;
+
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
-import 'package:ytp_new/view/pages/search_page/search_engine.dart';
-import 'package:ytp_new/view/pages/search_page/search_result.dart';
+import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/provider/fetching_provider.dart';
+import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/youtube_explode_service.dart';
+import 'package:ytp_new/view/widget/media_item_template.dart';
+import 'package:ytp_new/view/widget/thumbnail.dart';
+
+part 'search_engine.dart';
+part 'search_result.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});

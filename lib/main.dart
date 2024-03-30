@@ -57,7 +57,7 @@ Future main() async {
     ),
   );
 
-  if (Platform.isAndroid) {
+  if (Platform.isAndroid && Settings.runInBackground) {
     try {
       await BackgroundService.configure();
       BackgroundService.registerHeadlessTask();

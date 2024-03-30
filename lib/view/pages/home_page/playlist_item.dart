@@ -34,6 +34,10 @@ class PlaylistItem extends StatelessWidget {
       (final settings) => settings.canReorder,
     );
 
+    context.select<FetchingProvider, bool>(
+      (final fetches) => fetches.refreshingList.contains(playlist.id),
+    );
+
     return MediaItem(
       primaryAction: (_) {
         SettingsProvider().canReorder = false;

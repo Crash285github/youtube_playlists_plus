@@ -1,11 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ytp_new/model/persistence.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/settings/template.dart';
+part of '../preferences_drawer.dart';
 
-class SettingsHideTopicToggle extends StatelessWidget {
-  const SettingsHideTopicToggle({super.key});
+class _ToggleHideTopic extends StatelessWidget {
+  const _ToggleHideTopic();
 
   bool get _enabled => Settings.hideTopic;
 
@@ -17,7 +13,7 @@ class SettingsHideTopicToggle extends StatelessWidget {
       (final settings) => settings.hideTopic,
     );
 
-    return SettingTemplate(
+    return _SettingTemplate(
       onTap: _toggle,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
