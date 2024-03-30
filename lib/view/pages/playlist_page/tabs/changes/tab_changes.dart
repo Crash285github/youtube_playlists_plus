@@ -40,7 +40,8 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
         ? anchorIssues.isEmpty
             ? Center(
                 child: Text(
-                  "No changes.",
+                  playlist.state?.message ??
+                      "Playlist has not been checked yet.",
                   style:
                       Theme.of(context).textTheme.labelLarge!.withOpacity(.5),
                 ),
