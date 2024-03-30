@@ -18,17 +18,17 @@ class BackgroundToggle extends StatelessWidget {
     SettingsProvider().runInBackground = !Settings.runInBackground;
 
     if (!Platform.isAndroid) return;
+
     if (_enabled) {
-      print("enabled bg");
       BackgroundService.start();
       FlutterLocalNotificationsPlugin()
           .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()!
-          .requestNotificationsPermission();
+              AndroidFlutterLocalNotificationsPlugin>()
+          ?.requestNotificationsPermission();
 
       BackgroundFetch.scheduleTask(
         TaskConfig(
-          taskId: "com.transistorsoft.customtask",
+          taskId: "test_task",
           delay: 10000,
           periodic: false,
           forceAlarmManager: false,
@@ -37,7 +37,6 @@ class BackgroundToggle extends StatelessWidget {
         ),
       );
     } else {
-      print("disabled bg");
       BackgroundService.stop();
     }
   }

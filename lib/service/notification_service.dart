@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationsService {
@@ -18,13 +16,16 @@ class NotificationsService {
     );
   }
 
-  static Future _notificationDetails() async => NotificationDetails(
+  static Future _notificationDetails(
+          final String title, final String body, final int id) async =>
+      NotificationDetails(
         android: AndroidNotificationDetails(
-            'ytp+${Random(DateTime.now().millisecondsSinceEpoch).nextInt(10)}',
-            'ytp+ name',
-            channelDescription: 'ytp+ desc',
-            importance: Importance.max,
-            styleInformation: const BigTextStyleInformation('')),
+          '$id',
+          title,
+          channelDescription: body,
+          importance: Importance.max,
+          styleInformation: const BigTextStyleInformation(''),
+        ),
       );
 
   @pragma('vm:entry-point')
@@ -38,7 +39,7 @@ class NotificationsService {
         id,
         title,
         body,
-        await _notificationDetails(),
+        await _notificationDetails(title, body, id),
         payload: payload,
       );
 }

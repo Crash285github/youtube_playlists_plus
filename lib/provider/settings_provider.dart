@@ -119,6 +119,7 @@ class SettingsProvider extends ChangeNotifier {
 
     try {
       PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
+      Persistence.savePlaylists();
     } finally {}
 
     managingAppData = false;
