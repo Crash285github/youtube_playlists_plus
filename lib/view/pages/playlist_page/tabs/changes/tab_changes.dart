@@ -21,7 +21,10 @@ class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 
-  List<VideoChange> get changes => playlist.changes;
+  List<VideoChange> get changes => playlist.changes
+    ..sort(
+      (final fst, final snd) => fst.title.compareTo(snd.title),
+    );
 
   List<Video> get anchorIssues => playlist.anchoredVideos
       .where((final video) => !video.anchorInPlace)

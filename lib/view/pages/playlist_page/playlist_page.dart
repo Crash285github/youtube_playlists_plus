@@ -86,15 +86,21 @@ class PlaylistPage extends StatelessWidget {
             ),
           ],
           backgroundColor: Colors.transparent,
-          bottom: const TabBar(
+          bottom: TabBar(
             tabAlignment: TabAlignment.center,
-            splashBorderRadius: BorderRadius.all(Radius.circular(12.0)),
+            splashBorderRadius: const BorderRadius.all(Radius.circular(12.0)),
             dividerHeight: 0,
             isScrollable: true,
             tabs: [
-              _TabItem(icon: Icon(Icons.change_circle), text: "Changes"),
-              _TabItem(icon: Icon(Icons.list), text: "Videos"),
-              _TabItem(icon: Icon(Icons.history), text: "History")
+              _TabItem(
+                icon: Icon(
+                  playlist!.state?.icon ?? Icons.change_circle,
+                  color: playlist!.state?.color,
+                ),
+                text: "Changes",
+              ),
+              const _TabItem(icon: Icon(Icons.list), text: "Videos"),
+              const _TabItem(icon: Icon(Icons.history), text: "History")
             ],
           ),
         ),

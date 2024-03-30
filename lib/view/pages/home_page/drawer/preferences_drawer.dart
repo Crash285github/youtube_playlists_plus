@@ -15,8 +15,8 @@ import 'package:ytp_new/view/pages/home_page/drawer/settings/theme_mode.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
-class HomePageDrawer extends StatelessWidget {
-  HomePageDrawer({super.key});
+class PreferencesDrawer extends StatelessWidget {
+  PreferencesDrawer({super.key});
 
   final preferences = <Widget>[
     const SettingsThemeMode(),
@@ -24,9 +24,9 @@ class HomePageDrawer extends StatelessWidget {
     const SettingsConfirmDeleteToggle(),
     const SettingsHideTopicToggle(),
     const SettingsSplitMode(),
+    const BackgroundToggle(),
     if (PlaylistStorageProvider().playlists.isNotEmpty)
       const SettingsReorderToggle(),
-    const BackgroundToggle(),
   ];
 
   @override

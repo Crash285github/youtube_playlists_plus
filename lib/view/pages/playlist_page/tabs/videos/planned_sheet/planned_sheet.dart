@@ -74,7 +74,7 @@ class _PlannedSheetState extends State<PlannedSheet> {
                           _controller.animateTo(
                             _controller.size <= .5 ? maxSize : minSize,
                             duration: AppConfig.defaultAnimationDuration,
-                            curve: Curves.decelerate,
+                            curve: Curves.fastOutSlowIn,
                           );
                         },
                       );

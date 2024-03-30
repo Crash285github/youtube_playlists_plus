@@ -12,7 +12,7 @@ import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/settings_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
-import 'package:ytp_new/view/pages/home_page/drawer/home_page_drawer.dart';
+import 'package:ytp_new/view/pages/home_page/drawer/preferences_drawer.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/pages/search_page/search_page.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
@@ -30,7 +30,7 @@ class HomePage extends StatelessWidget {
     final canReorder = context.select<SettingsProvider, bool>(
         (final settings) => settings.canReorder);
 
-    final hasPLaylists = context.select<PlaylistStorageProvider, bool>(
+    final hasPlaylists = context.select<PlaylistStorageProvider, bool>(
       (final playlistStorage) => playlistStorage.playlists.isNotEmpty,
     );
 
@@ -38,8 +38,12 @@ class HomePage extends StatelessWidget {
       (final fetches) => fetches.downloading,
     );
 
+    final refreshing = context.select<FetchingProvider, bool>(
+      (final fetches) => fetches.refreshingList.isNotEmpty,
+    );
+
     return Scaffold(
-        drawer: HomePageDrawer(),
+        drawer: PreferencesDrawer(),
         body: Stack(
           children: [
             CustomScrollView(
@@ -50,16 +54,16 @@ class HomePage extends StatelessWidget {
                   floating: true,
                   snap: true,
                   actions: [
-                    if (hasPLaylists)
+                    if (hasPlaylists)
                       IconButton(
-                        onPressed: FetchingProvider().refreshingList.isEmpty
-                            ? () async {
+                        onPressed: refreshing
+                            ? null
+                            : () async {
                                 for (final playlist
                                     in PlaylistStorageProvider().playlists) {
                                   playlist.refresh();
                                 }
-                              }
-                            : null,
+                              },
                         icon: const Icon(Icons.refresh),
                         tooltip: "Refresh all",
                       ),
