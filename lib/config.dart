@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 /// The Application's configs
@@ -27,4 +30,20 @@ class AppConfig {
 
   /// The [YoutubeExplode] client used through the entire App
   static final youtube = YoutubeExplode();
+
+  /// Setup the Windows app minimum and default window sizes
+  static Future setupWindowsApp() async {
+    if (Platform.isWindows) {
+      await windowManager.ensureInitialized();
+      await windowManager.waitUntilReadyToShow().whenComplete(() async {
+        await Future.wait([
+          windowManager.setTitle("Youtube Playlists+"),
+          windowManager.setSize(const Size(1300, 800)),
+          windowManager.setMinimumSize(const Size(800, 500)),
+          windowManager.setAlignment(Alignment.center),
+        ]);
+        await windowManager.show();
+      });
+    }
+  }
 }
