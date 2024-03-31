@@ -3,6 +3,7 @@ library about_page;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/theme_creator.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
@@ -98,6 +99,15 @@ class AboutPage extends StatelessWidget {
                 _Paragraph(
                   "This will tell the Playlist to alert you that the Video is "
                   "not the 4th Video from the middle of the Playlist.",
+                ),
+              ],
+            ),
+            const _Section(
+              paragraphs: [
+                _Paragraph("UI Design reference:"),
+                _Paragraph(
+                  "https://m3.material.io/components",
+                  link: true,
                 ),
               ],
             ),

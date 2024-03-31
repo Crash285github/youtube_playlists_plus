@@ -8,7 +8,14 @@ class _Section extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 32.0),
-      child: Column(children: paragraphs),
+      child: Center(
+        child: Card(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(children: paragraphs),
+          ),
+        ),
+      ),
     );
   }
 }
