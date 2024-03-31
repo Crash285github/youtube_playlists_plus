@@ -173,7 +173,14 @@ class Playlist extends Media
         'description': description,
         'thumbnail': thumbnail,
         'videos': [..._videos.map((final video) => video.toMap())],
-        'history': [...savedHistory.map((final history) => history.toMap())],
+        'history': [
+          ...(savedHistory
+                ..sort(
+                  (final fst, final snd) => snd.created.compareTo(fst.created),
+                ))
+              .take(500)
+              .map((final history) => history.toMap())
+        ],
         'planned': planned,
       };
 
