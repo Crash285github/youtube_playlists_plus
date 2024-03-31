@@ -61,16 +61,19 @@ class PlannedSheetTitle extends StatelessWidget {
         SizedBox(
           height: 48,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 4.0,
-              horizontal: 4.0,
+            padding: const EdgeInsets.only(
+              top: 4.0,
+              right: 8.0,
             ),
             child: InkWell(
               onTap: onTap,
               overlayColor: MaterialStatePropertyAll(
                 Theme.of(context).colorScheme.primary.withOpacity(.3),
               ),
-              borderRadius: BorderRadius.circular(14.0),
+              borderRadius: const BorderRadius.only(
+                topRight: Radius.circular(14.0),
+                bottomRight: Radius.circular(14.0),
+              ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
                 child: Row(
@@ -90,7 +93,11 @@ class PlannedSheetTitle extends StatelessWidget {
             ),
           ),
         ),
-        const Divider(indent: 16.0, endIndent: 16.0)
+        const Divider(
+          height: 8.0,
+          indent: 8.0,
+          endIndent: 8.0,
+        )
       ],
     );
   }

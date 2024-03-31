@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
-import 'package:ytp_new/view/widget/fading_listview.dart';
 
 import 'planned_sheet_title.dart';
 
@@ -52,18 +51,19 @@ class _PlannedSheetState extends State<PlannedSheet> {
             child: Card(
               elevation: 16,
               shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16.0),
-                topRight: Radius.circular(16.0),
-                bottomLeft: Radius.zero,
-                bottomRight: Radius.zero,
-              )),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16.0),
+                  topRight: Radius.circular(16.0),
+                  bottomLeft: Radius.zero,
+                  bottomRight: Radius.zero,
+                ),
+              ),
               margin: const EdgeInsets.fromLTRB(16.0, 8.0, 16.0, 0),
               child: ScrollConfiguration(
                 behavior: const MaterialScrollBehavior().copyWith(
                   scrollbars: false,
                 ),
-                child: FadingListView(
+                child: ListView.builder(
                   padding: const EdgeInsets.only(bottom: 20),
                   itemBuilder: (context, index) {
                     //? Title & handle
