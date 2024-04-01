@@ -60,15 +60,11 @@ class __PlaylistListViewState extends State<_PlaylistListView> {
         ),
       ),
       itemCount: length,
-      itemBuilder: (context, index) => ReorderableDragStartListener(
-        index: index,
-        enabled: SettingsProvider().canReorder,
+      itemBuilder: (context, index) => PlaylistItem(
         key: ValueKey(playlists[index]),
-        child: PlaylistItem(
-          playlist: playlists[index],
-          isFirst: index == 0,
-          isLast: index == length - 1,
-        ),
+        playlist: playlists[index],
+        isFirst: index == 0,
+        isLast: index == length - 1,
       ),
       onReorder: (oldIndex, newIndex) {
         final copy = playlists.toList();

@@ -125,7 +125,7 @@ class PlaylistItem extends StatelessWidget {
                                 .withOpacity(.5),
                           ),
                         ),
-                        playlist.state != null && !canReorder
+                        playlist.state != null
                             ? Icon(
                                 playlist.state!.icon,
                                 color: playlist.state!.color,
@@ -140,7 +140,16 @@ class PlaylistItem extends StatelessWidget {
                 ),
               ),
             ),
-            if (canReorder) const Icon(Icons.drag_handle),
+            ReorderableDragStartListener(
+              index: PlaylistStorage.playlists.indexOf(playlist),
+              child: AnimatedSize(
+                duration: AppConfig.defaultAnimationDuration,
+                child: Icon(
+                  Icons.drag_handle,
+                  size: !canReorder ? 0 : null,
+                ),
+              ),
+            ),
           ],
         ),
       ),
