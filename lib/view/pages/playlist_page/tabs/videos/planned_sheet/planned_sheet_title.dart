@@ -94,7 +94,7 @@ class PlannedSheetTitle extends StatelessWidget {
           ),
         ),
         const Divider(
-          height: 8.0,
+          height: 12.0,
           indent: 8.0,
           endIndent: 8.0,
         )
