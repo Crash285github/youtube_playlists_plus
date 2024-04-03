@@ -76,32 +76,45 @@ class _SearchPageState extends State<SearchPage> {
             SliverAppBar(
               floating: true,
               snap: true,
-              title: Row(
-                children: [
-                  Flexible(
-                    child: TextField(
-                      focusNode: _node,
-                      enabled: !isSearching,
-                      controller: _textEditingController,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          label: const Text("Search playlists here..."),
-                          suffixIcon: IconButton(
-                              onPressed: () {
-                                _textEditingController.clear();
-                                _node.requestFocus();
-                              },
-                              icon: const Icon(Icons.clear))),
-                      onSubmitted: (value) async => _search(value.trim()),
-                    ),
+              expandedHeight: 40,
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.transparent,
+              surfaceTintColor: Colors.transparent,
+              title: SizedBox(
+                height: kToolbarHeight,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(512.0),
                   ),
-                  IconButton(
-                    onPressed: isSearching
-                        ? null
-                        : () => _search(_textEditingController.text.trim()),
-                    icon: const Icon(Icons.search),
-                  )
-                ],
+                  child: Row(
+                    children: [
+                      const BackButton(),
+                      Flexible(
+                        child: TextField(
+                          focusNode: _node,
+                          enabled: !isSearching,
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              label: const Text("Search playlists here..."),
+                              suffixIcon: IconButton(
+                                  onPressed: () {
+                                    _textEditingController.clear();
+                                    _node.requestFocus();
+                                  },
+                                  icon: const Icon(Icons.clear))),
+                          onSubmitted: (value) async => _search(value.trim()),
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: isSearching
+                            ? null
+                            : () => _search(_textEditingController.text.trim()),
+                        icon: const Icon(Icons.search),
+                      )
+                    ],
+                  ),
+                ),
               ),
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(4),
