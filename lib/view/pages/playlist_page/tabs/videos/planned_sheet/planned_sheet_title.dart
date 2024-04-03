@@ -75,7 +75,7 @@ class PlannedSheetTitle extends StatelessWidget {
                 bottomRight: Radius.circular(14.0),
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.only(left: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
