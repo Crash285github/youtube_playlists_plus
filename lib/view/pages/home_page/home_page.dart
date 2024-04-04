@@ -73,18 +73,26 @@ class HomePage extends StatelessWidget {
                     ? const _PlaylistListView()
                     : SliverFillRemaining(
                         child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "You have no Playlists. To add some, "
-                              "search for them using the search button below.",
-                              textAlign: TextAlign.center,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .labelLarge!
-                                  .withOpacity(.5),
-                            ),
-                          ),
+                          child: downloading
+                              ? const Center(
+                                  child: SizedBox(
+                                    height: 40,
+                                    width: 40,
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                )
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(
+                                    "You have no Playlists. To add some, "
+                                    "search for them using the search button below.",
+                                    textAlign: TextAlign.center,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge!
+                                        .withOpacity(.5),
+                                  ),
+                                ),
                         ),
                       ),
                 if (hasPlaylists)
