@@ -11,7 +11,7 @@ class SharingService {
     ReceiveSharingIntent.getMediaStream().listen((event) async {
       if (event.isNotEmpty) {
         FetchingProvider().increaseDownload();
-        _handleIntent(event.first.path);
+        await _handleIntent(event.first.path);
         FetchingProvider().decreaseDownload();
       }
     });
@@ -19,14 +19,14 @@ class SharingService {
     ReceiveSharingIntent.getInitialMedia().then((value) async {
       if (value.isNotEmpty) {
         FetchingProvider().increaseDownload();
-        _handleIntent(value.first.path);
+        await _handleIntent(value.first.path);
         FetchingProvider().decreaseDownload();
       }
       ReceiveSharingIntent.reset();
     });
   }
 
-  static void _handleIntent(final String text) async {
+  static Future _handleIntent(final String text) async {
     final String? id = yt.PlaylistId.parsePlaylistId(text);
 
     if (id == null) return null;
