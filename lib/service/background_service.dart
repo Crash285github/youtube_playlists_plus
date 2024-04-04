@@ -10,7 +10,7 @@ class BackgroundService {
   /// Configures the [BackgroundService]
   static Future<int> configure() => BackgroundFetch.configure(
         BackgroundFetchConfig(
-          minimumFetchInterval: 1440,
+          minimumFetchInterval: 15,
           forceAlarmManager: false,
           stopOnTerminate: false,
           startOnBoot: true,
