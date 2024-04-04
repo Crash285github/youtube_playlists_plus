@@ -15,7 +15,6 @@ part 'enum_title_case.dart';
 part 'int_to_ordinal.dart';
 part 'media_context.dart';
 part 'offset_context_menu.dart';
-part 'popup_anchor_dialog.dart';
 part 'string_file_name.dart';
 part 'string_hide_topic.dart';
 part 'string_is_youtube_link.dart';
