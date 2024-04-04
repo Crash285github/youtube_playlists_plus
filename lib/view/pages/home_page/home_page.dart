@@ -69,8 +69,26 @@ class HomePage extends StatelessWidget {
                       ),
                   ],
                 ),
-                const _PlaylistListView(),
-                const SliverToBoxAdapter(child: SizedBox(height: 40)),
+                hasPlaylists
+                    ? const _PlaylistListView()
+                    : SliverFillRemaining(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "You have no Playlists. To add some, "
+                              "search for them using the search button below.",
+                              textAlign: TextAlign.center,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge!
+                                  .withOpacity(.5),
+                            ),
+                          ),
+                        ),
+                      ),
+                if (hasPlaylists)
+                  const SliverToBoxAdapter(child: SizedBox(height: 40)),
                 if (downloading)
                   const SliverToBoxAdapter(
                     child: Center(
@@ -81,7 +99,8 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                const SliverToBoxAdapter(child: SizedBox(height: 40)),
+                if (hasPlaylists)
+                  const SliverToBoxAdapter(child: SizedBox(height: 40)),
               ],
             ),
           ],
