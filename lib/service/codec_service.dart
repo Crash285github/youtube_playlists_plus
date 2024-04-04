@@ -19,8 +19,9 @@ class CodecService {
     final json = {
       AppConfig.settingsThemeKey: Settings.theme.index,
       AppConfig.settingsSchemeKey: Settings.colorScheme.index,
-      AppConfig.settingsSplitKey: Settings.splitMode.index,
+      AppConfig.settingsConfirmDeletesKey: Settings.confirmDeletes,
       AppConfig.settingsHideTopicKey: Settings.hideTopic,
+      AppConfig.settingsSplitKey: Settings.splitMode.index,
       AppConfig.playlistsKey: PlaylistStorage.playlists,
       AppConfig.anchorsKey: AnchorStorage.anchors,
     };
@@ -49,6 +50,8 @@ class CodecService {
             ThemeSetting.values[json[AppConfig.settingsThemeKey]],
         AppConfig.settingsSchemeKey:
             ColorSchemeSetting.values[json[AppConfig.settingsSchemeKey]],
+        AppConfig.settingsConfirmDeletesKey:
+            json[AppConfig.settingsConfirmDeletesKey],
         AppConfig.settingsSplitKey:
             SplitSetting.values[json[AppConfig.settingsSplitKey]],
         AppConfig.settingsHideTopicKey: json[AppConfig.settingsHideTopicKey],
