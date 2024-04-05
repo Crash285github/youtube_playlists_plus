@@ -9,7 +9,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 
 part 'anchor_storage.dart';
 part 'playlist_storage.dart';
-part 'settings.dart';
+part 'preferences.dart';
 
 /// Handles saving and loading local data
 class Persistence {
@@ -20,47 +20,66 @@ class Persistence {
   /// Gets the instance of `SharedPreferences`
   static Future init() async => _prefs = await SharedPreferences.getInstance();
 
-  /// Saves [Settings] to [Persistence]
-  static Future saveSettings() async => _prefs
-    ..setInt(AppConfig.settingsThemeKey, Settings.theme.index)
-    ..setInt(AppConfig.settingsSchemeKey, Settings.colorScheme.index)
-    ..setInt(AppConfig.settingsSplitKey, Settings.splitMode.index)
-    ..setBool(AppConfig.settingsHideTopicKey, Settings.hideTopic)
-    ..setBool(AppConfig.settingsConfirmDeletesKey, Settings.confirmDeletes)
-    ..setBool(AppConfig.settingsBackgroundKey, Settings.runInBackground);
+  /// Saves [Preferences] to [Persistence]
+  static Future savePreferences() async => _prefs
+    ..setInt(
+      AppConfig.preferencesThemeKey,
+      Preferences.theme.index,
+    )
+    ..setInt(
+      AppConfig.preferencesSchemeKey,
+      Preferences.colorScheme.index,
+    )
+    ..setInt(
+      AppConfig.preferencesSplitKey,
+      Preferences.splitMode.index,
+    )
+    ..setBool(
+      AppConfig.preferencesHideTopicKey,
+      Preferences.hideTopic,
+    )
+    ..setBool(
+      AppConfig.preferencesConfirmDeletesKey,
+      Preferences.confirmDeletes,
+    )
+    ..setBool(
+      AppConfig.preferencesBackgroundKey,
+      Preferences.runInBackground,
+    );
 
-  /// Loads [Settings] from [Persistence]
+  /// Loads [Preferences] from [Persistence]
   ///
   /// Does not notify
-  static void loadSettings() {
-    final themeIndex = _prefs.getInt(AppConfig.settingsThemeKey);
+  static void loadPreferences() {
+    final themeIndex = _prefs.getInt(AppConfig.preferencesThemeKey);
     if (themeIndex != null) {
-      Settings.theme = ThemeSetting.values[themeIndex];
+      Preferences.theme = ThemePreference.values[themeIndex];
     }
 
-    final colorIndex = _prefs.getInt(AppConfig.settingsSchemeKey);
+    final colorIndex = _prefs.getInt(AppConfig.preferencesSchemeKey);
     if (colorIndex != null) {
-      Settings.colorScheme = ColorSchemeSetting.values[colorIndex];
+      Preferences.colorScheme = ColorSchemePreference.values[colorIndex];
     }
 
-    final splitIndex = _prefs.getInt(AppConfig.settingsSplitKey);
+    final splitIndex = _prefs.getInt(AppConfig.preferencesSplitKey);
     if (splitIndex != null) {
-      Settings.splitMode = SplitSetting.values[splitIndex];
+      Preferences.splitMode = SplitPreference.values[splitIndex];
     }
 
-    final hideTopic = _prefs.getBool(AppConfig.settingsHideTopicKey);
+    final hideTopic = _prefs.getBool(AppConfig.preferencesHideTopicKey);
     if (hideTopic != null) {
-      Settings.hideTopic = hideTopic;
+      Preferences.hideTopic = hideTopic;
     }
 
-    final confirmDeletes = _prefs.getBool(AppConfig.settingsConfirmDeletesKey);
+    final confirmDeletes =
+        _prefs.getBool(AppConfig.preferencesConfirmDeletesKey);
     if (confirmDeletes != null) {
-      Settings.confirmDeletes = confirmDeletes;
+      Preferences.confirmDeletes = confirmDeletes;
     }
 
-    final runInBackround = _prefs.getBool(AppConfig.settingsBackgroundKey);
+    final runInBackround = _prefs.getBool(AppConfig.preferencesBackgroundKey);
     if (runInBackround != null) {
-      Settings.runInBackground = runInBackround;
+      Preferences.runInBackground = runInBackround;
     }
   }
 

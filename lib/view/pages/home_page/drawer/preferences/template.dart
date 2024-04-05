@@ -1,4 +1,4 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _SettingTemplate extends StatelessWidget {
   final void Function()? onTap;

@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/video/video.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -32,7 +32,7 @@ class VideoItem extends StatelessWidget {
       );
 
   String get author =>
-      SettingsProvider().hideTopic ? video.author.hideTopic() : video.author;
+      PreferencesProvider().hideTopic ? video.author.hideTopic() : video.author;
 
   String? get anchorText => video.anchor == null
       ? null
@@ -42,7 +42,7 @@ class VideoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<SettingsProvider>();
+    context.watch<PreferencesProvider>();
     context.watch<AnchorStorageProvider>();
 
     return MediaItem(

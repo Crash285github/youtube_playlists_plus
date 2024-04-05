@@ -1,13 +1,13 @@
 part of persistence;
 
-/// The application's theme brightness settings
-enum ThemeSetting { light, dark, black }
+/// The application's theme brightness preference options
+enum ThemePreference { light, dark, black }
 
-/// The application's split mode settings
-enum SplitSetting { disabled, even, uneven }
+/// The application's split mode preference options
+enum SplitPreference { disabled, even, uneven }
 
-/// The application's theme color settings
-enum ColorSchemeSetting {
+/// The application's theme color preference options
+enum ColorSchemePreference {
   dynamic(null),
   mono(Colors.grey),
   red(Colors.red),
@@ -22,19 +22,19 @@ enum ColorSchemeSetting {
   ;
 
   final Color? color;
-  const ColorSchemeSetting(this.color);
+  const ColorSchemePreference(this.color);
 }
 
-/// The application's current settings
-class Settings {
+/// The application's current preferences
+class Preferences {
   /// The current brightness of the app's theme
-  static ThemeSetting theme = ThemeSetting.light;
+  static ThemePreference theme = ThemePreference.light;
 
   /// The current color of the app's theme
-  static ColorSchemeSetting colorScheme = ColorSchemeSetting.blue;
+  static ColorSchemePreference colorScheme = ColorSchemePreference.blue;
 
   /// The current split mode of the app
-  static SplitSetting splitMode = SplitSetting.disabled;
+  static SplitPreference splitMode = SplitPreference.disabled;
   static bool isSplit = false;
 
   /// Should we hide '- Topic' from channel names

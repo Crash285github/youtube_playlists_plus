@@ -8,7 +8,7 @@ import 'package:ytp_new/model/theme_creator.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/service/sharing_service.dart';
 import 'package:ytp_new/view/responsive/responsive.dart';
@@ -19,7 +19,7 @@ Future main() async {
   await AppConfig.setupWindowsApp();
 
   await Persistence.init();
-  Persistence.loadSettings();
+  Persistence.loadPreferences();
   Persistence.loadPlaylists();
   Persistence.loadAnchors();
 
@@ -35,7 +35,7 @@ Future main() async {
           create: (_) => AnchorStorageProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_) => SettingsProvider(),
+          create: (_) => PreferencesProvider(),
         ),
         ChangeNotifierProvider(
           create: (_) => FetchingProvider(),
@@ -75,17 +75,17 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<SettingsProvider>();
+    context.watch<PreferencesProvider>();
 
     return MaterialApp(
       title: "Youtube Playlists+",
       theme: ThemeCreator.theme,
       navigatorKey: AppConfig.mainNavigatorKey,
       home: PopScope(
-        canPop: !SettingsProvider().canReorder,
+        canPop: !PreferencesProvider().canReorder,
         onPopInvoked: (didPop) {
           if (!didPop) {
-            SettingsProvider().canReorder = false;
+            PreferencesProvider().canReorder = false;
           }
         },
         child: const Scaffold(body: Responsive()),

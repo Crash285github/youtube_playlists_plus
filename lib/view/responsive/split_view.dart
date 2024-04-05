@@ -6,8 +6,8 @@ class _SplitView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isEven = context.select<SettingsProvider, bool>(
-      (final settings) => settings.splitMode == SplitSetting.even,
+    final isEven = context.select<PreferencesProvider, bool>(
+      (final preferences) => preferences.splitMode == SplitPreference.even,
     );
 
     return Row(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -32,8 +32,9 @@ class ChangeItem extends StatelessWidget {
         topRight: const Radius.circular(4.0),
       );
 
-  String get author =>
-      SettingsProvider().hideTopic ? change.author.hideTopic() : change.author;
+  String get author => PreferencesProvider().hideTopic
+      ? change.author.hideTopic()
+      : change.author;
 
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
@@ -58,7 +59,7 @@ class ChangeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<SettingsProvider>();
+    context.watch<PreferencesProvider>();
     return Opacity(
       opacity: enabled ? 1 : 0.7,
       child: MediaItem(

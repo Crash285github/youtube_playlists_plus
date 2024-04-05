@@ -34,7 +34,7 @@ extension MediaContext on Media {
       child: ContextBody(
         text: "Open",
         icon: Icons.open_in_new,
-        iconColor: Settings.theme == ThemeSetting.light
+        iconColor: Preferences.theme == ThemePreference.light
             ? Colors.green
             : Colors.greenAccent,
       ));

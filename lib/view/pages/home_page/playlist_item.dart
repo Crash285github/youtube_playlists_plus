@@ -30,8 +30,8 @@ class PlaylistItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final canReorder = context.select<SettingsProvider, bool>(
-      (final settings) => settings.canReorder,
+    final canReorder = context.select<PreferencesProvider, bool>(
+      (final preferences) => preferences.canReorder,
     );
 
     context.select<FetchingProvider, int>(
@@ -40,7 +40,7 @@ class PlaylistItem extends StatelessWidget {
 
     return MediaItem(
       primaryAction: (_) {
-        SettingsProvider().canReorder = false;
+        PreferencesProvider().canReorder = false;
         AppNavigator.tryPopRight();
         AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
         Persistence.currentlyShowingPlaylistId = playlist.id;
@@ -56,7 +56,7 @@ class PlaylistItem extends StatelessWidget {
           const PopupMenuDivider(height: 0),
           PopupMenuItem(
             onTap: () {
-              if (Settings.confirmDeletes) {
+              if (Preferences.confirmDeletes) {
                 PopupService.confirmDialog(
                   context: context,
                   child: Text(

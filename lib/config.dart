@@ -19,12 +19,12 @@ class AppConfig {
   static const defaultAnimationDuration = Duration(milliseconds: 300);
 
   //* The various keys for [Persistence] to find data
-  static const settingsConfirmDeletesKey = "confirmDeletes";
-  static const settingsBackgroundKey = "runInBackground";
-  static const settingsHideTopicKey = "hideTopic";
-  static const settingsSchemeKey = "appScheme";
-  static const settingsThemeKey = "appTheme";
-  static const settingsSplitKey = "split";
+  static const preferencesConfirmDeletesKey = "confirmDeletes";
+  static const preferencesBackgroundKey = "runInBackground";
+  static const preferencesHideTopicKey = "hideTopic";
+  static const preferencesSchemeKey = "appScheme";
+  static const preferencesThemeKey = "appTheme";
+  static const preferencesSplitKey = "split";
   static const playlistsKey = "playlists";
   static const anchorsKey = "anchors";
 

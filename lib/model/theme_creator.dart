@@ -6,8 +6,8 @@ import 'package:ytp_new/model/persistence.dart';
 class ThemeCreator {
   static late ColorScheme _scheme;
 
-  static bool get _isLight => Settings.theme == ThemeSetting.light;
-  static bool get _isAmoled => Settings.theme == ThemeSetting.black;
+  static bool get _isLight => Preferences.theme == ThemePreference.light;
+  static bool get _isAmoled => Preferences.theme == ThemePreference.black;
 
   static Brightness get _brightness =>
       _isLight ? Brightness.light : Brightness.dark;
@@ -58,7 +58,7 @@ class ThemeCreator {
     ColorScheme? colorScheme;
 
     //? Dynamic
-    if (Settings.colorScheme == ColorSchemeSetting.dynamic) {
+    if (Preferences.colorScheme == ColorSchemePreference.dynamic) {
       try {
         colorScheme = ColorScheme.fromSeed(
           seedColor: (await DynamicColorPlugin.getAccentColor())!,
@@ -73,7 +73,7 @@ class ThemeCreator {
       }
     }
     //? Mono
-    else if (Settings.colorScheme == ColorSchemeSetting.mono) {
+    else if (Preferences.colorScheme == ColorSchemePreference.mono) {
       if (_isLight) {
         colorScheme = const ColorScheme.light().copyWith(
           primary: Colors.black,
@@ -93,7 +93,7 @@ class ThemeCreator {
     //? Other
     else {
       colorScheme = ColorScheme.fromSeed(
-          seedColor: Settings.colorScheme.color!, brightness: _brightness);
+          seedColor: Preferences.colorScheme.color!, brightness: _brightness);
     }
 
     _scheme = colorScheme!;

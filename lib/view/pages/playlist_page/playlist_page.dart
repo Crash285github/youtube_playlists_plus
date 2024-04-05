@@ -44,7 +44,7 @@ class PlaylistPage extends StatelessWidget {
         appBar: AppBar(
           title: Text(playlist!.title),
           centerTitle: true,
-          automaticallyImplyLeading: !Settings.isSplit,
+          automaticallyImplyLeading: !Preferences.isSplit,
           actions: [
             IconButton(
               onPressed: refreshing ? null : () => playlist!.refresh(),
@@ -59,7 +59,7 @@ class PlaylistPage extends StatelessWidget {
               ),
             IconButton(
               onPressed: () {
-                if (Settings.confirmDeletes) {
+                if (Preferences.confirmDeletes) {
                   PopupService.confirmDialog(
                     context: context,
                     child: Text(

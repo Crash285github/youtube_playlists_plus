@@ -1,13 +1,13 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _SelectSplit extends StatelessWidget {
   const _SelectSplit();
 
   Future _select(BuildContext context, Offset offset) async {
-    final selected = await offset.showContextMenu<SplitSetting>(
+    final selected = await offset.showContextMenu<SplitPreference>(
       context: context,
       items: [
-        ...SplitSetting.values.map(
+        ...SplitPreference.values.map(
           (final mode) => PopupMenuItem(
             value: mode,
             child: Text(mode.titleCase),
@@ -17,13 +17,13 @@ class _SelectSplit extends StatelessWidget {
     );
 
     if (selected != null) {
-      SettingsProvider().splitMode = selected;
+      PreferencesProvider().splitMode = selected;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final mode = context.select<SettingsProvider, String>(
+    final mode = context.select<PreferencesProvider, String>(
       (final settings) => settings.splitMode.titleCase,
     );
 

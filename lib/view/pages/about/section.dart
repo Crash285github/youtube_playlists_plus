@@ -1,4 +1,4 @@
-part of 'about_page.dart';
+part of about_page;
 
 class _Section extends StatelessWidget {
   final List<_Paragraph> paragraphs;

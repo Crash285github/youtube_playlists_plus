@@ -17,11 +17,11 @@ class CodecService {
         File("$dir/ytp_export${DateTime.now().microsecondsSinceEpoch}.json");
 
     final json = {
-      AppConfig.settingsThemeKey: Settings.theme.index,
-      AppConfig.settingsSchemeKey: Settings.colorScheme.index,
-      AppConfig.settingsConfirmDeletesKey: Settings.confirmDeletes,
-      AppConfig.settingsHideTopicKey: Settings.hideTopic,
-      AppConfig.settingsSplitKey: Settings.splitMode.index,
+      AppConfig.preferencesThemeKey: Preferences.theme.index,
+      AppConfig.preferencesSchemeKey: Preferences.colorScheme.index,
+      AppConfig.preferencesConfirmDeletesKey: Preferences.confirmDeletes,
+      AppConfig.preferencesHideTopicKey: Preferences.hideTopic,
+      AppConfig.preferencesSplitKey: Preferences.splitMode.index,
       AppConfig.playlistsKey: PlaylistStorage.playlists,
       AppConfig.anchorsKey: AnchorStorage.anchors,
     };
@@ -46,15 +46,16 @@ class CodecService {
       final json = jsonDecode(file.readAsStringSync());
 
       final Map<String, dynamic> parsed = {
-        AppConfig.settingsThemeKey:
-            ThemeSetting.values[json[AppConfig.settingsThemeKey]],
-        AppConfig.settingsSchemeKey:
-            ColorSchemeSetting.values[json[AppConfig.settingsSchemeKey]],
-        AppConfig.settingsConfirmDeletesKey:
-            json[AppConfig.settingsConfirmDeletesKey],
-        AppConfig.settingsSplitKey:
-            SplitSetting.values[json[AppConfig.settingsSplitKey]],
-        AppConfig.settingsHideTopicKey: json[AppConfig.settingsHideTopicKey],
+        AppConfig.preferencesThemeKey:
+            ThemePreference.values[json[AppConfig.preferencesThemeKey]],
+        AppConfig.preferencesSchemeKey:
+            ColorSchemePreference.values[json[AppConfig.preferencesSchemeKey]],
+        AppConfig.preferencesConfirmDeletesKey:
+            json[AppConfig.preferencesConfirmDeletesKey],
+        AppConfig.preferencesSplitKey:
+            SplitPreference.values[json[AppConfig.preferencesSplitKey]],
+        AppConfig.preferencesHideTopicKey:
+            json[AppConfig.preferencesHideTopicKey],
         AppConfig.playlistsKey: [
           ...(json['playlists'] as List).map(
             (final jsonPlylst) => Playlist.fromJson(jsonPlylst),

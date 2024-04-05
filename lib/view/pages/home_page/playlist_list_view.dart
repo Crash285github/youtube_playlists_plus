@@ -15,8 +15,8 @@ class __PlaylistListViewState extends State<_PlaylistListView> {
     final length = context.select<PlaylistStorageProvider, int>(
       (value) => value.playlists.length,
     );
-    context.select<SettingsProvider, bool>(
-      (final settings) => settings.canReorder,
+    context.select<PreferencesProvider, bool>(
+      (final preferences) => preferences.canReorder,
     );
 
     return SliverReorderableList(

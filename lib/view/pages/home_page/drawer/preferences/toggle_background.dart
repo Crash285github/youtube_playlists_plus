@@ -1,14 +1,14 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _ToggleBackground extends StatelessWidget {
   const _ToggleBackground();
 
-  bool get _enabled => Settings.runInBackground;
+  bool get _enabled => Preferences.runInBackground;
 
   void _toggle() {
     if (!Platform.isAndroid) return;
 
-    SettingsProvider().runInBackground = !Settings.runInBackground;
+    PreferencesProvider().runInBackground = !Preferences.runInBackground;
 
     if (_enabled) {
       BackgroundService.start();
@@ -35,7 +35,7 @@ class _ToggleBackground extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.select<SettingsProvider, bool>(
+    context.select<PreferencesProvider, bool>(
       (final settings) => settings.runInBackground,
     );
 

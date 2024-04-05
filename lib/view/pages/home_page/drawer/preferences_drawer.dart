@@ -11,21 +11,21 @@ import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
 part 'codec_buttons.dart';
-part 'settings/toggle_background.dart';
-part 'settings/toggle_confirm_delete.dart';
-part 'settings/toggle_hide_topic.dart';
-part 'settings/toggle_reorder.dart';
-part 'settings/select_scheme.dart';
-part 'settings/select_split.dart';
-part 'settings/template.dart';
-part 'settings/toggle_theme.dart';
+part 'preferences/toggle_background.dart';
+part 'preferences/toggle_confirm_delete.dart';
+part 'preferences/toggle_hide_topic.dart';
+part 'preferences/toggle_reorder.dart';
+part 'preferences/select_scheme.dart';
+part 'preferences/select_split.dart';
+part 'preferences/template.dart';
+part 'preferences/toggle_theme.dart';
 
 class PreferencesDrawer extends StatelessWidget {
   PreferencesDrawer({super.key});

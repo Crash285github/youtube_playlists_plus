@@ -1,4 +1,4 @@
-part of 'search_page.dart';
+part of search_page;
 
 class SearchEngine {
   /// Searches Youtube Playlists

@@ -10,7 +10,7 @@ import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/preferences_drawer.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
@@ -27,8 +27,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final canReorder = context.select<SettingsProvider, bool>(
-        (final settings) => settings.canReorder);
+    final canReorder = context.select<PreferencesProvider, bool>(
+        (final preferences) => preferences.canReorder);
 
     final hasPlaylists = context.select<PlaylistStorageProvider, bool>(
       (final playlistStorage) => playlistStorage.playlists.isNotEmpty,
@@ -124,7 +124,7 @@ class HomePage extends StatelessWidget {
           extendedPadding: const EdgeInsets.all(16),
           tooltip: canReorder ? "Finish reordering" : "Search",
           onPressed: canReorder
-              ? () => SettingsProvider().canReorder = false
+              ? () => PreferencesProvider().canReorder = false
               : () => AppNavigator.tryPushLeft(const SearchPage()),
           icon: Icon(canReorder ? Icons.done : Icons.search),
         ));

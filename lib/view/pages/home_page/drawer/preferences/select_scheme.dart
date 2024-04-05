@@ -1,13 +1,13 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _SelecteScheme extends StatelessWidget {
   const _SelecteScheme();
 
   Future _select(BuildContext context, Offset offset) async {
-    final selectedScheme = await offset.showContextMenu<ColorSchemeSetting>(
+    final selectedScheme = await offset.showContextMenu<ColorSchemePreference>(
       context: context,
       items: [
-        ...ColorSchemeSetting.values.map(
+        ...ColorSchemePreference.values.map(
           (final scheme) => PopupMenuItem(
             value: scheme,
             child: Text(scheme.titleCase),
@@ -17,13 +17,13 @@ class _SelecteScheme extends StatelessWidget {
     );
 
     if (selectedScheme != null) {
-      SettingsProvider().colorScheme = selectedScheme;
+      PreferencesProvider().colorScheme = selectedScheme;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final scheme = context.select<SettingsProvider, String>(
+    final scheme = context.select<PreferencesProvider, String>(
       (final settings) => settings.colorScheme.titleCase,
     );
 

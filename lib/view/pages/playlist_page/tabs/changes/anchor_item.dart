@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -49,7 +49,7 @@ class AnchorItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<SettingsProvider>();
+    context.watch<PreferencesProvider>();
 
     return MediaItem(
       borderRadius: borderRadius,
@@ -150,7 +150,7 @@ class _AnchorSheetItem extends StatelessWidget {
   final Video video;
 
   String get author =>
-      SettingsProvider().hideTopic ? video.author.hideTopic() : video.author;
+      PreferencesProvider().hideTopic ? video.author.hideTopic() : video.author;
 
   @override
   Widget build(BuildContext context) {

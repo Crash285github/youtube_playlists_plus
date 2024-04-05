@@ -1,30 +1,30 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _ToggleTheme extends StatelessWidget {
   const _ToggleTheme();
 
-  bool get isLight => Settings.theme == ThemeSetting.light;
-  bool get isBlack => Settings.theme == ThemeSetting.black;
+  bool get isLight => Preferences.theme == ThemePreference.light;
+  bool get isBlack => Preferences.theme == ThemePreference.black;
 
   void _toggleLight() {
     if (!isLight) {
-      SettingsProvider().theme = ThemeSetting.light;
+      PreferencesProvider().theme = ThemePreference.light;
     } else {
-      SettingsProvider().theme = ThemeSetting.dark;
+      PreferencesProvider().theme = ThemePreference.dark;
     }
   }
 
   void _toggleBlack() {
     if (!isBlack) {
-      SettingsProvider().theme = ThemeSetting.black;
+      PreferencesProvider().theme = ThemePreference.black;
     } else {
-      SettingsProvider().theme = ThemeSetting.dark;
+      PreferencesProvider().theme = ThemePreference.dark;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    context.select<SettingsProvider, ThemeSetting>(
+    context.select<PreferencesProvider, ThemePreference>(
       (final settings) => settings.theme,
     );
 

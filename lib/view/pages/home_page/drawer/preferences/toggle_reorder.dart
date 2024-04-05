@@ -1,10 +1,10 @@
-part of '../preferences_drawer.dart';
+part of preferences_drawer;
 
 class _ToggleReorder extends StatelessWidget {
   const _ToggleReorder();
 
   void _toggle(context) {
-    SettingsProvider().canReorder = !SettingsProvider().canReorder;
+    PreferencesProvider().canReorder = !PreferencesProvider().canReorder;
     Navigator.pop(context);
   }
 

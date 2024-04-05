@@ -1,4 +1,4 @@
-part of 'preferences_drawer.dart';
+part of preferences_drawer;
 
 class CodecButtons extends StatelessWidget {
   const CodecButtons({super.key});
@@ -8,7 +8,7 @@ class CodecButtons extends StatelessWidget {
     return Row(
       children: [
         _Template(
-          onTap: () => SettingsProvider().export(),
+          onTap: () => PreferencesProvider().export(),
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(16.0),
             bottomRight: Radius.circular(16.0),
@@ -20,7 +20,7 @@ class CodecButtons extends StatelessWidget {
         ),
         const SizedBox(width: 32),
         _Template(
-          onTap: () => SettingsProvider().import(),
+          onTap: () => PreferencesProvider().import(),
           borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(16.0),
             bottomLeft: Radius.circular(16.0),
@@ -50,8 +50,8 @@ class _Template extends StatelessWidget {
     final enabled = context.select<FetchingProvider, bool>(
           (final provider) => provider.refreshingList.isEmpty,
         ) &&
-        !context.select<SettingsProvider, bool>(
-          (final settings) => settings.managingAppData,
+        !context.select<PreferencesProvider, bool>(
+          (final preferences) => preferences.managingAppData,
         );
 
     return Expanded(

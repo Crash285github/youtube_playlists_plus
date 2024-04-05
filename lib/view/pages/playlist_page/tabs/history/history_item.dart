@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/persistence.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/provider/settings_provider.dart';
+import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
@@ -30,13 +30,13 @@ class HistoryItem extends StatelessWidget {
         topRight: Radius.zero,
       );
 
-  String get author => SettingsProvider().hideTopic
+  String get author => PreferencesProvider().hideTopic
       ? history.author.hideTopic()
       : history.author;
 
   @override
   Widget build(BuildContext context) {
-    context.watch<SettingsProvider>();
+    context.watch<PreferencesProvider>();
     return Card(
       shape: RoundedRectangleBorder(borderRadius: borderRadius),
       margin: const EdgeInsets.only(
@@ -60,7 +60,7 @@ class HistoryItem extends StatelessWidget {
             const PopupMenuDivider(height: 0),
             PopupMenuItem(
               onTap: () {
-                if (Settings.confirmDeletes) {
+                if (Preferences.confirmDeletes) {
                   PopupService.confirmDialog(
                     context: context,
                     child: Text(

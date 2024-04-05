@@ -7,51 +7,51 @@ import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/codec_service.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
-class SettingsProvider extends ChangeNotifier {
+class PreferencesProvider extends ChangeNotifier {
   /// The current [ThemeData] of the app
   ThemeData get themeData =>
-      theme == ThemeSetting.dark ? ThemeData.dark() : ThemeData.light();
+      theme == ThemePreference.dark ? ThemeData.dark() : ThemeData.light();
 
-  /// The current [ThemeSetting] of the app
-  ThemeSetting get theme => Settings.theme;
-  set theme(final ThemeSetting setting) {
-    Settings.theme = setting;
+  /// The current [ThemePreference] of the app
+  ThemePreference get theme => Preferences.theme;
+  set theme(final ThemePreference setting) {
+    Preferences.theme = setting;
     ThemeCreator.createColorScheme().whenComplete(() => notifyListeners());
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
-  /// The current [SplitSetting] of the app
-  SplitSetting get splitMode => Settings.splitMode;
-  set splitMode(final SplitSetting setting) {
-    Settings.splitMode = setting;
+  /// The current [SplitPreference] of the app
+  SplitPreference get splitMode => Preferences.splitMode;
+  set splitMode(final SplitPreference setting) {
+    Preferences.splitMode = setting;
     notifyListeners();
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
-  /// The current [ColorSchemeSetting] of the app
-  ColorSchemeSetting get colorScheme => Settings.colorScheme;
-  set colorScheme(final ColorSchemeSetting colorScheme) {
-    Settings.colorScheme = colorScheme;
+  /// The current [ColorSchemePreference] of the app
+  ColorSchemePreference get colorScheme => Preferences.colorScheme;
+  set colorScheme(final ColorSchemePreference colorScheme) {
+    Preferences.colorScheme = colorScheme;
     ThemeCreator.createColorScheme().then((value) => notifyListeners());
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
   /// Whether to hide the `- Topic` suffix from authors
-  bool get hideTopic => Settings.hideTopic;
+  bool get hideTopic => Preferences.hideTopic;
   set hideTopic(final bool hideTopic) {
-    Settings.hideTopic = hideTopic;
+    Preferences.hideTopic = hideTopic;
     notifyListeners();
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
   /// Whether to allow reordering of [Playlist]s
-  bool get canReorder => Settings.canReorder;
+  bool get canReorder => Preferences.canReorder;
   set canReorder(final bool canReorder) {
-    Settings.canReorder = canReorder;
+    Preferences.canReorder = canReorder;
     notifyListeners();
 
     //? save changed order on finish
@@ -61,21 +61,21 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   /// Whether the app should ask before proceeding with deletions
-  bool get confirmDeletes => Settings.confirmDeletes;
+  bool get confirmDeletes => Preferences.confirmDeletes;
   set confirmDeletes(final bool confirmDeletes) {
-    Settings.confirmDeletes = confirmDeletes;
+    Preferences.confirmDeletes = confirmDeletes;
     notifyListeners();
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
   /// Whether the app can run in the background (mobile only)
-  bool get runInBackground => Settings.runInBackground;
+  bool get runInBackground => Preferences.runInBackground;
   set runInBackground(final bool runInBackground) {
-    Settings.runInBackground = runInBackground;
+    Preferences.runInBackground = runInBackground;
     notifyListeners();
 
-    Persistence.saveSettings();
+    Persistence.savePreferences();
   }
 
   /// Exports the app data
@@ -102,19 +102,19 @@ class SettingsProvider extends ChangeNotifier {
     AppNavigator.tryPopRight();
 
     try {
-      theme = imported[AppConfig.settingsThemeKey];
+      theme = imported[AppConfig.preferencesThemeKey];
     } finally {}
 
     try {
-      colorScheme = imported[AppConfig.settingsSchemeKey];
+      colorScheme = imported[AppConfig.preferencesSchemeKey];
     } finally {}
 
     try {
-      splitMode = imported[AppConfig.settingsSplitKey];
+      splitMode = imported[AppConfig.preferencesSplitKey];
     } finally {}
 
     try {
-      hideTopic = imported[AppConfig.settingsHideTopicKey];
+      hideTopic = imported[AppConfig.preferencesHideTopicKey];
     } finally {}
 
     try {
@@ -126,7 +126,7 @@ class SettingsProvider extends ChangeNotifier {
   }
 
   //_ Singleton
-  static final _provider = SettingsProvider._();
-  factory SettingsProvider() => _provider;
-  SettingsProvider._();
+  static final _provider = PreferencesProvider._();
+  factory PreferencesProvider() => _provider;
+  PreferencesProvider._();
 }
