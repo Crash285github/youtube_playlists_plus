@@ -50,6 +50,8 @@ Future main() async {
     try {
       await BackgroundService.configure();
       BackgroundService.registerHeadlessTask();
+
+      if (!Preferences.runInBackground) BackgroundService.stop();
     } catch (_) {}
   }
 }

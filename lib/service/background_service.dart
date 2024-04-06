@@ -43,6 +43,7 @@ class BackgroundService {
 
     await Persistence.init();
     Persistence.loadPlaylists();
+
     await Future.wait([
       ...PlaylistStorage.playlists.map(
         (final pl) => pl.refresh(),
