@@ -1,13 +1,7 @@
-import 'dart:convert';
-import 'dart:io';
-import 'package:path_provider/path_provider.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:ytp_new/config.dart';
-import 'package:ytp_new/persistence/persistence.dart';
-import 'package:ytp_new/model/playlist/playlist.dart';
+part of persistence;
 
 /// Handles exporting & importing
-class CodecService {
+class Codec {
   /// Exports the app data
   static Future<bool> export() async {
     final String? dir = await FilePicker.platform.getDirectoryPath();

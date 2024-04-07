@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/service/codec_service.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
 class PreferencesProvider extends ChangeNotifier {
@@ -78,7 +77,7 @@ class PreferencesProvider extends ChangeNotifier {
   }
 
   /// Exports the app data
-  Future export() async => CodecService.export();
+  Future export() async => Codec.export();
 
   bool _managingAppData = false;
 
@@ -92,7 +91,7 @@ class PreferencesProvider extends ChangeNotifier {
   /// Imports the app data
   Future import() async {
     managingAppData = true;
-    final imported = await CodecService.import().onError((_, __) => null);
+    final imported = await Codec.import().onError((_, __) => null);
     if (imported == null) {
       managingAppData = false;
       return;
