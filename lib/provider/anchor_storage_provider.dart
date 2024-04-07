@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/model/video/video.dart';
 
 class AnchorStorageProvider extends ChangeNotifier {

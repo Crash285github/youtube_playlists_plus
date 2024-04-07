@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';

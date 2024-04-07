@@ -7,7 +7,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart'
 
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';

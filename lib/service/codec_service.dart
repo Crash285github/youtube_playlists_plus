@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 
 /// Handles exporting & importing

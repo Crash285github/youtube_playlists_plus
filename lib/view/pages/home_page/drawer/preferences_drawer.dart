@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';

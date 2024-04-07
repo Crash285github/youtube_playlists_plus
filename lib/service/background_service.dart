@@ -1,5 +1,5 @@
 import 'package:background_fetch/background_fetch.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/service/notification_service.dart';
 
 class BackgroundService {

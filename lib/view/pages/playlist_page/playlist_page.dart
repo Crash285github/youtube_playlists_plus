@@ -5,7 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';

@@ -3,7 +3,7 @@ library responsive;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/view/pages/home_page/home_page.dart';
 

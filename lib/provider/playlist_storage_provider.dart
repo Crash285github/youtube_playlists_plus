@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 
 export 'package:ytp_new/model/playlist/playlist.dart';

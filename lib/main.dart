@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/config.dart';
-import 'package:ytp_new/model/persistence.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
