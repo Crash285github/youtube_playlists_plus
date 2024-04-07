@@ -88,12 +88,11 @@ class ThemeCreator {
         );
       }
     }
-    //? Other
-    else {
-      colorScheme = ColorScheme.fromSeed(
-          seedColor: Preferences.colorScheme.color!, brightness: _brightness);
-    }
+    colorScheme ??= ColorScheme.fromSeed(
+      seedColor: Colors.blue,
+      brightness: _brightness,
+    );
 
-    _scheme = colorScheme!;
+    _scheme = colorScheme;
   }
 }
