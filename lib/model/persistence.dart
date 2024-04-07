@@ -1,5 +1,6 @@
 library persistence;
 
+import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,6 +11,7 @@ import 'package:ytp_new/model/playlist/playlist.dart';
 part 'anchor_storage.dart';
 part 'playlist_storage.dart';
 part 'preferences.dart';
+part 'theme_creator.dart';
 
 /// Handles saving and loading local data
 class Persistence {
