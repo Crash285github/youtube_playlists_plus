@@ -164,14 +164,15 @@ extension VideoContext on Video {
                   if (selected != null) {
                     setState(() {
                       position = selected;
-                      offsetController.text = switch (position) {
+                      offset = switch (position) {
                         AnchorPosition.start => video.index,
                         AnchorPosition.middle =>
                           video.index - video.playlist.length ~/ 2 + 1,
                         AnchorPosition.end =>
                           video.index - video.playlist.length + 1,
-                      }
-                          .toString();
+                      };
+
+                      offsetController.text = "$offset";
                     });
                   }
                 },
