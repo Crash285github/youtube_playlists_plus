@@ -78,18 +78,17 @@ extension VideoContext on Video {
         ),
       );
 
+  static final offsetController = TextEditingController();
+
   /// Returns a [PopupMenuItem] to set the [Anchor] of a [Video]
   PopupMenuItem contextSetAnchor(BuildContext context) => PopupMenuItem(
         onTap: () async {
-          final offsetController = TextEditingController();
-
           final anchor = await _showAnchorDialog(
             context: context,
             video: this,
             offsetController: offsetController,
           );
 
-          offsetController.dispose();
           if (anchor != null) {
             if (anchor.position == AnchorPosition.start &&
                 anchor.offset == -1) {
@@ -115,73 +114,90 @@ extension VideoContext on Video {
     AnchorPosition position = video.anchor?.position ?? AnchorPosition.start;
     int offset = video.anchor?.offset ?? video.index;
     offsetController.text = "$offset";
+    late int min;
+    late int max;
 
     final anchor = await PopupService.dialog<Anchor>(
       context: context,
       child: StatefulBuilder(
-        builder: (context, setState) => Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            InkWell(
-              borderRadius: BorderRadius.circular(8),
-              onTapUp: (details) async {
-                final selected = await details.globalPosition
-                    .showContextMenu<AnchorPosition>(
-                  context: context,
-                  items: [
-                    const PopupMenuItem(
-                      value: AnchorPosition.start,
-                      child: Text("Start"),
-                    ),
-                    const PopupMenuItem(
-                      value: AnchorPosition.middle,
-                      child: Text("Middle"),
-                    ),
-                    const PopupMenuItem(
-                      value: AnchorPosition.end,
-                      child: Text("End"),
-                    )
-                  ],
-                );
+        builder: (context, setState) {
+          switch (position) {
+            case AnchorPosition.start:
+              min = 0;
+              max = video.playlist.length - 1;
+              break;
+            case AnchorPosition.middle:
+              min = -video.playlist.length ~/ 2 + 1;
+              max = video.playlist.length ~/ 2;
+              break;
+            case AnchorPosition.end:
+              min = -video.playlist.length + 1;
+              max = 0;
+              break;
+          }
 
-                if (selected != null) {
-                  setState(() {
-                    position = selected;
-                    offsetController.text = switch (position) {
-                      AnchorPosition.start => video.index,
-                      AnchorPosition.middle =>
-                        video.index - video.playlist.length ~/ 2 + 1,
-                      AnchorPosition.end =>
-                        video.index - video.playlist.length + 1,
-                    }
-                        .toString();
-                  });
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12.0,
-                  vertical: 4,
-                ),
-                child: Text(
-                  position.name[0].toUpperCase() + position.name.substring(1),
-                  style: Theme.of(context).textTheme.titleLarge,
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                borderRadius: BorderRadius.circular(8),
+                onTapUp: (details) async {
+                  final selected = await details.globalPosition
+                      .showContextMenu<AnchorPosition>(
+                    context: context,
+                    items: [
+                      const PopupMenuItem(
+                        value: AnchorPosition.start,
+                        child: Text("Start"),
+                      ),
+                      const PopupMenuItem(
+                        value: AnchorPosition.middle,
+                        child: Text("Middle"),
+                      ),
+                      const PopupMenuItem(
+                        value: AnchorPosition.end,
+                        child: Text("End"),
+                      )
+                    ],
+                  );
+
+                  if (selected != null) {
+                    setState(() {
+                      position = selected;
+                      offsetController.text = switch (position) {
+                        AnchorPosition.start => video.index,
+                        AnchorPosition.middle =>
+                          video.index - video.playlist.length ~/ 2 + 1,
+                        AnchorPosition.end =>
+                          video.index - video.playlist.length + 1,
+                      }
+                          .toString();
+                    });
+                  }
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 4,
+                  ),
+                  child: Text(
+                    position.name[0].toUpperCase() + position.name.substring(1),
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
                 ),
               ),
-            ),
-            TextField(
-              decoration: const InputDecoration(labelText: "Offset"),
-              keyboardType: TextInputType.number,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
-              ],
-              controller: offsetController,
-              onSubmitted: (_) {
-                offset = int.tryParse(offsetController.value.text) ?? 0;
-              },
-            )
-          ],
-        ),
+              TextField(
+                decoration: InputDecoration(labelText: "Offset [$min..$max]"),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp("^-?\\d*")),
+                ],
+                controller: offsetController,
+                onChanged: (value) => offset = int.tryParse(value) ?? 0,
+              )
+            ],
+          );
+        },
       ),
       actions: [
         TextButton(
@@ -202,7 +218,7 @@ extension VideoContext on Video {
         ),
         TextButton(
           onPressed: () {
-            offset = int.tryParse(offsetController.value.text) ?? 0;
+            if (offset < min || offset > max) return;
             Navigator.pop(
               context,
               Anchor(
