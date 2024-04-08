@@ -218,7 +218,13 @@ extension VideoContext on Video {
         ),
         TextButton(
           onPressed: () {
-            if (offset < min || offset > max) return;
+            if (offset < min || offset > max) {
+              PopupService.showError(
+                context: AppConfig.mainNavigatorKey.currentContext!,
+                message: "Invalid offset value: out of range.",
+              );
+              return;
+            }
             Navigator.pop(
               context,
               Anchor(

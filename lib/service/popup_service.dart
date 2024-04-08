@@ -59,4 +59,17 @@ class PopupService {
         ],
         child: child,
       );
+
+  static void showError({
+    required BuildContext context,
+    required String message,
+  }) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: Theme.of(context).colorScheme.error,
+      ),
+    );
+  }
 }
