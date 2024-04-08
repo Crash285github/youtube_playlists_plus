@@ -4,6 +4,7 @@ import 'package:ytp_new/config.dart';
 import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/service/youtube_explode_service.dart';
 
 class SharingService {
@@ -26,13 +27,26 @@ class SharingService {
     });
   }
 
-  static Future _handleIntent(final String text) async {
+  static Future<void> _handleIntent(final String text) async {
     final String? id = yt.PlaylistId.parsePlaylistId(text);
 
-    if (id == null) return null;
+    if (id == null) {
+      PopupService.showError(
+        context: AppConfig.mainNavigatorKey.currentContext!,
+        message: "Playlist id couldn't be parsed.",
+      );
+      return;
+    }
+
     if (PlaylistStorage.playlists
         .where((final playlist) => playlist.id == id)
-        .isNotEmpty) return;
+        .isNotEmpty) {
+      PopupService.showError(
+        context: AppConfig.mainNavigatorKey.currentContext!,
+        message: "Playlist already in the app.",
+      );
+      return;
+    }
 
     final pl = AppConfig.youtube.playlists.get(id);
     final v = AppConfig.youtube.playlists.getVideos(id).first;
@@ -40,7 +54,13 @@ class SharingService {
     await Future.wait([pl, v]);
 
     //? private playlist shared
-    if ((await pl).videoCount == null) return;
+    if ((await pl).videoCount == null) {
+      PopupService.showError(
+        context: AppConfig.mainNavigatorKey.currentContext!,
+        message: "Private Playlist can't be fetched.",
+      );
+      return;
+    }
 
     final fetched = await YoutubeService.fetch(
       Playlist(
