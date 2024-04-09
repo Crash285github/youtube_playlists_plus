@@ -129,7 +129,7 @@ class AboutPage extends StatelessWidget {
             ),
             child: LicensePage(
               applicationName: "Youtube Playlists+",
-              applicationVersion: "1.0.2",
+              applicationVersion: "1.0.3",
               applicationIcon: ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
                 child: const Image(
