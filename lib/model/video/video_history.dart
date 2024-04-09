@@ -2,16 +2,19 @@ part of video;
 
 class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made
-  final DateTime created;
+  late final DateTime created;
 
   VideoHistory({
-    required this.created,
+    required DateTime created,
     required super.type,
     required super.id,
     required super.playlistId,
     required super.title,
     required super.author,
-  }) : super(thumbnail: "");
+  }) : super(thumbnail: "") {
+    this.created =
+        DateTime.fromMillisecondsSinceEpoch(created.millisecondsSinceEpoch);
+  }
 
   /// Converts a `Video` to a `VideoHistory`
   factory VideoHistory.fromVideo(
