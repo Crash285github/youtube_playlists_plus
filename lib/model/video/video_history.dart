@@ -5,16 +5,13 @@ class VideoHistory extends VideoChange {
   late final DateTime created;
 
   VideoHistory({
-    required DateTime created,
+    required this.created,
     required super.type,
     required super.id,
     required super.playlistId,
     required super.title,
     required super.author,
-  }) : super(thumbnail: "") {
-    this.created =
-        DateTime.fromMillisecondsSinceEpoch(created.millisecondsSinceEpoch);
-  }
+  }) : super(thumbnail: "");
 
   /// Converts a `Video` to a `VideoHistory`
   factory VideoHistory.fromVideo(
@@ -32,7 +29,8 @@ class VideoHistory extends VideoChange {
 
   @override
   bool operator ==(covariant VideoHistory other) =>
-      super == (other) && created == other.created;
+      super == (other) &&
+      created.millisecondsSinceEpoch == other.created.millisecondsSinceEpoch;
 
   @override
   int get hashCode => id.hashCode ^ created.hashCode;
