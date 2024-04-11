@@ -2,7 +2,7 @@ part of video;
 
 class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made
-  final DateTime created;
+  late final DateTime created;
 
   VideoHistory({
     required this.created,
@@ -29,7 +29,8 @@ class VideoHistory extends VideoChange {
 
   @override
   bool operator ==(covariant VideoHistory other) =>
-      super == (other) && created == other.created;
+      super == (other) &&
+      created.millisecondsSinceEpoch == other.created.millisecondsSinceEpoch;
 
   @override
   int get hashCode => id.hashCode ^ created.hashCode;

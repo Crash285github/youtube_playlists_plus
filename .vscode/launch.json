@@ -34,6 +34,12 @@
       "program": "lib/main.dart",
       "flutterMode": "release",
       "args": ["--flavor", "prod"]
+    },
+    {
+      "name": "run tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "./test/"
     }
   ]
 }

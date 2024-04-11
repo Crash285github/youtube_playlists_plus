@@ -39,13 +39,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^2.0.0
-  msix: ^3.16.7
-
-msix_config:
-  display_name: Youtube Playlists+
-  msix_version: 1.0.0.0
-  logo_path: "assets/app_icon.png"
-  trim_logo: false
 
 flutter:
   uses-material-design: true
