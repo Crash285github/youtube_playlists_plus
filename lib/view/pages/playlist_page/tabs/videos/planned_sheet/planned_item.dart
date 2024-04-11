@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
@@ -31,6 +32,13 @@ class PlannedItem extends StatelessWidget {
           onSecondary: (details) => details.showContextMenu(
             context: context,
             items: [
+              PopupMenuItem(
+                onTap: () async => await launchUrl(
+                  Uri.parse(
+                      "https://www.youtube.com/results?search_query=$text"),
+                ),
+                child: const ContextBody(text: "Search", icon: Icons.search),
+              ),
               PopupMenuItem(
                 onTap: () => text.copyToClipboard(),
                 child: const ContextBody(
