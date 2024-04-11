@@ -89,7 +89,7 @@ class ThemeCreator {
       }
     }
     colorScheme ??= ColorScheme.fromSeed(
-      seedColor: Colors.blue,
+      seedColor: Preferences.colorScheme.color ?? Colors.blue,
       brightness: _brightness,
     );
 
