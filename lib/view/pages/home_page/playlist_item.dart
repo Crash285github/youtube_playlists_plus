@@ -99,44 +99,54 @@ class PlaylistItem extends StatelessWidget {
               width: 100,
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Tooltip(
-                      message: playlist.title,
-                      child: Text(
-                        playlist.title,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            "by $author",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .withOpacity(.5),
-                          ),
+              child: SizedBox(
+                height: 100,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Tooltip(
+                        message: playlist.title,
+                        child: Text(
+                          playlist.title,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                        playlist.state != null
-                            ? Icon(
-                                playlist.state!.icon,
-                                color: playlist.state!.color,
-                              )
-                            : const Icon(
-                                Icons.question_mark,
-                                color: Colors.transparent,
-                              )
-                      ],
-                    ),
-                  ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "by $author",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .withOpacity(.5),
+                            ),
+                          ),
+                          playlist.state != null
+                              ? Icon(
+                                  playlist.state!.icon,
+                                  color: playlist.state!.color,
+                                )
+                              : const Icon(
+                                  Icons.question_mark,
+                                  color: Colors.transparent,
+                                )
+                        ],
+                      ),
+                      const Spacer(),
+                      Text(
+                        "${playlist.length} videos",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .withOpacity(.5),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
