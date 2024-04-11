@@ -9,7 +9,7 @@ import 'package:ytp_new/service/youtube_explode_service.dart';
 
 class SharingService {
   static void receive() {
-    ReceiveSharingIntent.getMediaStream().listen((event) async {
+    ReceiveSharingIntent.instance.getMediaStream().listen((event) async {
       if (event.isNotEmpty) {
         FetchingProvider().increaseDownload();
         await _handleIntent(event.first.path);
@@ -17,13 +17,13 @@ class SharingService {
       }
     });
 
-    ReceiveSharingIntent.getInitialMedia().then((value) async {
+    ReceiveSharingIntent.instance.getInitialMedia().then((value) async {
       if (value.isNotEmpty) {
         FetchingProvider().increaseDownload();
         await _handleIntent(value.first.path);
         FetchingProvider().decreaseDownload();
       }
-      ReceiveSharingIntent.reset();
+      ReceiveSharingIntent.instance.reset();
     });
   }
 
