@@ -167,7 +167,8 @@ class PlaylistPage extends StatelessWidget {
                     itemCount: playlist!.planned.length,
                     itemBuilder: (context, index) => PlannedItem(
                       playlistId: playlistId,
-                      text: playlist!.planned[index],
+                      text: playlist!
+                          .planned[playlist!.planned.length - index - 1],
                     ),
                   ),
                 ),
