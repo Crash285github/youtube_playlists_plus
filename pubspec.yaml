@@ -1,7 +1,7 @@
 name: ytp_new
 description: "An application for managing your Youtube Playlists."
 publish_to: "none"
-version: 1.0.3
+version: 1.0.4
 
 environment:
   sdk: ">=3.2.2 <4.0.0"
