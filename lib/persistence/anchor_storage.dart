@@ -3,7 +3,7 @@ part of persistence;
 class AnchorStorage {
   static final List<Anchor> _anchors = [];
 
-  /// Conatins all [Anchor]s
+  /// Contains all [Anchor]s
   static List<Anchor> get anchors => List.unmodifiable(_anchors);
 
   /// Replaces or adds an [Anchor] to the list

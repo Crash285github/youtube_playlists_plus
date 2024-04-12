@@ -1,11 +1,11 @@
-part of persistence;
+ part of persistence;
 
 /// Generates the theme for the application
 class ThemeCreator {
   static late ColorScheme _scheme;
 
   static bool get _isLight => Preferences.theme == ThemePreference.light;
-  static bool get _isAmoled => Preferences.theme == ThemePreference.black;
+  static bool get _isBlack => Preferences.theme == ThemePreference.black;
 
   static Brightness get _brightness =>
       _isLight ? Brightness.light : Brightness.dark;
@@ -16,13 +16,13 @@ class ThemeCreator {
   static ThemeData get theme => ThemeData(
         useMaterial3: true,
         colorScheme: _scheme,
-        cardColor: _isAmoled ? Colors.black : _scheme.surface,
+        cardColor: _isBlack ? Colors.black : _scheme.surface,
         drawerTheme: DrawerThemeData(
-          backgroundColor: _isAmoled ? Colors.black : _scheme.surface,
+          backgroundColor: _isBlack ? Colors.black : _scheme.surface,
         ),
         scaffoldBackgroundColor: _isLight
             ? _scheme.surfaceVariant
-            : _isAmoled
+            : _isBlack
                 ? Colors.black
                 : null,
         cardTheme: CardTheme(
@@ -31,8 +31,8 @@ class ThemeCreator {
           ),
           clipBehavior: Clip.antiAlias,
           margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-          color: _isAmoled ? Colors.black : _scheme.surface,
-          elevation: _isAmoled ? 3 : 1,
+          color: _isBlack ? Colors.black : _scheme.surface,
+          elevation: _isBlack ? 3 : 1,
         ),
         tooltipTheme: TooltipThemeData(
           waitDuration: const Duration(seconds: 1),
@@ -46,13 +46,13 @@ class ThemeCreator {
         ),
         appBarTheme: _isLight
             ? AppBarTheme(backgroundColor: _scheme.surfaceVariant)
-            : _isAmoled
+            : _isBlack
                 ? const AppBarTheme(backgroundColor: Colors.black)
                 : null,
       );
 
   /// Creates the colorScheme for the theme
-  static Future createColorScheme() async {
+  static Future<void> createColorScheme() async {
     ColorScheme? colorScheme;
 
     //? Dynamic
