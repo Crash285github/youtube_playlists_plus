@@ -35,6 +35,10 @@ class Preferences {
 
   /// The current split mode of the app
   static SplitPreference splitMode = SplitPreference.disabled;
+
+  /// Whether the application is currently in Split mode
+  ///
+  /// This can vary based on the device size.
   static bool isSplit = false;
 
   /// Should we hide '- Topic' from channel names
