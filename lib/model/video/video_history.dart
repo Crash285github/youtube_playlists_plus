@@ -2,7 +2,7 @@ part of video;
 
 class VideoHistory extends VideoChange {
   /// The time this `VideoHistory` has been made
-  late final DateTime created;
+  final DateTime created;
 
   VideoHistory({
     required this.created,
