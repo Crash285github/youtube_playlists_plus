@@ -26,7 +26,8 @@ class Persistence {
   static late final SharedPreferences _prefs;
 
   /// Gets the instance of `SharedPreferences`
-  static Future init() async => _prefs = await SharedPreferences.getInstance();
+  static Future<void> init() async =>
+      _prefs = await SharedPreferences.getInstance();
 
   /// Saves [Preferences] to [Persistence]
   static Future<void> savePreferences() async => _prefs
