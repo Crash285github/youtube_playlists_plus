@@ -10,7 +10,7 @@ class _SelecteScheme extends StatelessWidget {
         ...ColorSchemePreference.values.map(
           (final scheme) => PopupMenuItem(
             value: scheme,
-            child: Text(scheme.titleCase),
+            child: Text(scheme.toTitleCase()),
           ),
         )
       ],
@@ -24,7 +24,7 @@ class _SelecteScheme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = context.select<PreferencesProvider, String>(
-      (final settings) => settings.colorScheme.titleCase,
+      (final settings) => settings.colorScheme.toTitleCase(),
     );
 
     return _SettingTemplate(

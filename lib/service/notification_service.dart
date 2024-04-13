@@ -4,32 +4,29 @@ class NotificationsService {
   static final _flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static void onTap(NotificationResponse response) {}
+  static Future<bool?> init() async =>
+      await _flutterLocalNotificationsPlugin.initialize(
+        const InitializationSettings(
+          android: AndroidInitializationSettings('@mipmap/ic_launcher'),
+        ),
+      );
 
-  static Future init() async {
-    await _flutterLocalNotificationsPlugin.initialize(
-      const InitializationSettings(
-        android: AndroidInitializationSettings('@mipmap/ic_launcher'),
-      ),
-      onDidReceiveNotificationResponse: onTap,
-      onDidReceiveBackgroundNotificationResponse: onTap,
-    );
-  }
-
-  static Future _notificationDetails(
-          final String title, final String body, final int id) async =>
+  static Future<NotificationDetails> _notificationDetails({
+    required String title,
+    required String body,
+    required int id,
+  }) async =>
       NotificationDetails(
         android: AndroidNotificationDetails(
           '$id',
           title,
           channelDescription: body,
           importance: Importance.max,
-          styleInformation: const BigTextStyleInformation(''),
         ),
       );
 
   @pragma('vm:entry-point')
-  static Future show({
+  static Future<void> show({
     int id = 0,
     required String title,
     required String body,
@@ -39,7 +36,7 @@ class NotificationsService {
         id,
         title,
         body,
-        await _notificationDetails(title, body, id),
+        await _notificationDetails(title: title, body: body, id: id),
         payload: payload,
       );
 }

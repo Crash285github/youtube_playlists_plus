@@ -10,7 +10,7 @@ class _SelectSplit extends StatelessWidget {
         ...SplitPreference.values.map(
           (final mode) => PopupMenuItem(
             value: mode,
-            child: Text(mode.titleCase),
+            child: Text(mode.toTitleCase()),
           ),
         ),
       ],
@@ -24,7 +24,7 @@ class _SelectSplit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mode = context.select<PreferencesProvider, String>(
-      (final settings) => settings.splitMode.titleCase,
+      (final settings) => settings.splitMode.toTitleCase(),
     );
 
     return _SettingTemplate(

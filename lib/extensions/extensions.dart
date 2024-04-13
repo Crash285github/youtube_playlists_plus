@@ -2,7 +2,7 @@ library extensions;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:timeago/timeago.dart' as tm;
+import 'package:timeago/timeago.dart' as time_ago;
 import 'package:youtube_explode_dart/youtube_explode_dart.dart' show PlaylistId;
 import 'package:ytp_new/config.dart';
 

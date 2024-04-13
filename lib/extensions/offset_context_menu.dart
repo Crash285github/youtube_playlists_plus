@@ -6,7 +6,7 @@ extension OffsetContextMenu on Offset {
     required BuildContext context,
     required List<PopupMenuEntry<T>> items,
   }) async =>
-      await PopupService.contextMenu(
+      await PopupService.contextMenu<T>(
         context: context,
         offset: this,
         items: items,
