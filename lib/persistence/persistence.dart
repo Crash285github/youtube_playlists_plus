@@ -29,7 +29,7 @@ class Persistence {
   static Future init() async => _prefs = await SharedPreferences.getInstance();
 
   /// Saves [Preferences] to [Persistence]
-  static Future savePreferences() async => _prefs
+  static Future<void> savePreferences() async => _prefs
     ..setInt(
       AppConfig.preferencesThemeKey,
       Preferences.theme.index,
@@ -92,7 +92,7 @@ class Persistence {
   }
 
   /// Saves all [Playlist]s to [Persistence]
-  static Future savePlaylists() async => _prefs.setStringList(
+  static Future<void> savePlaylists() async => _prefs.setStringList(
         AppConfig.playlistsKey,
         [
           ...PlaylistStorage.playlists.map(
@@ -114,7 +114,7 @@ class Persistence {
   }
 
   /// Saves all [Anchor]s to [Persistence]
-  static Future saveAnchors() async {
+  static Future<void> saveAnchors() async {
     _prefs.setStringList(
       AppConfig.anchorsKey,
       [

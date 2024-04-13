@@ -25,6 +25,9 @@ class Playlist extends Media
   /// The state of this [Playlist]
   PlaylistState? state;
 
+  /// The [Video]s of this [Playlist]
+  final List<Video> _videos;
+
   Playlist({
     required super.id,
     required super.title,
@@ -36,8 +39,7 @@ class Playlist extends Media
   }) : _videos = videos;
 
   /// This [Playlist]'s videos
-  List<Video> get videos => _videos;
-  final List<Video> _videos;
+  List<Video> get videos => List.unmodifiable(_videos);
 
   /// Gets the videos that are anchored
   List<Video> get anchoredVideos =>
@@ -94,7 +96,7 @@ class Playlist extends Media
   }
 
   /// Refreshes this [Playlist]
-  Future refresh() async {
+  Future<void> refresh() async {
     PlaylistStorageProvider().update(() => state = PlaylistState.checking);
 
     // We limit the amount of concurrent fetches here to 3, otherwise
