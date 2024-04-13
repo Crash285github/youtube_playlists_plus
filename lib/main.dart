@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
@@ -15,7 +16,7 @@ import 'package:ytp_new/view/responsive/responsive.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await AppConfig.setupWindowsApp();
+  await _setupWindowsApp();
 
   await Persistence.init();
   Persistence.loadPreferences();
@@ -52,6 +53,22 @@ Future main() async {
 
       if (!Preferences.runInBackground) BackgroundService.stop();
     } catch (_) {}
+  }
+}
+
+/// Setup the Windows app minimum and default window sizes
+Future<void> _setupWindowsApp() async {
+  if (Platform.isWindows) {
+    await windowManager.ensureInitialized();
+    await windowManager.waitUntilReadyToShow().whenComplete(() async {
+      await Future.wait([
+        windowManager.setTitle("Youtube Playlists+"),
+        windowManager.setSize(const Size(1300, 800)),
+        windowManager.setMinimumSize(const Size(800, 500)),
+        windowManager.setAlignment(Alignment.center),
+      ]);
+      await windowManager.show();
+    });
   }
 }
 

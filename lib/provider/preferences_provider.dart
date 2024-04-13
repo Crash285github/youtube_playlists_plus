@@ -101,24 +101,24 @@ class PreferencesProvider extends ChangeNotifier {
 
     try {
       theme = imported[AppConfig.preferencesThemeKey];
-    } finally {}
+    } catch (_) {}
 
     try {
       colorScheme = imported[AppConfig.preferencesSchemeKey];
-    } finally {}
+    } catch (_) {}
 
     try {
       splitMode = imported[AppConfig.preferencesSplitKey];
-    } finally {}
+    } catch (_) {}
 
     try {
       hideTopic = imported[AppConfig.preferencesHideTopicKey];
-    } finally {}
+    } catch (_) {}
 
     try {
       PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
       Persistence.savePlaylists();
-    } finally {}
+    } catch (_) {}
 
     managingAppData = false;
   }
