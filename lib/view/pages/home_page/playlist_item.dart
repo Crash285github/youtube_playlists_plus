@@ -115,11 +115,19 @@ class PlaylistItem extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                       ),
+                      Text(
+                        "by $author",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall!
+                            .withOpacity(.5),
+                      ),
+                      const Spacer(),
                       Row(
                         children: [
                           Expanded(
                             child: Text(
-                              "by $author",
+                              "${playlist.length} videos",
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!
@@ -136,14 +144,6 @@ class PlaylistItem extends StatelessWidget {
                                   color: Colors.transparent,
                                 )
                         ],
-                      ),
-                      const Spacer(),
-                      Text(
-                        "${playlist.length} videos",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .withOpacity(.5),
                       ),
                     ],
                   ),
