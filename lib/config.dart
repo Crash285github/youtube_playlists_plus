@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 /// The Application's configs, contains variables that should be accessed
 /// everywhere in the application
@@ -25,7 +24,4 @@ class AppConfig {
   static const preferencesSplitKey = "split";
   static const playlistsKey = "playlists";
   static const anchorsKey = "anchors";
-
-  /// The [YoutubeExplode] client used to fetch & download
-  static final youtube = YoutubeExplode();
 }

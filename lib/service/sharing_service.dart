@@ -5,7 +5,7 @@ import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
-import 'package:ytp_new/service/youtube_explode_service.dart';
+import 'package:ytp_new/service/youtube_service.dart';
 
 class SharingService {
   static void receive() {
@@ -48,8 +48,8 @@ class SharingService {
       return;
     }
 
-    final pl = AppConfig.youtube.playlists.get(id);
-    final v = AppConfig.youtube.playlists.getVideos(id).first;
+    final pl = YoutubeService.youtube.playlists.get(id);
+    final v = YoutubeService.youtube.playlists.getVideos(id).first;
 
     await Future.wait([pl, v]);
 

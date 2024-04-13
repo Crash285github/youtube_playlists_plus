@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/service/youtube_explode_service.dart';
+import 'package:ytp_new/service/youtube_service.dart';
 
 export 'package:ytp_new/model/media.dart';
 export 'package:ytp_new/model/video/video.dart';

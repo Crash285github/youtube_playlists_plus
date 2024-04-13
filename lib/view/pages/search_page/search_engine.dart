@@ -25,8 +25,8 @@ class SearchEngine {
     if (id == null) return null;
 
     try {
-      final pl = AppConfig.youtube.playlists.get(id);
-      final v = AppConfig.youtube.playlists.getVideos(id).first;
+      final pl = YoutubeService.youtube.playlists.get(id);
+      final v = YoutubeService.youtube.playlists.getVideos(id).first;
       await Future.wait([pl, v]);
 
       return Playlist(
@@ -43,7 +43,7 @@ class SearchEngine {
 
   /// Searches Youtube Playlists with plain text
   static Future<List<Playlist>> _searchByText(final String query) async {
-    final result = await AppConfig.youtube.search
+    final result = await YoutubeService.youtube.search
         .searchContent("$query ", filter: TypeFilters.playlist);
 
     return (result).map((final result) {

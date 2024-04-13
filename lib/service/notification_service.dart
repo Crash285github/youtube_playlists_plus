@@ -1,11 +1,9 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationsService {
-  static final _flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+  static final _plugin = FlutterLocalNotificationsPlugin();
 
-  static Future<bool?> init() async =>
-      await _flutterLocalNotificationsPlugin.initialize(
+  static Future<bool?> init() async => await _plugin.initialize(
         const InitializationSettings(
           android: AndroidInitializationSettings('@mipmap/ic_launcher'),
         ),
@@ -32,7 +30,7 @@ class NotificationsService {
     required String body,
     String? payload,
   }) async =>
-      _flutterLocalNotificationsPlugin.show(
+      _plugin.show(
         id,
         title,
         body,

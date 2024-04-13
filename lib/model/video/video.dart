@@ -6,11 +6,12 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
-    hide Playlist, Video;
-import 'package:ytp_new/config.dart';
+    hide Video, Playlist;
+
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/youtube_service.dart';
 
 part 'anchor.dart';
 part 'video_change.dart';
@@ -53,12 +54,12 @@ class Video extends Media {
 
       try {
         final streamManifest =
-            await AppConfig.youtube.videos.streamsClient.getManifest(id);
+            await YoutubeService.youtube.videos.streamsClient.getManifest(id);
 
         final muxedStreaminfo = streamManifest.muxed.withHighestBitrate();
 
         final muxedStream =
-            AppConfig.youtube.videos.streamsClient.get(muxedStreaminfo);
+            YoutubeService.youtube.videos.streamsClient.get(muxedStreaminfo);
 
         final file = File("$dir/${title.toFileName()}.mp4").openWrite();
 

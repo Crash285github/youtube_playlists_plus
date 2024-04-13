@@ -3,10 +3,6 @@ import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/service/notification_service.dart';
 
 class BackgroundService {
-  /// Registers the `headless` task that runs in the background
-  static Future<bool> registerHeadlessTask() =>
-      BackgroundFetch.registerHeadlessTask(BackgroundService.backgroundRefresh);
-
   /// Configures the [BackgroundService]
   static Future<int> configure() => BackgroundFetch.configure(
         BackgroundFetchConfig(
@@ -24,8 +20,13 @@ class BackgroundService {
         () {},
       );
 
+  /// Registers the `headless` task that runs in the background
+  static Future<bool> registerHeadlessTask() =>
+      BackgroundFetch.registerHeadlessTask(
+          BackgroundService._backgroundRefresh);
+
   /// Finishes a given task
-  static void finish(String taskId) => BackgroundFetch.finish(taskId);
+  static void _finish(final String taskId) => BackgroundFetch.finish(taskId);
 
   /// Starts the [BackgroundService]
   static Future<int> start() => BackgroundFetch.start();
@@ -35,7 +36,7 @@ class BackgroundService {
 
   /// Refreshes all [Playlist]s as a background task
   @pragma('vm:entry-point')
-  static void backgroundRefresh(HeadlessTask task) async {
+  static Future<void> _backgroundRefresh(HeadlessTask task) async {
     if (task.timeout) {
       BackgroundFetch.finish(task.taskId);
       return;
@@ -70,6 +71,6 @@ class BackgroundService {
       );
     }
 
-    BackgroundService.finish(task.taskId);
+    BackgroundService._finish(task.taskId);
   }
 }

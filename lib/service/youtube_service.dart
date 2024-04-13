@@ -2,17 +2,23 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
-import 'package:ytp_new/config.dart';
+import 'package:youtube_explode_dart/youtube_explode_dart.dart'
+    hide Playlist, Video;
 import 'package:ytp_new/model/playlist/playlist.dart';
 
 /// Handles the communication with Youtube
 class YoutubeService {
+  /// The [YoutubeExplode] client used to fetch & download
+  static final youtube = YoutubeExplode();
+
+  YoutubeExplode call() => youtube;
+
   /// Fetches a [Playlist]'s data
   static Future<Playlist> fetch(final Playlist playlist) async =>
       await Isolate.run(() => _fetch(playlist));
 
   static Future<Playlist> _fetch(final Playlist playlist) async {
-    final metadata = await AppConfig.youtube.playlists
+    final metadata = await youtube.playlists
         .get(playlist.id)
         .timeout(const Duration(seconds: 20))
         .onError((error, stackTrace) {
@@ -33,8 +39,7 @@ class YoutubeService {
     });
 
     final List<Video> videos = [];
-    await for (final video
-        in AppConfig.youtube.playlists.getVideos(playlist.id)) {
+    await for (final video in youtube.playlists.getVideos(playlist.id)) {
       videos.add(
         Video(
           id: video.id.toString(),
