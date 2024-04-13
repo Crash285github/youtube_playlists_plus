@@ -48,7 +48,7 @@ class _SearchResultState extends State<SearchResult> {
             : (_) async {
                 setState(() => tapped = true);
                 Playlist? pl;
-                FetchingProvider().increaseDownload();
+                FetchingProvider().incrementDownload();
                 try {
                   pl = await YoutubeService.fetch(
                     widget.playlist,
@@ -61,7 +61,7 @@ class _SearchResultState extends State<SearchResult> {
                         PlaylistStorageProvider().playlists.contains(pl));
                   }
                 }
-                FetchingProvider().decreaseDownload();
+                FetchingProvider().decrementDownload();
               },
         secondaryAction: (offset) => offset.showContextMenu(
           context: context,

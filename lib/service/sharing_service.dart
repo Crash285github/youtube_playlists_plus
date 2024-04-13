@@ -11,17 +11,17 @@ class SharingService {
   static void receive() {
     ReceiveSharingIntent.instance.getMediaStream().listen((event) async {
       if (event.isNotEmpty) {
-        FetchingProvider().increaseDownload();
+        FetchingProvider().incrementDownload();
         await _handleIntent(event.first.path);
-        FetchingProvider().decreaseDownload();
+        FetchingProvider().decrementDownload();
       }
     });
 
     ReceiveSharingIntent.instance.getInitialMedia().then((value) async {
       if (value.isNotEmpty) {
-        FetchingProvider().increaseDownload();
+        FetchingProvider().incrementDownload();
         await _handleIntent(value.first.path);
-        FetchingProvider().decreaseDownload();
+        FetchingProvider().decrementDownload();
       }
       ReceiveSharingIntent.instance.reset();
     });

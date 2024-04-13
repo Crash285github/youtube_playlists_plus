@@ -11,14 +11,14 @@ class FetchingProvider extends ChangeNotifier {
   /// Whether we are currently downloading new [Playlist]s
   bool get downloading => _downloadCount > 0;
 
-  /// Increases the counter
-  void increaseDownload() {
+  /// Increments the counter
+  void incrementDownload() {
     _downloadCount++;
     notifyListeners();
   }
 
-  /// Decreases the counter
-  void decreaseDownload() {
+  /// Decrements the counter
+  void decrementDownload() {
     _downloadCount--;
     notifyListeners();
   }

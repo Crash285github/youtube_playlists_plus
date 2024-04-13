@@ -6,10 +6,6 @@ import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
 class PreferencesProvider extends ChangeNotifier {
-  /// The current [ThemeData] of the app
-  ThemeData get themeData =>
-      theme == ThemePreference.dark ? ThemeData.dark() : ThemeData.light();
-
   /// The current [ThemePreference] of the app
   ThemePreference get theme => Preferences.theme;
   set theme(final ThemePreference setting) {
@@ -19,20 +15,20 @@ class PreferencesProvider extends ChangeNotifier {
     Persistence.savePreferences();
   }
 
-  /// The current [SplitPreference] of the app
-  SplitPreference get splitMode => Preferences.splitMode;
-  set splitMode(final SplitPreference setting) {
-    Preferences.splitMode = setting;
-    notifyListeners();
-
-    Persistence.savePreferences();
-  }
-
   /// The current [ColorSchemePreference] of the app
   ColorSchemePreference get colorScheme => Preferences.colorScheme;
   set colorScheme(final ColorSchemePreference colorScheme) {
     Preferences.colorScheme = colorScheme;
     ThemeCreator.createColorScheme().then((value) => notifyListeners());
+
+    Persistence.savePreferences();
+  }
+
+  /// The current [SplitPreference] of the app
+  SplitPreference get splitMode => Preferences.splitMode;
+  set splitMode(final SplitPreference setting) {
+    Preferences.splitMode = setting;
+    notifyListeners();
 
     Persistence.savePreferences();
   }
@@ -77,11 +73,13 @@ class PreferencesProvider extends ChangeNotifier {
   }
 
   /// Exports the app data
-  Future export() async => Codec.export();
+  Future<void> export() async => Codec.export();
 
   bool _managingAppData = false;
 
   /// Whether the app is currently managing data
+  ///
+  /// The codec buttons disable while this is true
   bool get managingAppData => _managingAppData;
   set managingAppData(final bool value) {
     _managingAppData = value;
@@ -89,7 +87,7 @@ class PreferencesProvider extends ChangeNotifier {
   }
 
   /// Imports the app data
-  Future import() async {
+  Future<void> import() async {
     managingAppData = true;
     final imported = await Codec.import().onError((_, __) => null);
     if (imported == null) {
