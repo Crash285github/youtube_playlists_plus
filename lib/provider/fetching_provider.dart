@@ -19,8 +19,10 @@ class FetchingProvider extends ChangeNotifier {
 
   /// Decrements the counter
   void decrementDownload() {
-    _downloadCount--;
+    if (_downloadCount > 0) {
+      _downloadCount--;
     notifyListeners();
+    }
   }
 
   /// Whether a [Playlist] is currently being refreshed or not
