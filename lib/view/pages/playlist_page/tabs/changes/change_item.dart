@@ -125,6 +125,7 @@ class ChangeItem extends StatelessWidget {
                             const SizedBox(height: 8),
                             Text(
                               "by $author",
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall!

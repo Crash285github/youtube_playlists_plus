@@ -11,8 +11,16 @@ class _SplitView extends StatelessWidget {
     );
 
     return Row(
-      textDirection: TextDirection.rtl,
       children: [
+        Expanded(
+          flex: isEven ? 1 : 3,
+          child: Navigator(
+            key: AppConfig.splitLeftNavigatorKey,
+            onGenerateRoute: (settings) => MaterialPageRoute(
+              builder: (context) => const HomePage(),
+            ),
+          ),
+        ),
         Expanded(
           flex: isEven ? 1 : 5,
           child: Navigator(
@@ -21,15 +29,7 @@ class _SplitView extends StatelessWidget {
               builder: (context) => const _EmptyRightSide(),
             ),
           ),
-        ),
-        Expanded(
-            flex: isEven ? 1 : 3,
-            child: Navigator(
-              key: AppConfig.splitLeftNavigatorKey,
-              onGenerateRoute: (settings) => MaterialPageRoute(
-                builder: (context) => const HomePage(),
-              ),
-            ))
+        )
       ],
     );
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/persistence/persistence.dart';
@@ -108,12 +109,27 @@ class HistoryItem extends StatelessWidget {
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
-                      Text(
-                        "by $author • ${history.created.timeago()}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall!
-                            .withOpacity(.5),
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              "by $author",
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall!
+                                  .withOpacity(.5),
+                            ),
+                          ),
+                          Text(
+                            " • ${history.created.timeago()}",
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .withOpacity(.5),
+                          ),
+                        ],
                       ),
                     ],
                   ),
