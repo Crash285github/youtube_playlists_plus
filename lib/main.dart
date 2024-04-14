@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:ytp_new/config.dart';
@@ -82,8 +83,12 @@ Future<void> _setupAndroidApp() async {
   );
 }
 
-/// Calls a platform-specific setup function
+/// Sets [AppConfig.appVersion] and calls
+/// a platform-specific setup function
 Future<void> _setupApp() async {
+  final info = await PackageInfo.fromPlatform();
+  AppConfig.appVersion = info.version;
+
   if (Platform.isAndroid) return await _setupAndroidApp();
   if (Platform.isWindows) return await _setupWindowsApp();
 }

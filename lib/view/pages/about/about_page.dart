@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
@@ -129,7 +130,7 @@ class AboutPage extends StatelessWidget {
             ),
             child: LicensePage(
               applicationName: "Youtube Playlists+",
-              applicationVersion: "1.0.5",
+              applicationVersion: AppConfig.appVersion,
               applicationIcon: ClipRRect(
                 borderRadius: BorderRadius.circular(4.0),
                 child: const Image(

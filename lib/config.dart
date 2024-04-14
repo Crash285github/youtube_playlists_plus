@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 /// The Application's configs, contains variables that should be accessed
 /// everywhere in the application
 class AppConfig {
+  /// The application's version
+  static late final String appVersion;
+
   /// The navigator key for the left side of the screen on Split Screen Mode
   static final splitLeftNavigatorKey = GlobalKey<NavigatorState>();
 
