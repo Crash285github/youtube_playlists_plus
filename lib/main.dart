@@ -61,19 +61,20 @@ Future<void> _setupWindowsApp() async {
   });
 }
 
-/// Sets up background work & sharing intent
+/// Sets up Android specific features
 Future<void> _setupAndroidApp() async {
   try {
-    //? Setup background work on android
+    //? Setup background work
     await BackgroundService.configure();
     BackgroundService.registerHeadlessTask();
 
     if (!Preferences.runInBackground) BackgroundService.stop();
   } catch (_) {}
 
-  //? Setup sharing intents on android
+  //? Setup sharing intents
   WidgetsBinding.instance.addPostFrameCallback((_) => SharingService.receive());
 
+  //? change status bar color to transparent
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,

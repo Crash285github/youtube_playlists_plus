@@ -50,6 +50,7 @@ class PlannedSheetTitle extends StatelessWidget {
     if (planned != null && planned.trim().isNotEmpty) {
       PlaylistStorageProvider().update(
         () => playlist.planned.add(planned.trim()),
+        save: true,
       );
     }
   }

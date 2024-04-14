@@ -47,8 +47,10 @@ class PlannedItem extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () => PlaylistStorageProvider()
-                    .update(() => playlist.planned.remove(text)),
+                onTap: () => PlaylistStorageProvider().update(
+                  () => playlist.planned.remove(text),
+                  save: true,
+                ),
                 child: ContextBody(
                   text: "Remove",
                   icon: Icons.delete_outline,
