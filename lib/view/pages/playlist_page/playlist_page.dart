@@ -107,43 +107,14 @@ class PlaylistPage extends StatelessWidget {
         extendBodyBehindAppBar: true,
         body: Stack(
           children: [
-            Align(
-              alignment: Alignment.topCenter,
-              child: SizedBox(
-                height: 200,
-                width: double.infinity,
-                child: ShaderMask(
-                  shaderCallback: (rect) {
-                    return const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [Colors.black, Colors.transparent],
-                    ).createShader(
-                        Rect.fromLTRB(0, 0, rect.width, rect.height));
-                  },
-                  blendMode: BlendMode.dstIn,
-                  child: Opacity(
-                    opacity: .7,
-                    child: CachedNetworkImage(
-                      imageUrl: playlist!.thumbnail,
-                      fit: BoxFit.cover,
-                      errorWidget: (context, url, error) =>
-                          const SizedBox.shrink(),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-              child: SafeArea(
-                child: TabBarView(
-                  children: [
-                    PlaylistPageTabChanges(playlistId: playlistId),
-                    PlaylistPageTabVideos(playlistId: playlistId),
-                    PlaylistPageTabHistory(playlistId: playlistId),
-                  ],
-                ),
+            _BlurredThumbnail(url: playlist!.thumbnail),
+            SafeArea(
+              child: TabBarView(
+                children: [
+                  PlaylistPageTabChanges(playlistId: playlistId),
+                  PlaylistPageTabVideos(playlistId: playlistId),
+                  PlaylistPageTabHistory(playlistId: playlistId),
+                ],
               ),
             ),
           ],
@@ -179,6 +150,53 @@ class PlaylistPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class _BlurredThumbnail extends StatelessWidget {
+  const _BlurredThumbnail({
+    required this.url,
+  });
+
+  final String url;
+
+  @override
+  Widget build(BuildContext context) => Align(
+        alignment: Alignment.topCenter,
+        child: Stack(
+          children: [
+            ClipRect(
+              clipBehavior: Clip.antiAlias,
+              child: SizedBox(
+                height: 200,
+                width: double.infinity,
+                child: ShaderMask(
+                  shaderCallback: (rect) {
+                    return const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.black, Colors.transparent],
+                    ).createShader(
+                        Rect.fromLTRB(0, 0, rect.width, rect.height));
+                  },
+                  blendMode: BlendMode.dstIn,
+                  child: Opacity(
+                    opacity: .7,
+                    child: ImageFiltered(
+                      imageFilter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                      child: CachedNetworkImage(
+                        imageUrl: url,
+                        fit: BoxFit.cover,
+                        errorWidget: (context, url, error) =>
+                            const SizedBox.shrink(),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
 }
 
 class _TabItem extends StatelessWidget {
