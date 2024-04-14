@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:ytp_new/config.dart';
@@ -16,7 +17,7 @@ import 'package:ytp_new/view/responsive/responsive.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await _setupWindowsApp();
+  await _setupApp();
 
   await Persistence.init();
   Persistence.loadPreferences();
@@ -44,52 +45,50 @@ Future main() async {
       child: const MainApp(),
     ),
   );
-
-  //? Setup background work on android
-  if (Platform.isAndroid) {
-    try {
-      await BackgroundService.configure();
-      BackgroundService.registerHeadlessTask();
-
-      if (!Preferences.runInBackground) BackgroundService.stop();
-    } catch (_) {}
-  }
 }
 
 /// Setup the Windows app minimum and default window sizes
 Future<void> _setupWindowsApp() async {
-  if (Platform.isWindows) {
-    await windowManager.ensureInitialized();
-    await windowManager.waitUntilReadyToShow().whenComplete(() async {
-      await Future.wait([
-        windowManager.setTitle("Youtube Playlists+"),
-        windowManager.setSize(const Size(1300, 800)),
-        windowManager.setMinimumSize(const Size(800, 500)),
-        windowManager.setAlignment(Alignment.center),
-      ]);
-      await windowManager.show();
-    });
-  }
+  await windowManager.ensureInitialized();
+  await windowManager.waitUntilReadyToShow().whenComplete(() async {
+    await Future.wait([
+      windowManager.setTitle("Youtube Playlists+"),
+      windowManager.setSize(const Size(1300, 800)),
+      windowManager.setMinimumSize(const Size(800, 500)),
+      windowManager.setAlignment(Alignment.center),
+    ]);
+    await windowManager.show();
+  });
 }
 
-class MainApp extends StatefulWidget {
+/// Sets up background work & sharing intent
+Future<void> _setupAndroidApp() async {
+  try {
+    //? Setup background work on android
+    await BackgroundService.configure();
+    BackgroundService.registerHeadlessTask();
+
+    if (!Preferences.runInBackground) BackgroundService.stop();
+  } catch (_) {}
+
+  //? Setup sharing intents on android
+  WidgetsBinding.instance.addPostFrameCallback((_) => SharingService.receive());
+
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+    ),
+  );
+}
+
+/// Calls a platform-specific setup function
+Future<void> _setupApp() async {
+  if (Platform.isAndroid) return await _setupAndroidApp();
+  if (Platform.isWindows) return await _setupWindowsApp();
+}
+
+class MainApp extends StatelessWidget {
   const MainApp({super.key});
-
-  @override
-  State<MainApp> createState() => _MainAppState();
-}
-
-class _MainAppState extends State<MainApp> {
-  @override
-  void initState() {
-    super.initState();
-
-    //? Setup sharing intents on android
-    if (Platform.isAndroid) {
-      WidgetsBinding.instance
-          .addPostFrameCallback((_) => SharingService.receive());
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
