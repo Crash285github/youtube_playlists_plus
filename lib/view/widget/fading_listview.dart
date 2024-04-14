@@ -7,7 +7,7 @@ class FadingListView extends StatefulWidget {
   final ScrollController? controller;
   final ScrollPhysics? physics;
   final double gradientHeight;
-  final bool? top, bottom;
+  final bool top, bottom;
   final EdgeInsetsGeometry? padding;
   final int? itemCount;
   final Widget? Function(BuildContext context, int index) itemBuilder;
@@ -17,8 +17,8 @@ class FadingListView extends StatefulWidget {
     this.controller,
     this.physics,
     this.gradientHeight = 20.0,
-    this.top,
-    this.bottom,
+    this.top = true,
+    this.bottom = true,
     this.padding,
     required this.itemBuilder,
     this.itemCount,
@@ -38,21 +38,22 @@ class _FadingListViewState extends State<FadingListView> {
     _scrollController = (widget.controller ?? ScrollController())
       ..addListener(
         () {
-          final newStart = min(
+          final newStartGradientHeight = min(
             widget.gradientHeight,
             _scrollController.offset,
           );
-          final newEnd = min(
+          final newEndGradientHeight = min(
             widget.gradientHeight,
             _scrollController.position.maxScrollExtent -
                 _scrollController.offset,
           );
 
-          if (newStart != startGradientHeight || newEnd != endGradientHeight) {
+          if ((widget.top && newStartGradientHeight != startGradientHeight) ||
+              (widget.bottom && newEndGradientHeight != endGradientHeight)) {
             setState(
               () {
-                startGradientHeight = newStart;
-                endGradientHeight = newEnd;
+                startGradientHeight = newStartGradientHeight;
+                endGradientHeight = newEndGradientHeight;
               },
             );
           }
@@ -62,9 +63,9 @@ class _FadingListViewState extends State<FadingListView> {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) => setState(
         () => endGradientHeight = min(
-            widget.gradientHeight,
-            _scrollController.position.maxScrollExtent -
-                _scrollController.offset),
+          widget.gradientHeight,
+          _scrollController.position.maxScrollExtent - _scrollController.offset,
+        ),
       ),
     );
 
@@ -72,28 +73,38 @@ class _FadingListViewState extends State<FadingListView> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) => ShaderMask(
         blendMode: BlendMode.dstOut,
         shaderCallback: (final rect) => LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              if (widget.top ?? true) ...[
-                Colors.black,
-                Colors.transparent,
-              ],
-              if (widget.bottom ?? true) ...[Colors.transparent, Colors.black]
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            if (widget.top) ...[
+              Colors.black,
+              Colors.transparent,
             ],
-            stops: [
-              if (widget.top ?? true) ...[
-                0,
-                startGradientHeight / rect.height,
-              ],
-              if (widget.bottom ?? true) ...[
-                1 - (endGradientHeight / rect.height),
-                1
-              ]
-            ]).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height)),
+            if (widget.bottom) ...[
+              Colors.transparent,
+              Colors.black,
+            ]
+          ],
+          stops: [
+            if (widget.top) ...[
+              0,
+              startGradientHeight / rect.height,
+            ],
+            if (widget.bottom) ...[
+              1 - (endGradientHeight / rect.height),
+              1,
+            ]
+          ],
+        ).createShader(Rect.fromLTRB(0, 0, rect.width, rect.height)),
         child: ListView.builder(
           controller: _scrollController,
           physics: widget.physics,
