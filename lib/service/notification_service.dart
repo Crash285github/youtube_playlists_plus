@@ -9,20 +9,6 @@ class NotificationsService {
         ),
       );
 
-  static Future<NotificationDetails> _notificationDetails({
-    required String title,
-    required String body,
-    required int id,
-  }) async =>
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          '$id',
-          title,
-          channelDescription: body,
-          importance: Importance.max,
-        ),
-      );
-
   @pragma('vm:entry-point')
   static Future<void> show({
     int id = 0,
@@ -34,7 +20,14 @@ class NotificationsService {
         id,
         title,
         body,
-        await _notificationDetails(title: title, body: body, id: id),
         payload: payload,
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            '$id',
+            title,
+            channelDescription: body,
+            importance: Importance.max,
+          ),
+        ),
       );
 }
