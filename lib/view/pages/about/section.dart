@@ -10,7 +10,7 @@ class _Section extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.only(top: title != null ? 32.0 : 0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (title != null)
             Padding(
@@ -21,11 +21,12 @@ class _Section extends StatelessWidget {
                     Theme.of(context).textTheme.headlineMedium!.withOpacity(.5),
               ),
             ),
-          Center(
-            child: Card(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(children: paragraphs),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: paragraphs,
               ),
             ),
           ),

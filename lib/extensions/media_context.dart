@@ -167,7 +167,7 @@ extension VideoContext on Video {
                       offset = switch (position) {
                         AnchorPosition.start => video.index,
                         AnchorPosition.middle =>
-                          video.index - video.playlist.length ~/ 2 + 1,
+                          -((video.playlist.length + 1) ~/ 2 - video.index - 1),
                         AnchorPosition.end =>
                           video.index - video.playlist.length + 1,
                       };

@@ -50,6 +50,7 @@ class AboutPage extends StatelessWidget {
               paragraph: const _Paragraph("It looks like this:"),
               widget: Center(
                 child: FloatingActionButton(
+                  heroTag: null,
                   onPressed: () {},
                   child: const Icon(Icons.search),
                 ),
