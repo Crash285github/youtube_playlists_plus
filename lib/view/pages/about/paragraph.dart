@@ -11,7 +11,7 @@ class _Paragraph extends StatelessWidget {
       onTap: !link ? null : () => launchUrl(Uri.parse(text)),
       child: Text(
         text,
-        textAlign: TextAlign.center,
+        textAlign: TextAlign.justify,
         style: Theme.of(context)
             .textTheme
             .titleLarge!
