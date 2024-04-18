@@ -32,19 +32,9 @@ class AnchorItem extends StatelessWidget {
         topRight: const Radius.circular(4.0),
       );
 
-  String get anchorInformation {
-    String text =
-        'Position changed: ${video.anchor!.index + 1} > ${video.index + 1}. ';
-    if (video.anchor!.index > video.index) {
-      text +=
-          "\nIt should be moved down by ${video.anchor!.index - video.index}.";
-    } else {
-      text +=
-          "\nIt should be moved up by ${video.index - video.anchor!.index}.";
-    }
-
-    return text;
-  }
+  String get anchorInformation => 'Moved from '
+      '${(video.anchor!.index + 1).toOrdinalString()} '
+      'to ${(video.index + 1).toOrdinalString()}.';
 
   Playlist get playlist => PlaylistStorageProvider().fromId(playlistId)!;
 
