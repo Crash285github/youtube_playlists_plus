@@ -33,7 +33,8 @@ class AnchorItem extends StatelessWidget {
       );
 
   String get anchorInformation {
-    String text = 'Position changed: ${video.anchor!.index} > ${video.index}. ';
+    String text =
+        'Position changed: ${video.anchor!.index + 1} > ${video.index + 1}. ';
     if (video.anchor!.index > video.index) {
       text +=
           "\nIt should be moved down by ${video.anchor!.index - video.index}.";
@@ -122,7 +123,7 @@ class AnchorItem extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       "Should be "
-                      "${video.anchor!.index.toOrdinalString()} "
+                      "${(video.anchor!.index + 1).toOrdinalString()} "
                       "video in playlist.",
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
