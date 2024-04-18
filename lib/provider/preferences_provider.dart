@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:ytp_new/config.dart';
 import 'package:ytp_new/persistence/persistence.dart';
+import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 
@@ -116,6 +117,11 @@ class PreferencesProvider extends ChangeNotifier {
     try {
       PlaylistStorageProvider().replace(imported[AppConfig.playlistsKey]);
       Persistence.savePlaylists();
+    } catch (_) {}
+
+    try {
+      AnchorStorageProvider().replace(imported[AppConfig.anchorsKey]);
+      Persistence.saveAnchors();
     } catch (_) {}
 
     managingAppData = false;
