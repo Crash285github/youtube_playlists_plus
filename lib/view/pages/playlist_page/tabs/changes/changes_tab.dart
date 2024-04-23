@@ -7,18 +7,18 @@ import 'package:ytp_new/view/pages/playlist_page/tabs/changes/anchor_item.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/changes/change_item.dart';
 
-class PlaylistPageTabChanges extends StatefulWidget {
+class ChangesTab extends StatefulWidget {
   final String playlistId;
-  const PlaylistPageTabChanges({
+  const ChangesTab({
     super.key,
     required this.playlistId,
   });
 
   @override
-  State<PlaylistPageTabChanges> createState() => _PlaylistPageTabChangesState();
+  State<ChangesTab> createState() => _ChangesTabState();
 }
 
-class _PlaylistPageTabChangesState extends State<PlaylistPageTabChanges>
+class _ChangesTabState extends State<ChangesTab>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 

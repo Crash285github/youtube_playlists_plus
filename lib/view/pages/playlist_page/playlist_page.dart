@@ -9,11 +9,11 @@ import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/service/popup_service.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/changes/tab_changes.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/history/tab_history.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/changes/changes_tab.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_tab.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
-import 'package:ytp_new/view/pages/playlist_page/tabs/videos/tab_videos.dart';
+import 'package:ytp_new/view/pages/playlist_page/tabs/videos/videos_tab.dart';
 import 'package:ytp_new/view/widget/app_navigator.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
@@ -111,9 +111,9 @@ class PlaylistPage extends StatelessWidget {
             SafeArea(
               child: TabBarView(
                 children: [
-                  PlaylistPageTabChanges(playlistId: playlistId),
-                  PlaylistPageTabVideos(playlistId: playlistId),
-                  PlaylistPageTabHistory(playlistId: playlistId),
+                  ChangesTab(playlistId: playlistId),
+                  VideosTab(playlistId: playlistId),
+                  HistoryTab(playlistId: playlistId),
                 ],
               ),
             ),

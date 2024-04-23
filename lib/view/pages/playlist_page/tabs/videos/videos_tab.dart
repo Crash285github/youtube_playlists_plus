@@ -8,18 +8,18 @@ import 'package:ytp_new/view/pages/playlist_page/tabs/videos/video_item.dart';
 
 import 'planned_sheet/planned_sheet.dart';
 
-class PlaylistPageTabVideos extends StatefulWidget {
+class VideosTab extends StatefulWidget {
   final String playlistId;
-  const PlaylistPageTabVideos({
+  const VideosTab({
     super.key,
     required this.playlistId,
   });
 
   @override
-  State<PlaylistPageTabVideos> createState() => _PlaylistPageTabVideosState();
+  State<VideosTab> createState() => _VideosTabState();
 }
 
-class _PlaylistPageTabVideosState extends State<PlaylistPageTabVideos>
+class _VideosTabState extends State<VideosTab>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 

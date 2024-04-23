@@ -4,15 +4,15 @@ import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_item.dart';
 
-class PlaylistPageTabHistory extends StatefulWidget {
+class HistoryTab extends StatefulWidget {
   final String playlistId;
-  const PlaylistPageTabHistory({super.key, required this.playlistId});
+  const HistoryTab({super.key, required this.playlistId});
 
   @override
-  State<PlaylistPageTabHistory> createState() => _PlaylistPageTabHistoryState();
+  State<HistoryTab> createState() => _HistoryTabState();
 }
 
-class _PlaylistPageTabHistoryState extends State<PlaylistPageTabHistory>
+class _HistoryTabState extends State<HistoryTab>
     with AutomaticKeepAliveClientMixin {
   Playlist get playlist => PlaylistStorageProvider().fromId(widget.playlistId)!;
 
