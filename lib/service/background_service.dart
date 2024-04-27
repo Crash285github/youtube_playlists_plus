@@ -6,7 +6,7 @@ class BackgroundService {
   /// Configures the [BackgroundService]
   static Future<int> configure() => BackgroundFetch.configure(
         BackgroundFetchConfig(
-          minimumFetchInterval: 15,
+          minimumFetchInterval: 1440,
           forceAlarmManager: false,
           stopOnTerminate: false,
           startOnBoot: true,
@@ -29,16 +29,10 @@ class BackgroundService {
   static void _finish(final String taskId) => BackgroundFetch.finish(taskId);
 
   /// Starts the [BackgroundService]
-  static Future<int> start() {
-    print("enabled bg");
-    return BackgroundFetch.start();
-  }
+  static Future<int> start() => BackgroundFetch.start();
 
   /// Stops the [BackgroundService]
-  static Future<int> stop() {
-    print("disabled bg");
-    return BackgroundFetch.stop();
-  }
+  static Future<int> stop() => BackgroundFetch.stop();
 
   /// Refreshes all [Playlist]s as a background task
   @pragma('vm:entry-point')
@@ -51,23 +45,16 @@ class BackgroundService {
     await Persistence.init();
     Persistence.loadPlaylists();
 
-    print("Playlists loaded: ${PlaylistStorage.playlists.length}");
-    print("Refreshing");
-
     await Future.wait([
       ...PlaylistStorage.playlists.map(
         (final pl) => pl.refresh(),
       ),
     ]);
 
-    print("Refreshed: ${PlaylistStorage.playlists.map((e) => e.hasChanges)}");
-
     final changed =
         PlaylistStorage.playlists.where((final pl) => pl.hasChanges);
 
     await NotificationsService.init();
-
-    print("Notif setup, sending...");
 
     if (changed.length > 1) {
       NotificationsService.show(
