@@ -48,30 +48,16 @@ class SharingService {
       return;
     }
 
-    final pl = YoutubeService.youtube.playlists.get(id);
-    final v = YoutubeService.youtube.playlists.getVideos(id).first;
-
-    await Future.wait([pl, v]);
+    final fetched = await YoutubeService.fetch(id);
 
     //? private playlist shared
-    if ((await pl).videoCount == null) {
+    if (fetched.length == 0) {
       PopupService.showError(
         context: AppConfig.mainNavigatorKey.currentContext!,
         message: "Private Playlist can't be fetched.",
       );
       return;
     }
-
-    final fetched = await YoutubeService.fetch(
-      Playlist(
-        id: (await pl).id.toString(),
-        title: (await pl).title,
-        author: (await pl).author,
-        thumbnail: (await v).thumbnails.mediumResUrl,
-        description: "description",
-        videos: [],
-      ),
-    );
 
     PlaylistStorageProvider().add(fetched);
   }

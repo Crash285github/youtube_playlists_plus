@@ -15,7 +15,7 @@ import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/pages/home_page/drawer/preferences_drawer.dart';
 import 'package:ytp_new/view/pages/playlist_page/playlist_page.dart';
 import 'package:ytp_new/view/pages/search_page/search_page.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/navigator_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -125,7 +125,7 @@ class HomePage extends StatelessWidget {
           tooltip: canReorder ? "Finish reordering" : "Search",
           onPressed: canReorder
               ? () => PreferencesProvider().canReorder = false
-              : () => AppNavigator.tryPushLeft(const SearchPage()),
+              : () => NavigatorService.tryPushLeft(const SearchPage()),
           icon: Icon(canReorder ? Icons.done : Icons.search),
         ));
   }

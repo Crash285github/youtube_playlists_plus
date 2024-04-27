@@ -14,7 +14,7 @@ import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_tab.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_item.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/planned_sheet/planned_sheet_title.dart';
 import 'package:ytp_new/view/pages/playlist_page/tabs/videos/videos_tab.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/navigator_service.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
 class PlaylistPage extends StatelessWidget {
@@ -68,14 +68,14 @@ class PlaylistPage extends StatelessWidget {
                     ),
                   ).then((value) {
                     if (value ?? false) {
-                      AppNavigator.tryPopRight(context);
+                      NavigatorService.tryPopRight(context);
                       PlaylistStorageProvider().remove(playlist!);
                     }
                   });
                   return;
                 }
 
-                AppNavigator.tryPopRight(context);
+                NavigatorService.tryPopRight(context);
                 PlaylistStorageProvider().remove(playlist!);
               },
               icon: Icon(

@@ -51,7 +51,7 @@ class _SearchResultState extends State<SearchResult> {
                 FetchingProvider().incrementDownload();
                 try {
                   pl = await YoutubeService.fetch(
-                    widget.playlist,
+                    widget.playlist.id,
                   );
 
                   PlaylistStorageProvider().add(pl);

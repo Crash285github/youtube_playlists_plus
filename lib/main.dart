@@ -13,12 +13,10 @@ import 'package:ytp_new/provider/fetching_provider.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/service/sharing_service.dart';
-import 'package:ytp_new/view/responsive/responsive.dart';
+import 'package:ytp_new/view/widget/responsive/responsive.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await _setupApp();
 
   await Persistence.init();
   Persistence.loadPreferences();
@@ -26,6 +24,8 @@ Future main() async {
   Persistence.loadAnchors();
 
   await ThemeCreator.createColorScheme();
+
+  await _setupApp();
 
   runApp(
     MultiProvider(
@@ -67,9 +67,13 @@ Future<void> _setupAndroidApp() async {
   try {
     //? Setup background work
     await BackgroundService.configure();
-    BackgroundService.registerHeadlessTask();
+    await BackgroundService.registerHeadlessTask();
 
-    if (!Preferences.runInBackground) BackgroundService.stop();
+    if (!Preferences.runInBackground) {
+      BackgroundService.stop();
+    } else {
+      BackgroundService.start();
+    }
   } catch (_) {}
 
   //? Setup sharing intents

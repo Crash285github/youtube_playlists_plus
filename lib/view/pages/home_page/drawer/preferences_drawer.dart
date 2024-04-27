@@ -14,7 +14,7 @@ import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';
 import 'package:ytp_new/service/background_service.dart';
 import 'package:ytp_new/view/pages/about/about_page.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/navigator_service.dart';
 import 'package:ytp_new/view/widget/fading_listview.dart';
 
 part 'codec_buttons.dart';
@@ -64,7 +64,7 @@ class PreferencesDrawer extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(0.0, 0.0, 8.0, 8.0),
           child: InkWell(
-            onTap: () => AppNavigator.pushMain(const AboutPage()),
+            onTap: () => NavigatorService.pushMain(const AboutPage()),
             borderRadius: const BorderRadius.only(
               bottomLeft: Radius.zero,
               topLeft: Radius.zero,

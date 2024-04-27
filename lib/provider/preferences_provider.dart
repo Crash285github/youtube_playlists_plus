@@ -4,7 +4,7 @@ import 'package:ytp_new/config.dart';
 import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/anchor_storage_provider.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/navigator_service.dart';
 
 class PreferencesProvider extends ChangeNotifier {
   /// The current [ThemePreference] of the app
@@ -96,7 +96,7 @@ class PreferencesProvider extends ChangeNotifier {
       return;
     }
 
-    AppNavigator.tryPopRight();
+    NavigatorService.tryPopRight();
 
     try {
       theme = imported[AppConfig.preferencesThemeKey];

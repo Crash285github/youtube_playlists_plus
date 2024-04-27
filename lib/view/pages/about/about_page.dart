@@ -8,7 +8,7 @@ import 'package:ytp_new/config.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
 import 'package:ytp_new/persistence/persistence.dart';
-import 'package:ytp_new/view/widget/app_navigator.dart';
+import 'package:ytp_new/service/navigator_service.dart';
 
 part 'section.dart';
 part 'paragraph.dart';
@@ -242,7 +242,7 @@ class AboutPage extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => AppNavigator.pushMain(
+        onPressed: () => NavigatorService.pushMain(
           Theme(
             data: ThemeCreator.theme.copyWith(
               appBarTheme: const AppBarTheme(

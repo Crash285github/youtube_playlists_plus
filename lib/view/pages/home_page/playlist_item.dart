@@ -41,8 +41,8 @@ class PlaylistItem extends StatelessWidget {
     return MediaItem(
       primaryAction: (_) {
         PreferencesProvider().canReorder = false;
-        AppNavigator.tryPopRight();
-        AppNavigator.tryPushRight(PlaylistPage(playlistId: playlist.id));
+        NavigatorService.tryPopRight();
+        NavigatorService.tryPushRight(PlaylistPage(playlistId: playlist.id));
         Persistence.currentlyShowingPlaylistId = playlist.id;
       },
       secondaryAction: (offset) => offset.showContextMenu(
@@ -66,7 +66,7 @@ class PlaylistItem extends StatelessWidget {
                 ).then((value) {
                   if (value ?? false) {
                     if (playlist.id == Persistence.currentlyShowingPlaylistId) {
-                      AppNavigator.tryPopRight(context);
+                      NavigatorService.tryPopRight(context);
                     }
                     PlaylistStorageProvider().remove(playlist);
                   }
@@ -75,7 +75,7 @@ class PlaylistItem extends StatelessWidget {
               }
 
               if (playlist.id == Persistence.currentlyShowingPlaylistId) {
-                AppNavigator.tryPopRight(context);
+                NavigatorService.tryPopRight(context);
               }
               PlaylistStorageProvider().remove(playlist);
             },

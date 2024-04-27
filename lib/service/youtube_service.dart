@@ -12,36 +12,36 @@ class YoutubeService {
   static final youtube = YoutubeExplode();
 
   /// Fetches a [Playlist]'s data
-  static Future<Playlist> fetch(final Playlist playlist) async =>
-      await Isolate.run(() => _fetch(playlist));
+  static Future<Playlist> fetch(final String id) async =>
+      await Isolate.run(() => _fetch(id));
 
-  static Future<Playlist> _fetch(final Playlist playlist) async {
+  static Future<Playlist> _fetch(final String id) async {
     final metadata = await youtube.playlists
-        .get(playlist.id)
+        .get(id)
         .timeout(const Duration(seconds: 20))
         .onError((error, _) {
       if (error is HandshakeException) {
         throw Exception(
-          "Couldn't download [${playlist.title}]: HandshakeException.",
+          "Couldn't download [$id]: HandshakeException.",
         );
       }
       if (error is TimeoutException) {
         throw Exception(
-          "Downloading [${playlist.title}] timed out.",
+          "Downloading [$id] timed out.",
         );
       }
 
       throw Exception(
-        "Unknown error occurred while downloading [${playlist.title}].",
+        "Unknown error occurred while downloading [$id].",
       );
     });
 
     final List<Video> videos = [];
-    await for (final video in youtube.playlists.getVideos(playlist.id)) {
+    await for (final video in youtube.playlists.getVideos(id)) {
       videos.add(
         Video(
           id: video.id.toString(),
-          playlistId: playlist.id,
+          playlistId: id,
           title: video.title,
           author: video.author,
           thumbnail: video.thumbnails.mediumResUrl,
@@ -50,11 +50,11 @@ class YoutubeService {
     }
 
     return Playlist(
-      id: playlist.id,
+      id: id,
       title: metadata.title,
       author: metadata.author,
       description: metadata.description,
-      thumbnail: playlist.thumbnail,
+      thumbnail: videos.firstOrNull?.thumbnail ?? "",
       videos: videos,
     );
   }

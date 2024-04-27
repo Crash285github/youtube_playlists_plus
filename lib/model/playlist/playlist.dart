@@ -107,7 +107,7 @@ class Playlist extends Media
 
     FetchingProvider().add(id);
     try {
-      final newPlaylist = await YoutubeService.fetch(this);
+      final newPlaylist = await YoutubeService.fetch(id);
 
       if (newPlaylist.title.isEmpty) {
         PlaylistStorageProvider().update(() => state = PlaylistState.missing);

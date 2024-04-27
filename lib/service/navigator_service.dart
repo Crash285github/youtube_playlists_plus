@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ytp_new/config.dart';
 
 /// The Application's page navigator
-class AppNavigator {
+class NavigatorService {
   /// Push a Page to the main Navigator, obscuring both sides in case
   /// of split screen mode
   static Future<T?> pushMain<T extends Object>(final Widget page) async =>
