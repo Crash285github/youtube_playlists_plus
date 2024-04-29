@@ -9,12 +9,15 @@ class _ToggleBackground extends StatelessWidget {
     if (!Platform.isAndroid) return;
 
     if (!_enabled) {
-      final granted = await FlutterLocalNotificationsPlugin()
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.requestNotificationsPermission();
+      if (await Permission.notification.isPermanentlyDenied) {
+        await openAppSettings();
+        return;
+      }
 
-      if (!(granted ?? true)) return;
+      final status = await Permission.notification.request();
+
+      final granted = status.isGranted;
+      if (!granted) return;
     }
 
     PreferencesProvider().runInBackground = !Preferences.runInBackground;

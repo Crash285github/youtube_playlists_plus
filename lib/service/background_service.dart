@@ -6,7 +6,10 @@ class BackgroundService {
   /// Configures the [BackgroundService]
   static Future<int> configure() => BackgroundFetch.configure(
         BackgroundFetchConfig(
-          minimumFetchInterval: 1440,
+          minimumFetchInterval:
+              const String.fromEnvironment("FLUTTER_APP_FLAVOR").endsWith("dev")
+                  ? 15
+                  : 1440,
           forceAlarmManager: false,
           stopOnTerminate: false,
           startOnBoot: true,
@@ -18,6 +21,17 @@ class BackgroundService {
           requiredNetworkType: NetworkType.ANY,
         ),
         () {},
+        () async {
+          if (const String.fromEnvironment("FLUTTER_APP_FLAVOR")
+              .endsWith('dev')) {
+            await NotificationsService.init();
+            NotificationsService.show(
+              id: 4,
+              title: 'Fetch timed out.',
+              body: "...",
+            );
+          }
+        },
       );
 
   /// Registers the `headless` task that runs in the background
@@ -38,7 +52,7 @@ class BackgroundService {
   @pragma('vm:entry-point')
   static Future<void> _backgroundRefresh(HeadlessTask task) async {
     if (task.timeout) {
-      BackgroundFetch.finish(task.taskId);
+      _finish(task.taskId);
       return;
     }
 
@@ -69,8 +83,15 @@ class BackgroundService {
         title: 'Playlist changed!',
         body: "'${changed.first.title}' has changed. " "Confirm it in the app.",
       );
+    } else if (const String.fromEnvironment("FLUTTER_APP_FLAVOR")
+        .endsWith("dev")) {
+      NotificationsService.show(
+        id: 0,
+        title: 'No changes found.',
+        body: "Yay!",
+      );
     }
 
-    BackgroundService._finish(task.taskId);
+    _finish(task.taskId);
   }
 }
