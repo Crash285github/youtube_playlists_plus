@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ytp_new/extensions/extensions.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
 import 'package:ytp_new/provider/preferences_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/media_item_template.dart';
 import 'package:ytp_new/view/widget/thumbnail.dart';
 
@@ -45,6 +46,19 @@ class AnchorItem extends StatelessWidget {
     return MediaItem(
       borderRadius: borderRadius,
       primaryAction: (_) => _infoSheet(context),
+      secondaryAction: (offset) => PopupService.contextMenu(
+        context: context,
+        offset: offset,
+        items: <PopupMenuEntry>[
+          video.contextOpen,
+          const PopupMenuDivider(),
+          video.contextCopyTitle,
+          video.contextCopyId,
+          video.contextCopyLink,
+          const PopupMenuDivider(),
+          video.contextSetAnchor(context),
+        ],
+      ),
       child: Padding(
         padding: const EdgeInsets.all(3.0),
         child: Row(
