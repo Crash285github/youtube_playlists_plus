@@ -47,7 +47,12 @@ class PlaylistPage extends StatelessWidget {
           automaticallyImplyLeading: !Preferences.isSplit,
           actions: [
             IconButton(
-              onPressed: refreshing ? null : () => playlist!.refresh(),
+              onPressed: refreshing
+                  ? null
+                  : () async {
+                      await playlist!.refresh();
+                      Persistence.savePlaylists();
+                    },
               icon: const Icon(Icons.refresh),
               tooltip: "Refresh",
             ),

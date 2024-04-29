@@ -59,10 +59,11 @@ class HomePage extends StatelessWidget {
                         onPressed: refreshing
                             ? null
                             : () async {
-                                for (final playlist
-                                    in PlaylistStorageProvider().playlists) {
-                                  playlist.refresh();
-                                }
+                                await Future.wait(PlaylistStorage.playlists.map(
+                                  (final pl) => pl.refresh(),
+                                ));
+                                
+                                Persistence.savePlaylists();
                               },
                         icon: const Icon(Icons.refresh),
                         tooltip: "Refresh all",

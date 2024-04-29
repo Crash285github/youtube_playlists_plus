@@ -124,7 +124,7 @@ class Playlist extends Media
       PlaylistStorageProvider().update(
         () => state =
             hasChanges ? PlaylistState.changed : PlaylistState.unchanged,
-        save: !hasChanges,
+        save: false,
       );
     } on Exception {
       PlaylistStorageProvider().update(() => state = null);
