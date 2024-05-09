@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:ytp_new/extensions/extensions.dart';
+import 'package:ytp_new/persistence/persistence.dart';
 import 'package:ytp_new/provider/playlist_storage_provider.dart';
+import 'package:ytp_new/service/popup_service.dart';
 import 'package:ytp_new/view/widget/adaptive_secondary.dart';
 
 class PlannedItem extends StatelessWidget {
@@ -47,10 +49,29 @@ class PlannedItem extends StatelessWidget {
                 ),
               ),
               PopupMenuItem(
-                onTap: () => PlaylistStorageProvider().update(
-                  () => playlist.planned.remove(text),
-                  save: true,
-                ),
+                onTap: () {
+                  if (Preferences.confirmDeletes) {
+                    PopupService.confirmDialog(
+                      context: context,
+                      child: Text(
+                        "'$text' will be deleted from planned.",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ).then((value) {
+                      if (value ?? false) {
+                        PlaylistStorageProvider().update(
+                          () => playlist.planned.remove(text),
+                          save: true,
+                        );
+                      }
+                    });
+                    return;
+                  }
+                  PlaylistStorageProvider().update(
+                    () => playlist.planned.remove(text),
+                    save: true,
+                  );
+                },
                 child: ContextBody(
                   text: "Remove",
                   icon: Icons.delete_outline,
