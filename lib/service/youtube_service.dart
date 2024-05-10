@@ -4,7 +4,9 @@ import 'dart:isolate';
 
 import 'package:youtube_explode_dart/youtube_explode_dart.dart'
     hide Playlist, Video;
+import 'package:ytp_new/config.dart';
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/service/popup_service.dart';
 
 /// Handles the communication with Youtube
 class YoutubeService {
@@ -21,19 +23,24 @@ class YoutubeService {
         .timeout(const Duration(seconds: 20))
         .onError((error, _) {
       if (error is HandshakeException) {
-        throw Exception(
-          "Couldn't download [$id]: HandshakeException.",
+        PopupService.showError(
+          context: AppConfig.mainNavigatorKey.currentContext!,
+          message: "Couldn't download [$id]: HandshakeException.",
         );
       }
       if (error is TimeoutException) {
-        throw Exception(
-          "Downloading [$id] timed out.",
+        PopupService.showError(
+          context: AppConfig.mainNavigatorKey.currentContext!,
+          message: "Downloading [$id] timed out.",
         );
       }
 
-      throw Exception(
-        "Unknown error occurred while downloading [$id].",
+      PopupService.showError(
+        context: AppConfig.mainNavigatorKey.currentContext!,
+        message: "Unknown error occurred while downloading [$id].",
       );
+
+      throw Exception(error.toString());
     });
 
     final List<Video> videos = [];
