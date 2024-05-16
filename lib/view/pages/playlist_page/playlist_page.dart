@@ -76,7 +76,7 @@ class _PlaylistPageState extends State<PlaylistPage> {
                   controller.animateTo(
                     0,
                     duration: Duration(milliseconds: controller.offset ~/ 5),
-                    curve: Curves.easeInOut,
+                    curve: Curves.easeOut,
                   );
                 }
               },

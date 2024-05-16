@@ -28,6 +28,9 @@ class Thumbnail extends StatelessWidget {
           fit: BoxFit.cover,
           memCacheHeight: height * MediaQuery.devicePixelRatioOf(context) ~/ 1,
           fadeInDuration: AppConfig.defaultAnimationDuration,
+          placeholder: (_, __) => const Center(
+            child: CircularProgressIndicator(),
+          ),
           errorWidget: (_, __, ___) => const Center(
             child: Icon(Icons.warning_amber_rounded),
           ),
