@@ -10,9 +10,11 @@ import 'planned_sheet/planned_sheet.dart';
 
 class VideosTab extends StatefulWidget {
   final String playlistId;
+  final ScrollController scrollController;
   const VideosTab({
     super.key,
     required this.playlistId,
+    required this.scrollController,
   });
 
   @override
@@ -38,6 +40,7 @@ class _VideosTabState extends State<VideosTab>
                 ),
               )
             : FadingListView(
+                controller: widget.scrollController,
                 gradientHeight: 70,
                 bottom: false,
                 itemCount: playlist.length,

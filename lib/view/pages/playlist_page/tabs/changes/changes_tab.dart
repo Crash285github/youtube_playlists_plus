@@ -9,9 +9,11 @@ import 'package:ytp_new/view/pages/playlist_page/tabs/changes/change_item.dart';
 
 class ChangesTab extends StatefulWidget {
   final String playlistId;
+  final ScrollController scrollController;
   const ChangesTab({
     super.key,
     required this.playlistId,
+    required this.scrollController,
   });
 
   @override
@@ -47,6 +49,7 @@ class _ChangesTabState extends State<ChangesTab>
                 ),
               )
             : FadingListView(
+                controller: widget.scrollController,
                 gradientHeight: 70,
                 bottom: false,
                 padding: const EdgeInsets.only(bottom: 80, top: 20),
@@ -59,6 +62,7 @@ class _ChangesTabState extends State<ChangesTab>
                 itemCount: anchorIssues.length,
               )
         : FadingListView(
+            controller: widget.scrollController,
             gradientHeight: 70,
             bottom: false,
             padding: const EdgeInsets.only(bottom: 80, top: 20),

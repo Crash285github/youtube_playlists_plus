@@ -6,7 +6,12 @@ import 'package:ytp_new/view/pages/playlist_page/tabs/history/history_item.dart'
 
 class HistoryTab extends StatefulWidget {
   final String playlistId;
-  const HistoryTab({super.key, required this.playlistId});
+  final ScrollController scrollController;
+  const HistoryTab({
+    super.key,
+    required this.playlistId,
+    required this.scrollController,
+  });
 
   @override
   State<HistoryTab> createState() => _HistoryTabState();
@@ -31,6 +36,7 @@ class _HistoryTabState extends State<HistoryTab>
         : FadingListView(
             gradientHeight: 70,
             bottom: false,
+            controller: widget.scrollController,
             padding: const EdgeInsets.only(bottom: 80, top: 20),
             itemBuilder: (context, index) {
               bool first = true;
