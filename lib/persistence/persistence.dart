@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ytp_new/config.dart';
 
 import 'package:ytp_new/model/playlist/playlist.dart';
+import 'package:ytp_new/view/widget/save_indicator.dart';
 
 part 'anchor_storage.dart';
 part 'playlist_storage.dart';
@@ -30,31 +31,35 @@ class Persistence {
       _prefs = await SharedPreferences.getInstance();
 
   /// Saves [Preferences] to [Persistence]
-  static Future<void> savePreferences() async => _prefs
-    ..setInt(
-      AppConfig.preferencesThemeKey,
-      Preferences.theme.index,
-    )
-    ..setInt(
-      AppConfig.preferencesSchemeKey,
-      Preferences.colorScheme.index,
-    )
-    ..setInt(
-      AppConfig.preferencesSplitKey,
-      Preferences.splitMode.index,
-    )
-    ..setBool(
-      AppConfig.preferencesHideTopicKey,
-      Preferences.hideTopic,
-    )
-    ..setBool(
-      AppConfig.preferencesConfirmDeletesKey,
-      Preferences.confirmDeletes,
-    )
-    ..setBool(
-      AppConfig.preferencesBackgroundKey,
-      Preferences.runInBackground,
-    );
+  static Future<void> savePreferences() async {
+    _prefs
+      ..setInt(
+        AppConfig.preferencesThemeKey,
+        Preferences.theme.index,
+      )
+      ..setInt(
+        AppConfig.preferencesSchemeKey,
+        Preferences.colorScheme.index,
+      )
+      ..setInt(
+        AppConfig.preferencesSplitKey,
+        Preferences.splitMode.index,
+      )
+      ..setBool(
+        AppConfig.preferencesHideTopicKey,
+        Preferences.hideTopic,
+      )
+      ..setBool(
+        AppConfig.preferencesConfirmDeletesKey,
+        Preferences.confirmDeletes,
+      )
+      ..setBool(
+        AppConfig.preferencesBackgroundKey,
+        Preferences.runInBackground,
+      );
+
+    SaveIndicator.flash();
+  }
 
   /// Loads [Preferences] from [Persistence]
   ///
@@ -93,14 +98,18 @@ class Persistence {
   }
 
   /// Saves all [Playlist]s to [Persistence]
-  static Future<void> savePlaylists() async => _prefs.setStringList(
-        AppConfig.playlistsKey,
-        [
-          ...PlaylistStorage.playlists.map(
-            (final playlist) => playlist.toJson(),
-          ),
-        ],
-      );
+  static Future<void> savePlaylists() async {
+    await _prefs.setStringList(
+      AppConfig.playlistsKey,
+      [
+        ...PlaylistStorage.playlists.map(
+          (final playlist) => playlist.toJson(),
+        ),
+      ],
+    );
+
+    SaveIndicator.flash();
+  }
 
   /// Loads [Playlist]s from [Persistence]
   ///
@@ -116,7 +125,7 @@ class Persistence {
 
   /// Saves all [Anchor]s to [Persistence]
   static Future<void> saveAnchors() async {
-    _prefs.setStringList(
+    await _prefs.setStringList(
       AppConfig.anchorsKey,
       [
         ...AnchorStorage.anchors.map(
@@ -124,6 +133,8 @@ class Persistence {
         ),
       ],
     );
+
+    SaveIndicator.flash();
   }
 
   /// Loads [Anchor]s from [Persistence]

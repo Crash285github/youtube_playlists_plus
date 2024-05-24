@@ -9,8 +9,10 @@ import 'package:ytp_new/service/navigator_service.dart';
 class PreferencesProvider extends ChangeNotifier {
   /// The current [ThemePreference] of the app
   ThemePreference get theme => Preferences.theme;
-  set theme(final ThemePreference setting) {
-    Preferences.theme = setting;
+  set theme(final ThemePreference theme) {
+    if (Preferences.theme == theme) return;
+
+    Preferences.theme = theme;
     ThemeCreator.createColorScheme().whenComplete(() => notifyListeners());
 
     Persistence.savePreferences();
@@ -19,6 +21,8 @@ class PreferencesProvider extends ChangeNotifier {
   /// The current [ColorSchemePreference] of the app
   ColorSchemePreference get colorScheme => Preferences.colorScheme;
   set colorScheme(final ColorSchemePreference colorScheme) {
+    if (Preferences.colorScheme == colorScheme) return;
+
     Preferences.colorScheme = colorScheme;
     ThemeCreator.createColorScheme().then((value) => notifyListeners());
 
@@ -27,8 +31,10 @@ class PreferencesProvider extends ChangeNotifier {
 
   /// The current [SplitPreference] of the app
   SplitPreference get splitMode => Preferences.splitMode;
-  set splitMode(final SplitPreference setting) {
-    Preferences.splitMode = setting;
+  set splitMode(final SplitPreference splitMode) {
+    if (Preferences.splitMode == splitMode) return;
+
+    Preferences.splitMode = splitMode;
     notifyListeners();
 
     Persistence.savePreferences();
@@ -37,6 +43,8 @@ class PreferencesProvider extends ChangeNotifier {
   /// Whether to hide the `- Topic` suffix from authors
   bool get hideTopic => Preferences.hideTopic;
   set hideTopic(final bool hideTopic) {
+    if (Preferences.hideTopic == hideTopic) return;
+
     Preferences.hideTopic = hideTopic;
     notifyListeners();
 
@@ -46,6 +54,8 @@ class PreferencesProvider extends ChangeNotifier {
   /// Whether to allow reordering of [Playlist]s
   bool get canReorder => Preferences.canReorder;
   set canReorder(final bool canReorder) {
+    if (canReorder == Preferences.canReorder) return;
+
     Preferences.canReorder = canReorder;
     notifyListeners();
 
@@ -58,6 +68,8 @@ class PreferencesProvider extends ChangeNotifier {
   /// Whether the app should ask before proceeding with deletions
   bool get confirmDeletes => Preferences.confirmDeletes;
   set confirmDeletes(final bool confirmDeletes) {
+    if (Preferences.confirmDeletes == confirmDeletes) return;
+
     Preferences.confirmDeletes = confirmDeletes;
     notifyListeners();
 
@@ -67,6 +79,8 @@ class PreferencesProvider extends ChangeNotifier {
   /// Whether the app can run in the background (mobile only)
   bool get runInBackground => Preferences.runInBackground;
   set runInBackground(final bool runInBackground) {
+    if (Preferences.runInBackground == runInBackground) return;
+
     Preferences.runInBackground = runInBackground;
     notifyListeners();
 
@@ -82,8 +96,10 @@ class PreferencesProvider extends ChangeNotifier {
   ///
   /// The codec buttons disable while this is true
   bool get managingAppData => _managingAppData;
-  set managingAppData(final bool value) {
-    _managingAppData = value;
+  set managingAppData(final bool managingAppData) {
+    if (_managingAppData == managingAppData) return;
+
+    _managingAppData = managingAppData;
     notifyListeners();
   }
 

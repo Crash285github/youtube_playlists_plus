@@ -22,8 +22,12 @@ class AnchorStorageProvider extends ChangeNotifier {
   /// Removes an [Anchor]
   bool remove(final Anchor anchor) {
     final result = AnchorStorage.remove(anchor);
-    notifyListeners();
-    Persistence.saveAnchors();
+
+    if (result) {
+      notifyListeners();
+      Persistence.saveAnchors();
+    }
+
     return result;
   }
 

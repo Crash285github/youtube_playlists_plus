@@ -107,7 +107,6 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "Youtube Playlists+",
       theme: ThemeCreator.theme,
-      navigatorKey: AppConfig.mainNavigatorKey,
       home: PopScope(
         canPop: !PreferencesProvider().canReorder,
         onPopInvoked: (didPop) {
@@ -115,7 +114,10 @@ class MainApp extends StatelessWidget {
             PreferencesProvider().canReorder = false;
           }
         },
-        child: const Scaffold(body: Responsive()),
+        child: Scaffold(
+          key: AppConfig.mainNavigatorKey,
+          body: const Responsive(),
+        ),
       ),
     );
   }

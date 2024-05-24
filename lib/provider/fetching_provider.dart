@@ -33,15 +33,20 @@ class FetchingProvider extends ChangeNotifier {
       refreshing.contains(playlistId);
 
   /// Add a [Playlist] to the [refreshingList]
-  void add(final String playlistId) {
-    refreshing.add(playlistId);
-    notifyListeners();
+  bool add(final String playlistId) {
+    final result = refreshing.add(playlistId);
+
+    if (result) notifyListeners();
+
+    return result;
   }
 
   /// Remove a [Playlist] from the [refreshingList]
   bool remove(final String playlistId) {
     final bool result = refreshing.remove(playlistId);
-    notifyListeners();
+
+    if (result) notifyListeners();
+
     return result;
   }
 
