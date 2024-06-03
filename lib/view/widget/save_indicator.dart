@@ -4,6 +4,7 @@ import 'package:ytp_new/config.dart';
 class SaveIndicator {
   static OverlayEntry? _overlayEntry;
 
+  /// Flashes the Save Indicator for a short duration
   static void flash([
     final Duration duration = const Duration(milliseconds: 500),
   ]) {
